@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-664.htm" />
+    <title>Azure DevOps 中 Dapr项目自动部署流程实践 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Azure DevOps 中 Dapr项目自动部署流程实践</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<p>注：本文中主要讨论 .NET6.0项目在 k8s 中运行的 Dapr 的持续集成流程, 但实际上不是Dapr的项目部署到K8s也是相同流程，只是k8s的yaml配置文件有所不同</p> <h1 id="流程选择">流程选择</h1> <p>基于 Dapr 的项目持续集成包含以下流程</p> <ol> <li>编译并打包项目</li> <li>构建 Dockerfile,并推送镜像<code>push image</code>至私有仓库</li> <li>准备 k8s 部署的配置文件</li> <li>通过 kubectl 部署镜像至 k8s 中</li> </ol> <p><strong>这里面有多种方案</strong></p> <table> <thead> <tr> <th style="text-align: left">-</th> <th style="text-align: left">Pipeline的操作</th> <th style="text-align: left">Publish的操作</th> <th style="text-align: left">优点</th> <th style="text-align: left">缺点</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">1. 直接BuildImage并发布</td> <td style="text-align: left">1. 直接使用 Docker Build Image 2. push image 3.复制Yaml至Artifacts</td> <td style="text-align: left">K8s 直接发布 对应版本的yaml + 指定Image</td> <td style="text-align: left">直接,操作简单</td> <td style="text-align: left">1. 产生大量不必要的Image 2.持续集成消耗时间较长3.每次持续集成都有Image产生</td> </tr> <tr> <td style="text-align: left">2. Publish时再进行Build</td> <td style="text-align: left">1. 仅 dotnet publish zip</td> <td style="text-align: left">1. Build Image / Push Image （可选 ）2. K8S 部署+指定Image</td> <td style="text-align: left">单次部署减慢，多次增快</td> <td style="text-align: left">部署过程会比直接接取镜像慢</td> </tr> <tr> <td style="text-align: left">3. 仅发布 Zip，并Build一个使用Volume的专署镜像</td> <td style="text-align: left">仅 dotnet publish zip</td> <td style="text-align: left">使用编译好的镜像修改Volume参数</td> <td style="text-align: left">快</td> <td style="text-align: left">跨环境部署时会导致对于文件系统依赖过重</td> </tr> </tbody> </table> <p>鉴于以上优缺点，最终我选择了<code>第二种</code>折衷方案，这种方案既不影响持续集成的速度，也不会产生过多的镜像，只是在部署时会产生多余的镜像构建时间。</p> <h1 id="项目结构">项目结构</h1> <ul> <li>每个要发布的API的 project 文件夹中增加以下文件 <ul> <li>dapr.yaml</li> <li>Dockerfile</li> </ul> </li> </ul> <p><strong>dapr.yaml</strong></p> <pre><code class="language-yaml">kind: Deployment apiVersion: apps/v1 metadata:   name: demo   namespace: dapr-api   labels:     app: .api     service: demo spec:   replicas: 1   selector:     matchLabels:       service: demo   template:     metadata:       labels:         app: .api         service: demo       annotations:         dapr.io/enabled: "true"         dapr.io/app-id: "demo-api"         dapr.io/app-port: "80"         dapr.io/log-as-json: "true"     spec:       containers:         - name: demo-api           image: 仓库地址/镜像名:220310.13           ports:             - name: http               containerPort: 80               protocol: TCP           imagePullPolicy: IfNotPresent --- kind: Service apiVersion: v1 metadata:   name: demo-api   namespace: dapr-api   labels:     app: .api     service: demo spec:   type: NodePort   selector:     service: demo   ports:   - protocol: TCP     port: 80     targetPort: 80     nodePort: 30004</code></pre> <p><strong>Dockerfile</strong></p> <pre><code class="language-Dockerfile">FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final WORKDIR /app EXPOSE 80 COPY ["./projectfolder", "/app"] ENTRYPOINT ["dotnet", "projectdll.dll"]</code></pre> <p>这两个文件需要每个项目不同，后面在编译和部署流程中会用到。</p> <h1 id="pipelines-持续集成的配置文件">Pipelines 持续集成的配置文件</h1> <pre><code class="language-yaml">trigger:   batch: true  pool:   name: Default name: $(Date:yy)$(Date:MM)$(Date:dd)$(Rev:.r)  variables:     BuildConfiguration: 'Release' steps: - task: UseDotNet@2   displayName: 'Check and Install .NET SDK 6.0'   inputs:     version: '6.0.x'     includePreviewVersions: false  - task: DotNetCoreCLI@2   displayName: 'Publish to zip'   inputs:     command: publish     publishWebProjects: false     projects: './src/projectfolder/project.csproj'     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory) -v n'     zipAfterPublish: false     workingDirectory: '$(Build.SourcesDirectory)/src' ## 复制上文中的两个文件到 Artifact - task: CopyFiles@2   displayName: 'Copy dapr.yaml to: $(build.artifactstagingdirectory)'   inputs:     SourceFolder: './src/${{ parameters.project }}/'     Contents: |       Dockerfile       dapr.yaml     TargetFolder: '$(build.artifactstagingdirectory)'  - task: PublishBuildArtifacts@1   displayName: 'Publish Artifact'   inputs:     PathtoPublish: '$(build.artifactstagingdirectory)'</code></pre> <h1 id="release-发布流程配置文件">Release 发布流程配置文件</h1> <p>发布流程新建两个作业<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/beab1c99ed028477b7f9a643e0a4bcd0.jpg" alt="Azure DevOps 中 Dapr项目自动部署流程实践"></p> <p><strong>作业1 Build Image</strong></p> <pre><code class="language-yaml">variables:   image: '自定义镜像名'  steps: - task: Docker@2   displayName: buildAndPush   inputs:     containerRegistry: harbor     repository: '$(image)'     Dockerfile: '$(System.DefaultWorkingDirectory)/_dapr-demo/drop/Dockerfile'     tags: '$(Build.BuildNumber)'</code></pre> <p><strong>作业2 KubeDeploy</strong></p> <pre><code class="language-yaml">variables:   image: '自定义镜像名,与上文须一致'  steps: - task: KubernetesManifest@0   displayName: deploy   inputs:     kubernetesServiceConnection: online     namespace: '$(ns)' ## k8s的部署目标命名空间     strategy: canary ## 灰度部署策略     percentage: 50     manifests: '$(System.DefaultWorkingDirectory)/_dapr-demo/drop/dapr.yaml'     containers: '$(harborUrl)/$(image):$(Build.BuildNumber)'</code></pre> <p>这样，在首次部署时执行全部管道。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/000a16441986fbd2191e67ed1f76d70a.jpg" alt="Azure DevOps 中 Dapr项目自动部署流程实践"></p> <p>后期回滚版本只，手动执行第二个管理即<code>KubeDeploy</code>即可<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/4328a786a952d73e05a5099e3fe665e5.jpg" alt="Azure DevOps 中 Dapr项目自动部署流程实践"></p> <h1 id="其它流程">其它流程</h1> <p>本流程全部依赖 Azure DevOps 自身的配置，并不依赖 Agent 环境配置，如果依赖 Agent 环境的话有更多做法。</p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-663.htm">Redis的数据淘汰策略和数据过期后的删除策略</a></p>
+                                                <p>下一个：<a href="/html/category/article-665.htm">实现垂直居中的几种方式</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-779.htm" title="vue中动态控制btn的disabled属性方式_vue.js">vue中动态控制btn的disabled属性方式_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-759.htm" title="golang中的panic">golang中的panic</a></li>
+                        <li class="py-2"><a href="/html/category/article-764.htm" title="SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法">SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法</a></li>
+                        <li class="py-2"><a href="/html/category/article-734.htm" title="Dubbo源码学习系列整合网络框架Netty详解">Dubbo源码学习系列整合网络框架Netty详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-756.htm" title="java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息">java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息</a></li>
+                        <li class="py-2"><a href="/html/category/article-737.htm" title="win11系统找不到网络路径如何解决">win11系统找不到网络路径如何解决</a></li>
+                        <li class="py-2"><a href="/html/category/article-757.htm" title="SDS-redis动态字符串">SDS-redis动态字符串</a></li>
+                        <li class="py-2"><a href="/html/category/article-788.htm" title="深入浅出Vue3 Composition API">深入浅出Vue3 Composition API</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

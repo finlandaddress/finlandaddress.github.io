@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-616.htm" />
+    <title>vite多页面配置项目实战_vue.js - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>vite多页面配置项目实战_vue.js</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">目录结构</a></li> <li><a href="#_label1" rel="nofollow">多页面使用时，vite配置项中注意点</a></li> <li><a href="#_label2" rel="nofollow">vite.config.js 配置，仅供参考</a></li> <li><a href="#_label3" rel="nofollow">访问</a></li> <li><a href="#_label4" rel="nofollow">总结</a></li> </ul> </div> <p>最近有多页面项目需要重构，就想试试使用vite，但是网上很多方法不太全面踩了不少的坑，网上的多页面配置方案也不少，我只给出了我成功配置并在使用的方案</p> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>目录结构</h2> <div class="ay1code"> <pre class="brush:js;">{      dist: // 存放打包后的文件,      node_modules: ,      src: {          assets: // 一些静态文件,          components: // 公用组件,          index: { // 页面1              index.html,              main.js,              App.vue,              ...          },          page: { // 页面2              index.html,              main.js,              App.vue,              ...          },          ...          index.html // 用于页面初始进入时重定向      },      package.json: ,      vite.config.js: // 配置文件  }</pre> </div> <p>Tips：在src中放一个index.html是为了编译或打包后，输入localhost:3000/能够直接跳转到需要展示的页面，而不是出现文件目录或空白页面，对应代码为：</p> <div class="ay1code"> <pre class="brush:xhtml;">&lt;!DOCTYPE html&gt;  &lt;html lang="en"&gt;  &lt;head&gt;      &lt;meta charset="UTF-8"&gt;      &lt;title&gt;vite多页面&lt;/title&gt;  &lt;/head&gt;  &lt;body&gt;  &lt;script&gt;    window.location.href = 'index/index.html' // 需要重定向的页面  &lt;/script&gt;  &lt;/body&gt;  &lt;/html&gt;  </pre> </div> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>多页面使用时，vite配置项中注意点</h2> <ol> <li>修改root参数为多页面的根目录：./src/，根据不同目录结构而修改</li> <li>配置base参数为/，不然打包后js文件的访问路径会出问题</li> <li>将build.outDir原输入路径dist改为../dist，根据root参数配置层级不同而对应修改</li> <li>rollupOptions.input中配置多个页面的输入，以下为我使用的配置项</li> </ol> <div class="ay1code"> <pre class="brush:js;">{      admin: path.resolve(__dirname, 'src/index.html'), // 用于页面重定向      index: path.resolve(__dirname, 'src/index/index.html'), // 页面一      page: path.resolve(__dirname, 'src/page/index.html'), // 页面二  }  </pre> </div> <p class="maodian"><a name="_label2" rel="nofollow"></a></p> <h2>vite.config.js 配置，仅供参考</h2> <p>直接上我的配置，东西有点多，仅供参考</p> <div class="ay1code"> <pre class="brush:js;">import {    defineConfig  } from 'vite'  import vue from '@vitejs/plugin-vue'  import path from 'path'  export default defineConfig({    // 服务    server: {      // 服务器主机名      host: '0.0.0.0',      // 端口号      port: 3000,      // 设为 true 时若端口已被占用则会直接退出，      // 而不是尝试下移一格端口      strictPort: false,      // http.createServer() 配置项      // https: '',      proxy: {        '/api': {          target: 'http://...............',          changeOrigin: true,          rewrite: (path) =&gt; {            return path.replace(/^\/api/, '')          }        }      },        // 开发服务器配置 CORS      // boolean | CorsOptions      cors: {},      // 设置为 true 强制使依赖构建      // force: true,      // 禁用或配置HMR连接      hmr: {},      // 传递给 chokidar 的文件系统监视器选项      watch: {}    },      // 项目根目录    // root: process.cwd(),    root: './src/',    // 项目部署的基础路径    base: '/',    // 环境配置    mode: 'development',    // 全局变量替换 Record&lt;string, string&gt;    define: {},    // 插件    plugins: [vue()],    // 静态资源服务文件夹    publicDir: 'public',      resolve: {      alias: {        '@': path.resolve(__dirname, 'src'),        'components': path.resolve(__dirname, 'src/components')      },      dedupe: [],      // 情景导出package.json 配置中的 exports 字段      conditions: [],      // 解析package.json 中的字段      mainFields: ['module', 'jsnext:main', 'jsnext'],      // 导入时想要省略的扩展名列表      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']    },      css: {      // 配置css modules 的行为， 选项被传递给postcss-modules      modules: {},      // PostCSS 配置（格式同postcss.config.js）      // postcss-load-config 的插件配置      postcss: {},      // 指定传递给 CSS 预处理器的选项      preprocessorOptions: {      }    },      json: {      // 是否支持从 .json 文件中进行按名导入      namedExports: true,      // 若设置为 true, 导入的 JSON 会被转换为 export default JSON.parse("...") 会比转译成对象字面量性能更好      // 尤其是当 JSON 文件较大时      // 开启此项， 则会禁用按名导入      stringify: false    },      // 继承自 esbuild 转换选项， 最常见的用例是自定义 JSX    esbuild: {      jsxFactory: 'h',      jsxFragment: 'Fragment',      jsxInject: `import React from 'react'`    },      // 静态资源处理   字符串 || 正则表达式    assetsInclude: '',    // 调整控制台输出的级别 'info' | 'warn' | 'error' | 'silent'    logLevel: 'info',    // 设为 false 可以避免 Vite 清屏而错过在终端中打印某些关键信息    clearScreen: true,      build: {      // 浏览器兼容性 ‘esnext' | 'modules'      target: 'modules',      //输出路径      outDir: '../dist',      // 生成静态资源的存放路径      assetsDir: '../assets',      // 小于此阈值的导入或引用资源将内联为 base64 编码， 以避免额外的http请求， 设置为 0, 可以完全禁用此项，      assetsInlineLimit: 4096,      // 启动 / 禁用 CSS 代码拆分      cssCodeSplit: true,      // 构建后是否生成 soutrce map 文件      sourcemap: false,      // 自定义底层的 Rollup 打包配置      rollupOptions: {        input: {          admin: path.resolve(__dirname, 'src/index.html'),          page: path.resolve(__dirname, 'src/page/index.html'),          index: path.resolve(__dirname, 'src/index/index.html'),        },        output: {          chunkFileNames: 'static/js/[name]-[hash].js',          entryFileNames: 'static/js/[name]-[hash].js',          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',        }      },        // @rollup/plugin-commonjs 插件的选项      commonjsOptions: {},        // 构建的库      // lib: { entry: string, name?: string, formats?: ('es' | 'cjs' | 'umd' | 'iife')[], fileName?: string },        // 当设置为 true, 构建后将会生成 manifest.json 文件      manifest: false,        // 设置为 false 可以禁用最小化混淆      // 或是用来指定是应用哪种混淆器      // boolean | 'terser' | 'esbuild'      minify: 'terser',        // 传递给 Terser 的更多 minify 选项      terserOptions: {},        // 设置为false 来禁用将构建好的文件写入磁盘      write: true,        // 默认情况下 若 outDir 在 root 目录下， 则 Vite 会在构建时清空该目录。      emptyOutDir: true,        // 启用 / 禁用 brotli 压缩大小报告      brotliSize: false,        // chunk 大小警告的限制      chunkSizeWarningLimit: 500    }  })  </pre> </div> <p class="maodian"><a name="_label3" rel="nofollow"></a></p> <h2>访问</h2> <p>页面一：http://localhost:3000/index/index.html</p> <p>页面二：http://localhost:3000/page/index.html</p> <p class="maodian"><a name="_label4" rel="nofollow"></a></p> <h2>总结</h2> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-615.htm">docker启动kafka自动退出_mac 使用 docker 搭建 kafka 集群</a></p>
+                                                <p>下一个：<a href="/html/category/article-617.htm">springboot开启异步注解功能</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-735.htm" title="机器学习笔记：Python底层实现KNN">机器学习笔记：Python底层实现KNN</a></li>
+                        <li class="py-2"><a href="/html/category/article-747.htm" title="Istio实践流量控制及服务间调用">Istio实践流量控制及服务间调用</a></li>
+                        <li class="py-2"><a href="/html/category/article-777.htm" title="基于51单片机的秒表，单独按键控制启动，暂停，复位。">基于51单片机的秒表，单独按键控制启动，暂停，复位。</a></li>
+                        <li class="py-2"><a href="/html/category/article-730.htm" title="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具">基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-756.htm" title="java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息">java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息</a></li>
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                        <li class="py-2"><a href="/html/category/article-754.htm" title="手把手带你入门链表的基本操作及其优化">手把手带你入门链表的基本操作及其优化</a></li>
+                        <li class="py-2"><a href="/html/category/article-748.htm" title="Halo 开源项目学习实体类与数据表">Halo 开源项目学习实体类与数据表</a></li>
+                        <li class="py-2"><a href="/html/category/article-739.htm" title="如何使用JavaScript在新标签页（而不是新窗口）中打开URL">如何使用JavaScript在新标签页（而不是新窗口）中打开URL</a></li>
+                        <li class="py-2"><a href="/html/category/article-762.htm" title="SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)">SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

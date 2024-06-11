@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-675.htm" />
+    <title>@order 注解用法 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>@order 注解用法</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p><code>@order</code>注解是<code>spring-core</code>包下的一个注解，<code>@Order</code>的作用是定义Spring IOC容器中Bean的执行顺序的优先级（这里的顺序也可以理解为存放到容器中的先后顺序）。开发过程当中有时候经常会出现配置依赖关系，例如注入A对象使用了<code>@ConditionalOnBean(B.class)</code>，意思是要求容器当中必须存在<code>B.class</code>的实例的时候，才会进行注入<code>A</code>。这时候我们就必须保证B对象在注入<code>A</code>对象前进行注入。</p> <div class="toc"> <h3>目录</h3> <ul> <li> <ul> <li><a href="#order_4" rel="nofollow">一、观察@order源码</a></li> <li><a href="#order_30" rel="nofollow">二、@order实战</a></li> <li><a href="#order_116" rel="nofollow">三、@order失效原因</a></li> <li><a href="#_126" rel="nofollow">四、解决排序问题</a></li> <li><a href="#_183" rel="nofollow">五、排序源码分析</a></li> <li><a href="#AutoConfigureOrder_201" rel="nofollow">六、@AutoConfigureOrder</a></li> </ul> </li> </ul> </div> <h2><a id="order_4" rel="nofollow"></a>一、观察@order源码</h2> <p><strong>（1）源码当中有三个元注解：</strong></p> <ul> <li><strong>@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})：</strong> 使用范围接口、类、枚举、注解、方法、字段</li> <li><strong>@Retention(RetentionPolicy.RUNTIME)：</strong> @Retention是用来修饰注解的生命周期的，RetentionPolicy.RUNTIME代表的是不仅被保存到class文件中，jvm加载class文件之后，仍然存在；一直有效！</li> <li><strong>@Documented：</strong> @Documented和@Deprecated注解长得有点像，@Deprecated是用来标注某个类或者方法不建议再继续使用，@Documented只能用在注解上，如果一个注解@B，被@Documented标注，那么被@B修饰的类，生成Javadoc文档时，会显示@B。</li> </ul> <p><strong>（2）属性：</strong></p> <p>@order当中只要一个value属性，而且还是int类型，值越低优先级越高，默认值是<code>Ordered.LOWEST_PRECEDENCE</code>，表示最低优先级(输给任何其他指定的顺序值)。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/f172bc88c72a4a42c6a1cbc276ba77db.jpg" alt="@order 注解用法"></p> <pre><code class="prism language-java"><span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{<!-- --></span><span class="token class-name">ElementType</span><span class="token punctuation">.</span>TYPE<span class="token punctuation">,</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span>METHOD<span class="token punctuation">,</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span>FIELD<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token annotation punctuation">@Documented</span><span class="token keyword">public</span><span class="token annotation punctuation">@interface</span><span class="token class-name">Order</span><span class="token punctuation">{<!-- --></span><span class="token keyword">int</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token keyword">default</span><span class="token number">2147483647</span><span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre> <p>官网注释：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/spring-projects/spring-framework/blob/main/spring-core/src/main/java/org/springframework/core/annotation/Order.java"  rel="nofollow">https://github.com/spring-projects/spring-framework/blob/main/spring-core/src/main/java/org/springframework/core/annotation/Order.java</a></p> <h2><a id="order_30" rel="nofollow"></a>二、@order实战</h2> <p><strong>（1）自定义两个配置类</strong></p> <blockquote> <p>我们要求Config2先进行加载，然后通过@order来排序测试一下</p> </blockquote> <pre><code class="prism language-java"><span class="token annotation punctuation">@Configuration</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">Config1</span><span class="token punctuation">{<!-- --></span><span class="token keyword">public</span><span class="token class-name">Config1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Config1构建了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token annotation punctuation">@Configuration</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">Config2</span><span class="token punctuation">{<!-- --></span><span class="token keyword">public</span><span class="token class-name">Config2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Config2构建了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre> <p><strong>（2）启动项目测试：默认是先创建的Config1后创建的Config2</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/79b5f99c115aa419eb274f7772113457.jpg" alt="@order 注解用法"></p> <p><strong>（3）既然order可以控制加载顺序，那我们来试验一下，然后让Config2 先加载</strong></p> <pre><code class="prism language-java"><span class="token annotation punctuation">@Configuration</span><span class="token annotation punctuation">@Order</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">Config1</span><span class="token punctuation">{<!-- --></span><span class="token keyword">public</span><span class="token class-name">Config1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Config1构建了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token annotation punctuation">@Configuration</span><span class="token annotation punctuation">@Order</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">Config2</span><span class="token punctuation">{<!-- --></span><span class="token keyword">public</span><span class="token class-name">Config2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Config2构建了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre> <p>但是好像没什么卵用</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/ba6760faf08be3195c6fd21b15e17d23.jpg" alt="@order 注解用法"></p> <p><strong>（4）分析原因</strong></p> <p>目前这两个是在同包情况下不起作用。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/a5064c79dff205dd8e62348290385755.jpg" alt="@order 注解用法"><br /> 于是进行分开了</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/9ec8a2af692b2553730e78f14b1fe9cf.jpg" alt="@order 注解用法"></p> <p>分开之后竟然生效了</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/ea838d78873aaeb4b1bfafdea3e559b1.jpg" alt="@order 注解用法"></p> <p><strong>（5）但是分开也是将Config2放到了上面的包当中，于是我又改成了Config1放到最上面，这样进行测试，结果又失效了</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/71db11fd81ca7cc70f238a6a84ac024d.jpg" alt="@order 注解用法"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/5ba1f58346b8753025eb3c1b65dabf62.jpg" alt="@order 注解用法"></p> <p><strong>（6）于是我又放在了同包下，将Config2命名为A开头的，这样他就放到了最上面，于是这样同样也生效了。</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/bc94cabb5c98dd10b3577b863689c144.jpg" alt="@order 注解用法"><br /><img decoding="async" src="http://img.555519.xyz/uploads/20221201/1808eb185758b60ed96bb49b43d43d5a.jpg" alt="@order 注解用法"></p> <p>期间我还尝试着将@Configuration都改为使用@Component，结果仍然不变。</p> <blockquote> <p>得出结论：<code>@order</code>指定加载顺序还跟类的命名和存放位置有关！假如有<code>Config1</code>和<code>Config2</code>两个类在一个包下，要求是<code>Config2</code>先加载：</p> </blockquote> <ol> <li>这时候设置<code>Config2</code>的<code>@order值</code>就算是小于<code>Config1</code>的<code>@order值</code>同样也是<code>Config1</code>先加载。</li> <li>如果同包情况下可以重新命名Config2，只要在Config1上面就行。</li> <li>或者拆开不同包也可以，但是Config2所在的包也必须比Config1所呆的包上面。</li> </ol> <p>这样才能保证@Order生效！</p> <h2><a id="order_116" rel="nofollow"></a>三、@order失效原因</h2> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-constructor-injection"  rel="nofollow">https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-constructor-injection</a></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/a10de2b5ed59d08b145406000fd7f566.jpg" alt="@order 注解用法"></p> <p>最关键的一句话：您可以在目标类级别和@Bean方法上声明@Order注释，可能针对的是单个bean定义(如果多个定义使用同一个bean类)。<code>@Order值可能会影响注入点的优先级，但请注意，它们不会影响单例启动顺序</code>，这是由依赖关系和@DependsOn声明确定的正交关注。</p> <p>我理解的注入点的优先级应该是指的存放容器的先后顺序，也就是他并不会影响启动顺序。</p> <h2><a id="_126" rel="nofollow"></a>四、解决排序问题</h2> <p>我们不可能每次遇到这种问题又是改名又是换包的，所以，springboot提供了如下三个注解可以控制顺序：</p> <ul> <li>@AutoConfigureAfter：当前配置类在指定配置类之后执行</li> <li>@AutoConfigureBefore：当前配置类在指定配置类之前执行</li> <li>@AutoConfigureOrder：指定优先级，数值越小，优先级越高。</li> </ul> <p><strong>（1）首先将代码改回原来的样子</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/6aa5f6c4a323e4055b747abd33740435.jpg" alt="@order 注解用法"></p> <p><strong>（2）在Config2使用@AutoConfigureBefore(Config1.class)，代表的是在config1加载前进行加载</strong></p> <pre><code class="prism language-java"><span class="token annotation punctuation">@Configuration</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">Config1</span><span class="token punctuation">{<!-- --></span><span class="token keyword">public</span><span class="token class-name">Config1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Config1构建了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token annotation punctuation">@Configuration</span><span class="token annotation punctuation">@AutoConfigureBefore</span><span class="token punctuation">(</span><span class="token class-name">Config1</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">Config2</span><span class="token punctuation">{<!-- --></span><span class="token keyword">public</span><span class="token class-name">Config2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Config2构建了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre> <p><strong>（3）输出结果，显然还是没生效</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/631be1ce60c5b86321a1e400806a7212.jpg" alt="@order 注解用法"></p> <blockquote> <p>可能有时候走了狗屎运给你一种错觉还真的配置成功了。实际上这种方式是不可行的，以上三个注解只有针对<code>自动配置类</code>才会生效。</p> </blockquote> <p>在autoconfigure包下就有spring.factories，这个文件配置了自动配置类，springboot会读取这个文件的，我们也可以在自己项目上定义spring.factories，这样我们的配置类对于@AutoConfigureAfter注解就可以生效了。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/81f824afe06e0b64f97e783f43703c48.jpg" alt="@order 注解用法"></p> <p><strong>（4）自定义spring.factories</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/11808207be0440a4159a52cd6685f2ac.jpg" alt="@order 注解用法"></p> <p>第一行是固定的，后面的就是全类名，虽然只有Config2使用了注解，但是需求是和Config1进行排序，所以这两个都得加。</p> <pre><code class="prism language-JAVA">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\ com.gzl.cn.springbootcache.config.Config2,\ com.gzl.cn.springbootcache.config.Config1</code></pre> <p><strong>（5）测试，成功解决</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/bb47103eab847ca882825649f5e73e1a.jpg" alt="@order 注解用法"></p> <h2><a id="_183" rel="nofollow"></a>五、排序源码分析</h2> <p>针对于@AutoConfigure那三个注解原理：其实关键的代码还是在AutoConfigurationImportSelector中，将自动配置类从spring.factories加载出来之后会根据条件排序（只有自动配置类！），在selectImports()方法中最后一行代码如下：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/03f7bf6da43bfc085aee038afce653aa.jpg" alt="@order 注解用法"></p> <p>紧接着会走到这个地方，实际上是分了三步排序：</p> <ol> <li>先按照文件名字母排序</li> <li>按照@AutoConfigureOrder进行排序</li> <li>按照 @AutoConfigureBefore和@AutoConfigureAfter排序</li> </ol> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/1081e7ea5f3203fbd71254673df79055.jpg" alt="@order 注解用法"><br /> 从上面配置的顺序可以知道，最终决定权还是在@AutoConfigureAfter、@AutoConfigureBefore这两个注解。</p> <p>当我们不设置spring.factories的时候，这里面压根都没有这两个类！</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221201/dc330900d7c72f77e1a177eaa132333c.jpg" alt="@order 注解用法"></p> <h2><a id="AutoConfigureOrder_201" rel="nofollow"></a>六、@AutoConfigureOrder</h2> <p>这种也是可以的！当然前提也是需要配置spring.factories</p> <pre><code class="prism language-java"><span class="token annotation punctuation">@Configuration</span><span class="token annotation punctuation">@AutoConfigureOrder</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">Config1</span><span class="token punctuation">{<!-- --></span><span class="token keyword">public</span><span class="token class-name">Config1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Config1构建了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token annotation punctuation">@Configuration</span><span class="token annotation punctuation">@AutoConfigureOrder</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token keyword">public</span><span class="token keyword">class</span><span class="token class-name">Config2</span><span class="token punctuation">{<!-- --></span><span class="token keyword">public</span><span class="token class-name">Config2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Config2构建了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre> </div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-674.htm">vue项目中安装sass方法</a></p>
+                                                <p>下一个：<a href="/html/category/article-676.htm">1、Springboot 注入装配到IOC容器方式</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-770.htm" title="win11系统怎么更改屏幕刷新率">win11系统怎么更改屏幕刷新率</a></li>
+                        <li class="py-2"><a href="/html/category/article-774.htm" title="手把手教你调用微信扫一扫！三分钟包会">手把手教你调用微信扫一扫！三分钟包会</a></li>
+                        <li class="py-2"><a href="/html/category/article-741.htm" title="Spring 5 中文解析数据存储篇-JDBC数据存储(下)">Spring 5 中文解析数据存储篇-JDBC数据存储(下)</a></li>
+                        <li class="py-2"><a href="/html/category/article-760.htm" title="win11系统怎么隐藏菜单">win11系统怎么隐藏菜单</a></li>
+                        <li class="py-2"><a href="/html/category/article-758.htm" title="Spring Security 一键接入验证码登录和小程序登录">Spring Security 一键接入验证码登录和小程序登录</a></li>
+                        <li class="py-2"><a href="/html/category/article-754.htm" title="手把手带你入门链表的基本操作及其优化">手把手带你入门链表的基本操作及其优化</a></li>
+                        <li class="py-2"><a href="/html/category/article-755.htm" title="第2章 图灵的计算王国">第2章 图灵的计算王国</a></li>
+                        <li class="py-2"><a href="/html/category/article-750.htm" title="torch报错TypeError: can&#8217;t convert CUDA tensor to numpy. Use Tensor.cpu() to copy the tensor">torch报错TypeError: can&#8217;t convert CUDA tensor to numpy. Use Tensor.cpu() to copy the tensor</a></li>
+                        <li class="py-2"><a href="/html/category/article-783.htm" title="Vue中所有的v-指令">Vue中所有的v-指令</a></li>
+                        <li class="py-2"><a href="/html/category/article-736.htm" title="Elasticsearch 三种分页方式">Elasticsearch 三种分页方式</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

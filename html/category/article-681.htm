@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-681.htm" />
+    <title>docker之SonarQube安装 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>docker之SonarQube安装</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <div class="toc"> <h3>目录</h3> <ul> <li><a href="#_sonarqube__3" rel="nofollow">一、搜索 sonarqube 镜像</a></li> <li><a href="#_6" rel="nofollow">二、拉取镜像</a></li> <li><a href="#_17" rel="nofollow">三、运行</a></li> <li><a href="#_24" rel="nofollow">四、登录</a></li> <li><a href="#_29" rel="nofollow">五、安装中文插件</a></li> <li><a href="#_31" rel="nofollow">六、分析项目</a></li> <li> <ul> <li><a href="#1_32" rel="nofollow">1.创建手工项目</a></li> <li><a href="#2_maven__34" rel="nofollow">2.在过程中生成令牌，复制 maven 命令</a></li> <li><a href="#3_Idea__maven__40" rel="nofollow">3.在 Idea 打开 maven 运行窗口运行命令</a></li> <li><a href="#4sonar_43" rel="nofollow">4.回到sonar界面，已自动显示检测结果</a></li> </ul> </li> </ul> </div> <hr color="#000000" size="1&quot;"/> <h1> <a id="_sonarqube__3" rel="nofollow"></a>一、搜索 sonarqube 镜像</h1> <p>在在 docker hub 中搜索 sonarqube 镜像，搜索链接：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://hub.docker.com/"  rel="nofollow">https://hub.docker.com/</a><br /><img decoding="async" src="http://img.555519.xyz/uploads/20230210/50c849f272cdf9eb4bc97a69ad4d4925.jpg" alt="docker之SonarQube安装"></p> <h1> <a id="_6" rel="nofollow"></a>二、拉取镜像</h1> <pre><code class="prism language-bash">docker pull sonarqube:8.9.2-community </code></pre> <p><strong>注意：<br /> （1）使用docker pull sonarqube拉取最新版启动时会报错：<br /> could not find java in ES_JAVA_HOME at /opt/java/openjdk/bin/java</strong><br /><strong>（2）如果要导出PDF报告，请使用docker pull sonarqube:8.7.1-community，高版本目前找不到支持导出的插件</strong><br /><img decoding="async" src="http://img.555519.xyz/uploads/20230210/6469422ad552a9d5bab5d1338b04e87b.jpg" alt="docker之SonarQube安装"></p> <h1> <a id="_17" rel="nofollow"></a>三、运行</h1> <p>执行命令：</p> <pre><code class="prism language-bash">docker run --name sonarqube -p 9100:9000 -d sonarqube:8.9.2-community </code></pre> <h1> <a id="_24" rel="nofollow"></a>四、登录</h1> <p>访问网址：http://192.168.1.35:9100/，默认用户、密码为 admin/admin：<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230210/bb6e9025f9ef42a9892a720410ab53ac.jpg" alt="docker之SonarQube安装"><br /> 第一次登录需要修改密码：<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230210/25d9204d29a90dd8653d394f68500957.jpg" alt="docker之SonarQube安装"></p> <h1> <a id="_29" rel="nofollow"></a>五、安装中文插件</h1> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230210/4bf56c3c37a8b4435f16bd2b56d72db2.jpg" alt="docker之SonarQube安装"></p> <h1> <a id="_31" rel="nofollow"></a>六、分析项目</h1> <h2> <a id="1_32" rel="nofollow"></a>1.创建手工项目</h2> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230210/de567802350c700f5a32a7ecda8d53d2.jpg" alt="docker之SonarQube安装"></p> <h2> <a id="2_maven__34" rel="nofollow"></a>2.在过程中生成令牌，复制 maven 命令</h2> <pre><code class="prism language-bash">mvn sonar:sonar \   -Dsonar.projectKey<span class="token operator">=</span>sso \   -Dsonar.host.url<span class="token operator">=</span>http://192.168.1.35:9100 \   -Dsonar.login<span class="token operator">=</span>fceae00e989150fa7db8eecb5a46ddf30d68c793 </code></pre> <h2> <a id="3_Idea__maven__40" rel="nofollow"></a>3.在 Idea 打开 maven 运行窗口运行命令</h2> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230210/eb25a5277556f998d438fa8f12c7a9fb.jpg" alt="docker之SonarQube安装"><br /><img decoding="async" src="http://img.555519.xyz/uploads/20230210/87ec35601732092d24c07c43a1737cdf.jpg" alt="docker之SonarQube安装"></p> <h2> <a id="4sonar_43" rel="nofollow"></a>4.回到sonar界面，已自动显示检测结果</h2> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230210/c333dd6eed3577f966aeb82abf50761f.jpg" alt="docker之SonarQube安装"></p> </p></div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-680.htm">SpringBoot使用线程池之ThreadPoolTaskExecutor和ThreadPoolExecutor</a></p>
+                                                <p>下一个：<a href="/html/category/article-682.htm">layui中select更改后生效</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-747.htm" title="Istio实践流量控制及服务间调用">Istio实践流量控制及服务间调用</a></li>
+                        <li class="py-2"><a href="/html/category/article-745.htm" title="Kubernetes集群环境初始化_云其它_">Kubernetes集群环境初始化_云其它_</a></li>
+                        <li class="py-2"><a href="/html/category/article-763.htm" title="PyMySQL中where __ in__ 的用法">PyMySQL中where __ in__ 的用法</a></li>
+                        <li class="py-2"><a href="/html/category/article-762.htm" title="SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)">SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)</a></li>
+                        <li class="py-2"><a href="/html/category/article-729.htm" title="visual studio 使用cmake构建项目并远程连接虚拟机centos7">visual studio 使用cmake构建项目并远程连接虚拟机centos7</a></li>
+                        <li class="py-2"><a href="/html/category/article-759.htm" title="golang中的panic">golang中的panic</a></li>
+                        <li class="py-2"><a href="/html/category/article-738.htm" title="通过源码了解Java的自动装箱拆箱">通过源码了解Java的自动装箱拆箱</a></li>
+                        <li class="py-2"><a href="/html/category/article-768.htm" title="mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）">mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）</a></li>
+                        <li class="py-2"><a href="/html/category/article-756.htm" title="java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息">java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

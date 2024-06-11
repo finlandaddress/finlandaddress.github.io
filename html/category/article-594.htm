@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-594.htm" />
+    <title>Redis6配置主从复制+读写分离 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Redis6配置主从复制+读写分离</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <div class="toc"> <h3>Redis6配置主从复制+读写分离</h3> <ul> <li><a href="#Redis6_2" rel="nofollow">Redis6配置主从复制+读写分离</a></li> <li> <ul> <li><a href="#Redis5_4" rel="nofollow">Redis5主从复制+读写分类介绍</a></li> <li> <ul> <li><a href="#_6" rel="nofollow">背景</a></li> <li><a href="#_12" rel="nofollow">目标</a></li> <li><a href="#redis_17" rel="nofollow">redis主从架构介绍</a></li> </ul> </li> <li><a href="#LinuxRedis6X___21" rel="nofollow">Linux服务器-Redis6.X 主从复制 一主二从架构环境准备</a></li> <li> <ul> <li><a href="#_23" rel="nofollow">配置</a></li> <li><a href="#redisconf_37" rel="nofollow">创建主配置文件redis.conf</a></li> <li><a href="#redisconf_52" rel="nofollow">创建两个从配置文件redis.conf</a></li> </ul> </li> <li><a href="#LinuxRedis6X___68" rel="nofollow">Linux服务器-Redis6.X 主从复制 一主二从架构</a></li> <li> <ul> <li><a href="#_70" rel="nofollow">启动</a></li> </ul> </li> <li><a href="#Redis_91" rel="nofollow">Redis主从架构-复制读写分离原理解析</a></li> <li> <ul> <li><a href="#_93" rel="nofollow">主从复制</a></li> <li><a href="#_106" rel="nofollow">特点</a></li> <li><a href="#_113" rel="nofollow">加速复制</a></li> <li><a href="#_120" rel="nofollow">主从断开重连</a></li> </ul> </li> </ul> </li> <li><a href="#Redis6_126" rel="nofollow">Redis6配置主从复制+读写分离</a></li> <li> <ul> <li><a href="#Redis5_128" rel="nofollow">Redis5主从复制+读写分类介绍</a></li> <li> <ul> <li><a href="#_130" rel="nofollow">背景</a></li> <li><a href="#_136" rel="nofollow">目标</a></li> <li><a href="#redis_141" rel="nofollow">redis主从架构介绍</a></li> </ul> </li> <li><a href="#LinuxRedis6X___146" rel="nofollow">Linux服务器-Redis6.X 主从复制 一主二从架构环境准备</a></li> <li> <ul> <li><a href="#_148" rel="nofollow">配置</a></li> <li><a href="#redisconf_162" rel="nofollow">创建主配置文件redis.conf</a></li> <li><a href="#redisconf_177" rel="nofollow">创建两个从配置文件redis.conf</a></li> </ul> </li> <li><a href="#LinuxRedis6X___193" rel="nofollow">Linux服务器-Redis6.X 主从复制 一主二从架构</a></li> <li> <ul> <li><a href="#_195" rel="nofollow">启动</a></li> </ul> </li> <li><a href="#Redis_216" rel="nofollow">Redis主从架构-复制读写分离原理解析</a></li> <li> <ul> <li><a href="#_218" rel="nofollow">主从复制</a></li> <li><a href="#_231" rel="nofollow">特点</a></li> <li><a href="#_238" rel="nofollow">加速复制</a></li> <li><a href="#_245" rel="nofollow">主从断开重连</a></li> </ul> </li> </ul> </li> </ul> </div> <h1><a id="Redis6_2" rel="nofollow"></a>Redis6配置主从复制+读写分离</h1> <h2><a id="Redis5_4" rel="nofollow"></a>Redis5主从复制+读写分类介绍</h2> <h3><a id="_6" rel="nofollow"></a>背景</h3> <ul> <li>单机部署简单，但是可靠性低，并且不能很好的利用cpu的多核处理能力</li> <li>生产环境—必须保证高可用-一般不可能单机部署</li> <li>读写分离是可用性要求不高、性能要求较高、数据规模小的情况</li> </ul> <h3><a id="_12" rel="nofollow"></a>目标</h3> <ul> <li>读写分离，扩展主节点的读能力，分担主节点读压力</li> <li>容灾恢复，一旦主节点宕机，从节点作为主节点的备份可以随时顶上</li> </ul> <h3><a id="redis_17" rel="nofollow"></a>redis主从架构介绍</h3> <p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-KAWhpQ47-1626503734005)(C:\Users\阮相歌\AppData\Roaming\Typora\typora-user-images\image-20210717130506749.png)]</p> <h2><a id="LinuxRedis6X___21" rel="nofollow"></a>Linux服务器-Redis6.X 主从复制 一主二从架构环境准备</h2> <h3><a id="_23" rel="nofollow"></a>配置</h3> <pre><code class="prism language-java">mkdir<span class="token operator">-</span>p<span class="token operator">/</span>data<span class="token operator">/</span>redis<span class="token operator">/</span>master<span class="token operator">/</span>data mkdir<span class="token operator">-</span>p<span class="token operator">/</span>data<span class="token operator">/</span>redis<span class="token operator">/</span>slave1<span class="token operator">/</span>data mkdir<span class="token operator">-</span>p<span class="token operator">/</span>data<span class="token operator">/</span>redis<span class="token operator">/</span>slave2<span class="token operator">/</span>data #从节点开启只读模式<span class="token punctuation">(</span>默认<span class="token punctuation">)</span> replica<span class="token operator">-</span>read<span class="token operator">-</span>only yes #从节点访问主节点的密码，和requirepass⼀样 masterauth<span class="token number">123456</span> #哪个主节点进⾏复制 replicaof<span class="token number">8.129</span><span class="token number">.113</span><span class="token number">.233</span><span class="token number">6379</span></code></pre> <h3><a id="redisconf_37" rel="nofollow"></a>创建主配置文件redis.conf</h3> <pre><code>bind 0.0.0.0 port 6379 daemonize yes requirepass "123456" logfile "/usr/local/redis/log/redis1.log" dbfilename "xdclass1.rdb" dir "/usr/local/redis/data" appendonly yes appendfilename "appendonly1.aof" masterauth "123456"</code></pre> <h3><a id="redisconf_52" rel="nofollow"></a>创建两个从配置文件redis.conf</h3> <pre><code>bind 0.0.0.0 port 6380/6381 daemonize yes requirepass "123456" logfile "/usr/local/redis/log/redis1/2.log" dbfilename "xdclass1/2.rdb" dir "/usr/local/redis/data" appendonly yes appendfilename "appendonly1/2.aof" replicaof 8.129.113.233 6379 masterauth "123456"</code></pre> <h2><a id="LinuxRedis6X___68" rel="nofollow"></a>Linux服务器-Redis6.X 主从复制 一主二从架构</h2> <h3><a id="_70" rel="nofollow"></a>启动</h3> <pre><code>#启动主 ./redis-server /data/redis/master/data/redis.conf #启动从 ./redis-server /data/redis/slave1/data/redis.conf #启动从 ./redis-server /data/redis/slave2/data/redis.conf</code></pre> <ul> <li>info replication 查看状态</li> <li>主从复制和读写验证</li> <li>防火墙和网络安全组记得开放端口 <ul> <li>6379 主节点</li> <li>6380 从节点</li> <li>6381 从节点</li> </ul> </li> </ul> <h2><a id="Redis_91" rel="nofollow"></a>Redis主从架构-复制读写分离原理解析</h2> <h3><a id="_93" rel="nofollow"></a>主从复制</h3> <ul> <li>主从复制分两种（主从刚连接的时候，进⾏全量同步；全同步结束后，进⾏增量同步） <ul> <li>全量复制 <ul> <li>master服务器会开启⼀个后台进程⽤于将redis中的数据⽣成⼀个rdb⽂件</li> <li>主服务器会缓存所有接收到的来⾃客户端的写命令，当后台保存进程 处理完毕后，会将该rdb⽂件传递给slave服务器</li> <li>slave服务器会将rdb⽂件保存在磁盘并通过读取该⽂件将数据加载到内存</li> <li>在此之后master服务器会将在此期间缓存的命令通过redis传输协议发送给slave服务器</li> <li>然后slave服务器将这些命令依次作⽤于⾃⼰本地的数据集上最终达到数据的⼀致性</li> </ul> </li> <li>增量复制 <ul> <li>Slave初始化后开始正常⼯作时主服务器发⽣的写操作同步到从服务器的过程</li> <li>服务器每执⾏⼀个写命令就会向从服务器发送相同的写命令，从服务器接收并执⾏收到的写命令</li> </ul> </li> </ul> </li> </ul> <h3><a id="_106" rel="nofollow"></a>特点</h3> <ul> <li>主从复制对于 主/从 redis服务器来说是⾮阻塞的，所以同步期间都可以正常处理外界请求</li> <li>⼀个主redis可以含有多个从redis，每个从redis可以接收来⾃其他从redis服务器的连接</li> <li>从节点不会让key过期，⽽是主节点的key过期删除后，成为del命令传输到从节点进⾏删除 <ul> <li>从节点开启 sync 看⽇志</li> </ul> </li> </ul> <h3><a id="_113" rel="nofollow"></a>加速复制</h3> <ul> <li>完全重新同步需要在磁盘上创建⼀个RDB⽂件，然后加载这个⽂件以便为从服务器发送数据</li> <li>在⽐较低速的磁盘，这种操作会给主服务器带来较⼤的压⼒</li> <li>新版⽀持⽆磁盘的复制，⼦进程直接将RDB通过⽹络发送给从服务器，不使⽤磁盘作为中间存储</li> <li>repl-diskless-sync yes (默认是no)</li> </ul> <h3><a id="_120" rel="nofollow"></a>主从断开重连</h3> <ul> <li>如果遭遇连接断开，重新连接之后可以从中断处继续进⾏复制，⽽不必重新同步</li> <li>2.8版本后 部分重新同步这个新特性内部使⽤PSYNC命令，旧的实现中使⽤SYNC命令</li> </ul> <p>)</p> <h1><a id="Redis6_126" rel="nofollow"></a>Redis6配置主从复制+读写分离</h1> <h2><a id="Redis5_128" rel="nofollow"></a>Redis5主从复制+读写分类介绍</h2> <h3><a id="_130" rel="nofollow"></a>背景</h3> <ul> <li>单机部署简单，但是可靠性低，并且不能很好的利用cpu的多核处理能力</li> <li>生产环境—必须保证高可用-一般不可能单机部署</li> <li>读写分离是可用性要求不高、性能要求较高、数据规模小的情况</li> </ul> <h3><a id="_136" rel="nofollow"></a>目标</h3> <ul> <li>读写分离，扩展主节点的读能力，分担主节点读压力</li> <li>容灾恢复，一旦主节点宕机，从节点作为主节点的备份可以随时顶上</li> </ul> <h3><a id="redis_141" rel="nofollow"></a>redis主从架构介绍</h3> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220902/0b4ced1c1657d058aa0139405f21d917.jpg" alt="Redis6配置主从复制+读写分离"></p> <h2><a id="LinuxRedis6X___146" rel="nofollow"></a>Linux服务器-Redis6.X 主从复制 一主二从架构环境准备</h2> <h3><a id="_148" rel="nofollow"></a>配置</h3> <pre><code class="prism language-java">mkdir<span class="token operator">-</span>p<span class="token operator">/</span>data<span class="token operator">/</span>redis<span class="token operator">/</span>master<span class="token operator">/</span>data mkdir<span class="token operator">-</span>p<span class="token operator">/</span>data<span class="token operator">/</span>redis<span class="token operator">/</span>slave1<span class="token operator">/</span>data mkdir<span class="token operator">-</span>p<span class="token operator">/</span>data<span class="token operator">/</span>redis<span class="token operator">/</span>slave2<span class="token operator">/</span>data #从节点开启只读模式<span class="token punctuation">(</span>默认<span class="token punctuation">)</span> replica<span class="token operator">-</span>read<span class="token operator">-</span>only yes #从节点访问主节点的密码，和requirepass⼀样 masterauth<span class="token number">123456</span> #哪个主节点进⾏复制 replicaof<span class="token number">8.129</span><span class="token number">.113</span><span class="token number">.233</span><span class="token number">6379</span></code></pre> <h3><a id="redisconf_162" rel="nofollow"></a>创建主配置文件redis.conf</h3> <pre><code>bind 0.0.0.0 port 6379 daemonize yes requirepass "123456" logfile "/usr/local/redis/log/redis1.log" dbfilename "xdclass1.rdb" dir "/usr/local/redis/data" appendonly yes appendfilename "appendonly1.aof" masterauth "123456"</code></pre> <h3><a id="redisconf_177" rel="nofollow"></a>创建两个从配置文件redis.conf</h3> <pre><code>bind 0.0.0.0 port 6380/6381 daemonize yes requirepass "123456" logfile "/usr/local/redis/log/redis1/2.log" dbfilename "xdclass1/2.rdb" dir "/usr/local/redis/data" appendonly yes appendfilename "appendonly1/2.aof" replicaof 8.129.113.233 6379 masterauth "123456"</code></pre> <h2><a id="LinuxRedis6X___193" rel="nofollow"></a>Linux服务器-Redis6.X 主从复制 一主二从架构</h2> <h3><a id="_195" rel="nofollow"></a>启动</h3> <pre><code>#启动主 ./redis-server /data/redis/master/data/redis.conf #启动从 ./redis-server /data/redis/slave1/data/redis.conf #启动从 ./redis-server /data/redis/slave2/data/redis.conf</code></pre> <ul> <li>info replication 查看状态</li> <li>主从复制和读写验证</li> <li>防火墙和网络安全组记得开放端口 <ul> <li>6379 主节点</li> <li>6380 从节点</li> <li>6381 从节点</li> </ul> </li> </ul> <h2><a id="Redis_216" rel="nofollow"></a>Redis主从架构-复制读写分离原理解析</h2> <h3><a id="_218" rel="nofollow"></a>主从复制</h3> <ul> <li>主从复制分两种（主从刚连接的时候，进⾏全量同步；全同步结束后，进⾏增量同步） <ul> <li>全量复制 <ul> <li>master服务器会开启⼀个后台进程⽤于将redis中的数据⽣成⼀个rdb⽂件</li> <li>主服务器会缓存所有接收到的来⾃客户端的写命令，当后台保存进程 处理完毕后，会将该rdb⽂件传递给slave服务器</li> <li>slave服务器会将rdb⽂件保存在磁盘并通过读取该⽂件将数据加载到内存</li> <li>在此之后master服务器会将在此期间缓存的命令通过redis传输协议发送给slave服务器</li> <li>然后slave服务器将这些命令依次作⽤于⾃⼰本地的数据集上最终达到数据的⼀致性</li> </ul> </li> <li>增量复制 <ul> <li>Slave初始化后开始正常⼯作时主服务器发⽣的写操作同步到从服务器的过程</li> <li>服务器每执⾏⼀个写命令就会向从服务器发送相同的写命令，从服务器接收并执⾏收到的写命令</li> </ul> </li> </ul> </li> </ul> <h3><a id="_231" rel="nofollow"></a>特点</h3> <ul> <li>主从复制对于 主/从 redis服务器来说是⾮阻塞的，所以同步期间都可以正常处理外界请求</li> <li>⼀个主redis可以含有多个从redis，每个从redis可以接收来⾃其他从redis服务器的连接</li> <li>从节点不会让key过期，⽽是主节点的key过期删除后，成为del命令传输到从节点进⾏删除 <ul> <li>从节点开启 sync 看⽇志</li> </ul> </li> </ul> <h3><a id="_238" rel="nofollow"></a>加速复制</h3> <ul> <li>完全重新同步需要在磁盘上创建⼀个RDB⽂件，然后加载这个⽂件以便为从服务器发送数据</li> <li>在⽐较低速的磁盘，这种操作会给主服务器带来较⼤的压⼒</li> <li>新版⽀持⽆磁盘的复制，⼦进程直接将RDB通过⽹络发送给从服务器，不使⽤磁盘作为中间存储</li> <li>repl-diskless-sync yes (默认是no)</li> </ul> <h3><a id="_245" rel="nofollow"></a>主从断开重连</h3> <ul> <li>如果遭遇连接断开，重新连接之后可以从中断处继续进⾏复制，⽽不必重新同步</li> <li>2.8版本后 部分重新同步这个新特性内部使⽤PSYNC命令，旧的实现中使⽤SYNC命令</li> </ul> </div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-593.htm">MySQL分组统计-每组各个条件信息条数</a></p>
+                                                <p>下一个：<a href="/html/category/article-595.htm">java8日期常用API，日期详解</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-787.htm" title="微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习">微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习</a></li>
+                        <li class="py-2"><a href="/html/category/article-777.htm" title="基于51单片机的秒表，单独按键控制启动，暂停，复位。">基于51单片机的秒表，单独按键控制启动，暂停，复位。</a></li>
+                        <li class="py-2"><a href="/html/category/article-751.htm" title="Azure Service Fabric 踩坑日志_在线工具">Azure Service Fabric 踩坑日志_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-773.htm" title="C ++中的最大和圆子数组">C ++中的最大和圆子数组</a></li>
+                        <li class="py-2"><a href="/html/category/article-745.htm" title="Kubernetes集群环境初始化_云其它_">Kubernetes集群环境初始化_云其它_</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-759.htm" title="golang中的panic">golang中的panic</a></li>
+                        <li class="py-2"><a href="/html/category/article-756.htm" title="java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息">java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息</a></li>
+                        <li class="py-2"><a href="/html/category/article-743.htm" title="EditText 不显示光标  光标消失">EditText 不显示光标  光标消失</a></li>
+                        <li class="py-2"><a href="/html/category/article-767.htm" title="超详细，Python 多线程总结的太到位了">超详细，Python 多线程总结的太到位了</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

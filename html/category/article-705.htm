@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-705.htm" />
+    <title>解决Error response from daemon: Get https://registry-1.docker.io/v2/library/hello-world/manifests/问题 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>解决Error response from daemon: Get https://registry-1.docker.io/v2/library/hello-world/manifests/问题</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>昨天在使用docker 时，将 image 文件从仓库抓取到本地一直报错，经过尝试，终于得以解决。</p> <p>错误信息如下：</p> <blockquote> <p>[root@archlinux ~]# docker image pull library/hello-world<br /> Using default tag: latest<br /> Error response from daemon: Get https://registry-1.docker.io/v2/library/hello-world/manifests/latest: dial tcp 52.20.146.203:443: i/o timeout</p> </blockquote> <p>或者：</p> <blockquote> <p>[root@archlinux quanxj]# docker image pull library/hello-world<br /> Using default tag: latest<br /> latest: Pulling from library/hello-world<br /> ca4f61b1923c: Pull complete<br /> error pulling image configuration: Get https://registry-1.docker.io/v2/library/hello-world/blobs/sha256:f2a91732366c0332ccd7afd2a5c4ff2b9af81f549370f7a19acd460f87686bc7: dial tcp 35.169.231.249:443: i/o timeout</p> </blockquote> <p>解决方法如下：</p> <p>**第一步：**通过<code>dig @114.114.114.114 registry-1.docker.io</code>找到可用IP</p> <blockquote> <p>[root@archlinux ~]# dig @114.114.114.114 registry-1.docker.io<br /> ; &lt;&lt;&gt;&gt; DiG 9.12.0 &lt;&lt;&gt;&gt; @114.114.114.114 registry-1.docker.io<br /> ; (1 server found)<br /> ;; global options: +cmd<br /> ;; Got answer:<br /> ;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 37534<br /> ;; flags: qr rd ra; QUERY: 1, ANSWER: 8, AUTHORITY: 0, ADDITIONAL: 1<br /> ;; OPT PSEUDOSECTION:<br /> ; EDNS: version: 0, flags:; udp: 4096<br /> ; COOKIE: 88f87a15f4ca45dc (echoed)<br /> ;; QUESTION SECTION:<br /> ;registry-1.docker.io. IN A<br /> ;; ANSWER SECTION:<br /> registry-1.docker.io. 30 IN A 34.200.28.105<br /> registry-1.docker.io. 30 IN A 52.22.181.254<br /> registry-1.docker.io. 30 IN A 35.169.231.249<br /> registry-1.docker.io. 30 IN A 52.5.185.86<br /> registry-1.docker.io. 30 IN A 54.164.230.151<br /> registry-1.docker.io. 30 IN A 34.200.90.16<br /> registry-1.docker.io. 30 IN A 52.20.146.203<br /> registry-1.docker.io. 30 IN A 52.206.156.207<br /> ;; Query time: 116 msec<br /> ;; SERVER: 114.114.114.114#53(114.114.114.114)<br /> ;; WHEN: 四 3月 08 09:27:12 CST 2018<br /> ;; MSG SIZE rcvd: 189</p> </blockquote> <p>第二步：尝试修改<code>/etc/hosts</code>强制docker.io相关的域名解析到其它可用IP</p> <blockquote> <p>vim /etc/hosts</p> </blockquote> <p>添加一个可用IP：</p> <blockquote> <p>52.5.185.86 registry-1.docker.io</p> </blockquote> <p>保存之后重试:</p> <blockquote> <p>[root@archlinux quanxj]# docker image pull library/hello-world<br /> Using default tag: latest<br /> latest: Pulling from library/hello-world<br /> ca4f61b1923c: Already exists<br /> Digest: sha256:083de497cff944f969d8499ab94f07134c50bcf5e6b9559b27182d3fa80ce3f7<br /> Status: Downloaded newer image for hello-world:latest</p> </blockquote> <p>验证：</p> <blockquote> <p>[root@archlinux quanxj]# docker image ls<br /> REPOSITORY TAG IMAGE ID CREATED SIZE<br /> hello-world latest f2a91732366c 3 months ago 1.85kB</p> </blockquote> <p>成功！</p> </div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-704.htm">Spring Boot+Mockito+JUnit中的@Mock注入@InjectMocks失效</a></p>
+                                                <p>下一个：<a href="/html/category/article-706.htm">kotlin 标准函数和静态方法 with、run、apply</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-748.htm" title="Halo 开源项目学习实体类与数据表">Halo 开源项目学习实体类与数据表</a></li>
+                        <li class="py-2"><a href="/html/category/article-775.htm" title="toString()、new String()和(String) 、String.ValueOf()的区别">toString()、new String()和(String) 、String.ValueOf()的区别</a></li>
+                        <li class="py-2"><a href="/html/category/article-751.htm" title="Azure Service Fabric 踩坑日志_在线工具">Azure Service Fabric 踩坑日志_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-788.htm" title="深入浅出Vue3 Composition API">深入浅出Vue3 Composition API</a></li>
+                        <li class="py-2"><a href="/html/category/article-759.htm" title="golang中的panic">golang中的panic</a></li>
+                        <li class="py-2"><a href="/html/category/article-733.htm" title="vue的router-link的replace属性&amp;编程式路由导航&amp;缓存路由组件&amp;两个新的生命周期钩子&amp;路由守卫">vue的router-link的replace属性&amp;编程式路由导航&amp;缓存路由组件&amp;两个新的生命周期钩子&amp;路由守卫</a></li>
+                        <li class="py-2"><a href="/html/category/article-778.htm" title="nginx.conf配置文件结构小结_nginx">nginx.conf配置文件结构小结_nginx</a></li>
+                        <li class="py-2"><a href="/html/category/article-776.htm" title="vue实现文字滚动效果_vue.js">vue实现文字滚动效果_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-729.htm" title="visual studio 使用cmake构建项目并远程连接虚拟机centos7">visual studio 使用cmake构建项目并远程连接虚拟机centos7</a></li>
+                        <li class="py-2"><a href="/html/category/article-785.htm" title="C语言程序设计——用户密码输入与判断">C语言程序设计——用户密码输入与判断</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-540.htm" />
+    <title>php错误/异常/日志及常见调试和排错_在线工具 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>php错误/异常/日志及常见调试和排错_在线工具</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				</p> <div class="toc"> <div class="toc-container-header">目录</div> <ul> <li> <a href="#%E9%94%99%E8%AF%AF%E5%92%8C%E5%BC%82%E5%B8%B8"  rel="nofollow">错误和异常</a></p> <ul> <li><a href="#%E9%94%99%E8%AF%AF"  rel="nofollow">错误</a></li> <li><a href="#%E5%BC%82%E5%B8%B8"  rel="nofollow">异常</a></li> <li><a href="#%E9%94%99%E8%AF%AF%E5%BC%82%E5%B8%B8%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB"  rel="nofollow">错误异常继承关系</a></li> <li><a href="#php7%E4%B8%8B%E7%9A%84%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%9E%8B"  rel="nofollow">php7下的常见错误异常类型</a></li> <li><a href="#%E9%94%99%E8%AF%AF%E5%92%8C%E5%BC%82%E5%B8%B8%E7%9A%84%E6%9C%89%E5%85%B3%E4%B8%BB%E8%A6%81%E9%85%8D%E7%BD%AE"  rel="nofollow">错误和异常的有关主要配置</a></li> <li> <a href="#%E9%94%99%E8%AF%AF%E5%BC%82%E5%B8%B8%E6%9C%89%E5%85%B3%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"  rel="nofollow">错误/异常有关处理函数</a></p> <ul> <li><a href="#set_exception_handler"  rel="nofollow">set_exception_handler</a></li> <li><a href="#set_error_handler"  rel="nofollow">set_error_handler</a></li> <li><a href="#register_shutdown_function"  rel="nofollow">register_shutdown_function</a></li> <li><a href="#yii%E9%87%8C%E7%9A%84%E5%BC%82%E5%B8%B8%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"  rel="nofollow">Yii里的异常和错误处理</a></li> </ul> </li> <li> <a href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%9F%A5%E9%94%99"  rel="nofollow">常见的查错</a></p> <ul> <li><a href="#%E5%8E%BB%E5%93%AA%E6%89%BE%E6%97%A5%E5%BF%97%E9%99%8C%E7%94%9F%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%80%8E%E4%B9%88%E5%BF%AB%E9%80%9F%E7%9A%84%E6%89%BE%E5%88%B0%E6%97%A5%E5%BF%97"  rel="nofollow">去哪找日志，陌生的项目怎么快速的找到日志</a></li> <li><a href="#%E4%B8%8D%E6%89%BE%E6%97%A5%E5%BF%97%E9%87%8D%E7%BD%AE%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"  rel="nofollow">不找日志，重置错误处理</a></li> </ul> </li> <li> <a href="#%E5%B8%B8%E7%94%A8%E8%B0%83%E8%AF%95"  rel="nofollow">常用调试</a></p> <ul> <li><a href="#%E5%9F%BA%E6%9C%AC%E7%AE%80%E5%8D%95%E7%9A%84%E8%B0%83%E8%AF%95"  rel="nofollow">基本简单的调试</a></li> <li><a href="#%E8%B0%83%E7%94%A8%E6%A0%88%E8%BF%BD%E8%B8%AA"  rel="nofollow">调用栈追踪</a></li> <li> <a href="#%E5%85%B6%E5%AE%83%E5%B7%A5%E5%85%B7"  rel="nofollow">其它工具</a></p> <ul> <li><a href="#yii%E7%9A%84debugger-tool"  rel="nofollow">Yii的debugger tool</a></li> <li><a href="#whoops%E7%B1%BB%E4%BC%BCyii-debugger-tool"  rel="nofollow">whoops(类似yii debugger tool)</a></li> <li><a href="#chrome%E6%8E%A7%E5%88%B6%E5%8F%B0"  rel="nofollow">chrome控制台</a></li> </ul> </li> <li> <a href="#%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95"  rel="nofollow">性能调试</a></p> <ul> <li><a href="#xhprofxhgui"  rel="nofollow">xhprof+xhgui</a></li> <li><a href="#xhprof"  rel="nofollow">xhprof</a></li> </ul> </li> </ul> </li> </ul> </li> </ul> </div> <h1 id="错误和异常">错误和异常</h1> <h2 id="错误">错误</h2> <p>php程序自身的问题，一般是由非法的语法，环境问题导致</p> <h2 id="异常">异常</h2> <p>一般是业务逻辑上出现的不合预期、与正常流程不同的状况，不是语法错误</p> <h2 id="错误异常继承关系">错误异常继承关系</h2> <p>小括号表示php版本</p> <p><img decoding="async" src="https://note.youdao.com/yws/api/personal/file/844742B182C748C0AA8CF139B47CD57F?method=download&amp;shareKey=d2a6a64cc959f8a7cb46d1922361e6bb" alt="" loading="lazy"></p> <h2 id="php7下的常见错误异常类型">php7下的常见错误异常类型</h2> <table> <thead> <tr> <th>常见错误/异常代码</th> <th>类型</th> <th>try/catch</th> <th>set_error_handler</th> <th>set_exception_handler</th> <th>register_shutdown_function(均触发)</th> </tr> </thead> <tbody> <tr> <td><code>include/require "aaa" </code></td> <td>错误</td> <td>❌</td> <td>✔</td> <td>❌</td> <td></td> </tr> <tr> <td><code>undefined() </code></td> <td>异常</td> <td>✔</td> <td>❌</td> <td>✔</td> <td></td> </tr> <tr> <td><code>$arr=["a"=&gt;1];echo $arr['b'];</code></td> <td>错误</td> <td>❌</td> <td>✔</td> <td>❌</td> <td></td> </tr> <tr> <td><code>echo 1/0;</code></td> <td>错误</td> <td>❌</td> <td>✔</td> <td>❌</td> <td></td> </tr> <tr> <td><code>intdiv(1,0) </code></td> <td>异常</td> <td>✔</td> <td>❌</td> <td>✔</td> <td></td> </tr> <tr> <td><code>define("A",1);define("A",1); </code></td> <td>错误</td> <td>❌</td> <td>✔</td> <td>❌</td> <td></td> </tr> <tr> <td><code>function a(); function a();//或者类的重复定义     </code></td> <td>错误</td> <td>❌</td> <td>❌</td> <td>❌</td> <td></td> </tr> <tr> <td><code>function add($a,$b){return $a+$b;} add(1); add(1,2,3);//自动忽略了多余的</code></td> <td>异常</td> <td>✔</td> <td>❌</td> <td>✔</td> <td></td> </tr> <tr> <td><code>$a=1; foreach ($a as $k=&gt;$v){ echo $k."--".$v; } </code></td> <td>错误</td> <td>❌</td> <td>✔</td> <td>❌</td> <td></td> </tr> <tr> <td><code>include "parseError.php"; //parseError.php 有语法错误</code></td> <td>异常</td> <td>✔</td> <td>❌</td> <td>✔</td> <td></td> </tr> <tr> <td><code>$a=null;   $a-&gt;fun();  </code></td> <td>异常</td> <td>✔</td> <td>❌</td> <td>✔</td> <td></td> </tr> </tbody> </table> <h2 id="错误和异常的有关主要配置">错误和异常的有关主要配置</h2> <pre><code>log_errors //开启记录错误日志 display_errors  //是否在页面展示错误日志 error_reporting //错误级别 error_log     如果该配置没有设置，则错误信息会被发送到 SAPI 错误记录器。     例如，出现nginx的错误日志中，或者在CLI中发送到 stderr     配置优先级别fpm&gt;ini&gt;nginx </code></pre> <h2 id="错误异常有关处理函数">错误/异常有关处理函数</h2> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220430/f5926208713d5204f106a6f3ddf91b6e.jpg" alt="php错误/异常/日志及常见调试和排错_在线工具"></p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.php.net/manual/zh/ref.errorfunc.php"  target="_blank"  rel="nofollow">https://www.php.net/manual/zh/ref.errorfunc.php</a></p> <h3 id="set_exception_handler">set_exception_handler</h3> <p>在exception_handler 调用后异常会中止<br /> 只能设置1个，未设置则返回NULL,<strong>再次设置返回上次的handler(5.5+),设置为NULL和restore_exception_handler()作用类似</strong></p> <h3 id="set_error_handler">set_error_handler</h3> <p>以下级别的错误不能由用户定义的函数来处理，独立于发生错误的地方： E_ERROR、 E_PARSE、 E_CORE_ERROR、 E_CORE_WARNING、 E_COMPILE_ERROR、 E_COMPILE_WARNING，和在 调用 set_error_handler() 函数所在文件中产生的大多数 E_STRICT<br /> 如果错误发生在脚本执行之前，将不会 调用自定义的错误处理程序因为它尚未在那时注册<br /> 传入 null 重置处理程序到默认状态，同restore_error_handler()</p> <p>handler里error_types 里指定的错误类型都会绕过 PHP 标准错误处理程序， 除非回调函数返回了 false<br /> 如果handler返回 false，标准错误处理处理程序将会继续调用</p> <h3 id="register_shutdown_function">register_shutdown_function</h3> <p>不影响error_log的行为,可以多个</p> <h3 id="yii里的异常和错误处理">Yii里的异常和错误处理</h3> <ol> <li>出现错误-&gt; 触发-&gt;错误的处理handler-&gt;错误处理handler抛出异常-》触发异常处理的hander-&gt;写日志/格式化输出</li> <li>出现异常-&gt;触发异常处理的hander→写日志/格式化输出</li> <li>出现fatal错误→触发 register_shutdown_function的handler-&gt;写日志/格式化输出</li> </ol> <h2 id="常见的查错">常见的查错</h2> <h3 id="去哪找日志陌生的项目怎么快速的找到日志">去哪找日志，陌生的项目怎么快速的找到日志</h3> <p>1.去error_log文件找(php-fpm.conf→php.ini→nginx的error_log) 一定要注意日志文件的权限(fpm 的worker进程是否可写)<br /> 2.找set_exception_handler，set_error_handler的返回</p> <h3 id="不找日志重置错误处理">不找日志，重置错误处理</h3> <p>不想管自定义的错误处理<br /><strong>把错误，异常处理的handeler全部重置掉，只去标准里去找即可</strong></p> <pre><code class="language-php">error_reporting(E_ALL); ini_set("display_errors","On"); restore_exception_handler(); restore_error_handler(); </code></pre> <h2 id="常用调试">常用调试</h2> <h3 id="基本简单的调试">基本简单的调试</h3> <pre><code>var_dump(),print_r(),var_export() Yii框架的帮助函数 比如 yii\helpers\VarDumper::dump/dumpAsString()); </code></pre> <h3 id="调用栈追踪">调用栈追踪</h3> <p>1.<code>debug_backtrace(int $options = DEBUG_BACKTRACE_IGNORE_ARGS, int $limit = 0)</code><br /> 调用到此处，调用链关系，根据需要传需要的参数，节省开销<br /> 2.<code>get_included_files()</code><br /> 按顺序打印加载文件的顺序助于调试<br /> 比如常驻的(swoole,workerman)可以通过这个看，修改某个php文件（此处是不是已经加载到内存），用不用重启服务</p> <h3 id="其它工具">其它工具</h3> <h4 id="yii的debugger-tool">Yii的debugger tool</h4> <p>为了调试方便对其他人不产生影响，可使用种cookie方式开启(外加ip白名单)方式，比较适合yii混编的页面调试</p> <p>辅助配套的cookie-editor插件</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://chrome.google.com/webstore/detail/cookie-editor/iphcomljdfghbkdcfndaijbokpgddeno?hl=zh-CN"  target="_blank"  rel="nofollow">https://chrome.google.com/webstore/detail/cookie-editor/iphcomljdfghbkdcfndaijbokpgddeno?hl=zh-CN</a></p> <h4 id="whoops类似yii-debugger-tool">whoops(类似yii debugger tool)</h4> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220430/73594919f1453df9a88b7d73574c91bf.jpg" alt="php错误/异常/日志及常见调试和排错_在线工具"><br /> 点击左边可以代码到那里</p> <h4 id="chrome控制台">chrome控制台</h4> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/ccampbell/chromephp"  target="_blank"  rel="nofollow">https://github.com/ccampbell/chromephp</a></p> <p>页面有刷新跳转时 可以开启console日志保持模式</p> <h3 id="性能调试">性能调试</h3> <h4 id="xhprofxhgui">xhprof+xhgui</h4> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220430/668c7e5fb6bd757b4fcbc107f9f6bd44.jpg" alt="php错误/异常/日志及常见调试和排错_在线工具"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220430/0eb5f2dc5e62fd58774522a7cc59d4de.jpg" alt="php错误/异常/日志及常见调试和排错_在线工具"></p> <h4 id="xhprof">xhprof</h4> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220430/e938f165926aa8f6bf1d45c1c8b2e458.jpg" alt="php错误/异常/日志及常见调试和排错_在线工具"></p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-539.htm">IDEA启动：Internal error. Please refer to https://jb.gg/ide/critical-startup-errors</a></p>
+                                                <p>下一个：<a href="/html/category/article-541.htm">Flask框架入门详解（以一个博客后台为例）_在线工具</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-730.htm" title="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具">基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-771.htm" title="win11系统如何进入高级启动">win11系统如何进入高级启动</a></li>
+                        <li class="py-2"><a href="/html/category/article-772.htm" title="如何在代码层面提高CPU分支预测效率">如何在代码层面提高CPU分支预测效率</a></li>
+                        <li class="py-2"><a href="/html/category/article-780.htm" title="@RequestBody某些属性值得不到">@RequestBody某些属性值得不到</a></li>
+                        <li class="py-2"><a href="/html/category/article-757.htm" title="SDS-redis动态字符串">SDS-redis动态字符串</a></li>
+                        <li class="py-2"><a href="/html/category/article-773.htm" title="C ++中的最大和圆子数组">C ++中的最大和圆子数组</a></li>
+                        <li class="py-2"><a href="/html/category/article-759.htm" title="golang中的panic">golang中的panic</a></li>
+                        <li class="py-2"><a href="/html/category/article-787.htm" title="微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习">微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习</a></li>
+                        <li class="py-2"><a href="/html/category/article-734.htm" title="Dubbo源码学习系列整合网络框架Netty详解">Dubbo源码学习系列整合网络框架Netty详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-729.htm" title="visual studio 使用cmake构建项目并远程连接虚拟机centos7">visual studio 使用cmake构建项目并远程连接虚拟机centos7</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

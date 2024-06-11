@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-531.htm" />
+    <title>vue3引入highlight.js进行代码高亮的方法实例_vue.js - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>vue3引入highlight.js进行代码高亮的方法实例_vue.js</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">背景描述：</a></li> <li><a href="#_label1" rel="nofollow">一、安装依赖：</a></li> <li><a href="#_label2" rel="nofollow">二、在vue3主入口main文件，对highlight进行引入和注册：</a></li> <li><a href="#_label3" rel="nofollow">三、页面使用：</a></li> <li><a href="#_label4" rel="nofollow">四、看下效果展示吧：</a></li> <li><a href="#_label5" rel="nofollow">五、一些优化：</a></li> <ul class="second_class_ul"> <li><a href="#_lab2_5_0" rel="nofollow">1.问题</a></li> <li><a href="#_lab2_5_1" rel="nofollow">2.解决方法</a></li> <li><a href="#_lab2_5_2" rel="nofollow">3. 处理后的效果</a></li> </ul> <li><a href="#_label6" rel="nofollow">总结</a></li> <ul class="second_class_ul"></ul> </ul> </div> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>背景描述：</h2> <p>在项目开发中，经常一些日志预览，还有文件的预览，需要进行代码高亮显示。这样可以让文本内容展示的时候显得更加友好，也便于阅读</p> <p>效果类似markdown语法的代码高亮，如下：</p> <div class="ay1code"> <pre class="brush:xhtml;">    &lt;TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="自动化测试"&gt;        &lt;stringProp name="TestPlan.comments"&gt;&lt;/stringProp&gt;        &lt;boolProp name="TestPlan.functional_mode"&gt;false&lt;/boolProp&gt;        &lt;boolProp name="TestPlan.tearDown_on_shutdown"&gt;true&lt;/boolProp&gt;        &lt;boolProp name="TestPlan.serialize_threadgroups"&gt;false&lt;/boolProp&gt;        &lt;elementProp name="TestPlan.user_defined_variables" elementType="Arguments"&gt;          &lt;collectionProp name="Arguments.arguments"/&gt;        &lt;/elementProp&gt;      &lt;/TestPlan&gt;</pre> </div> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>一、安装依赖：</h2> <blockquote> <p>注意：我们需要安装的依赖有两个，网上的博文，都是写的一个，比较坑。<br />npm install --save highlight.js<br />npm install --save @highlightjs/vue-plugin<br />命令行如下</p> </blockquote> <div class="ay1code"> <pre class="brush:js;">## 这个是highlight.js基础依赖  npm install --save highlight.js  ## 安装支持vue3 的@highlightjs/vue-plugin 依赖  npm install --save @highlightjs/vue-plugin  </pre> </div> <p class="maodian"><a name="_label2" rel="nofollow"></a></p> <h2>二、在vue3主入口main文件，对highlight进行引入和注册：</h2> <blockquote> <p>需要引入的有</p> <p>样式 ，在main主入口引入样式为全局统一都使用这个样式，也可以在单独的页面引入，你想要的样式。样式效果参考官网：https://highlightjs.org/static/demo/<br />更改 import ‘highlight.js/styles/atom-one-dark.css’ 把styles 后面的值改成你想要的样式就行依赖包组件</p></blockquote> <div class="ay1code"> <pre class="brush:js;"># --- 文件src/main.ts | src/main.js   # highlight 的样式，依赖包，组件  import 'highlight.js/styles/atom-one-dark.css'  import 'highlight.js/lib/common'  import hljsVuePlugin from '@highlightjs/vue-plugin'    import { computed, createApp } from 'vue'  import App from './App.vue'    const app = createApp(App)    // 引入代码高亮，并进行全局注册  app.use(hljsVuePlugin)  app.mount('#app')  </pre> </div> <p class="maodian"><a name="_label3" rel="nofollow"></a></p> <h2>三、页面使用：</h2> <div class="ay1code"> <pre class="brush:xhtml;">    &lt;!-- 把数据绑定到 `code` 属性--&gt;      &lt;highlightjs autodetect :code="code" /&gt;      &lt;!--或者直接将显示的代码写到 `code`中 --&gt;      &lt;highlightjs language='javascript' code="var x = 5;" /&gt;  </pre> </div> <blockquote> <p>示例如下：<br />可以使用 language 指定具体的语言，如javascript、xml等<br />这个值省略，highlightjs 也会自动识别对应的语言<br /><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220424/5de3c8437bb579c14b5f91793739ba45.jpg"></p> </blockquote> <p class="maodian"><a name="_label4" rel="nofollow"></a></p> <h2>四、看下效果展示吧：</h2> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220424/82ce8753e26e1362310fdb17720d5a49.jpg"></p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220424/ecca7a9f59233ea5f2b5e8e12e72cb2b.jpg"></p> <p class="maodian"><a name="_label5" rel="nofollow"></a></p> <h2>五、一些优化：</h2> <p class="maodian"><a name="_lab2_5_0" rel="nofollow"></a></p> <h3>1.问题</h3> <blockquote> <p>可以看到生成的代码 是pre包裹的，会有个1rem 的margin-bottom，效果不是很好<br /><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220424/d1a5aad34dbd0f76325fcb4d0c431faf.jpg"></p> </blockquote> <p class="maodian"><a name="_lab2_5_1" rel="nofollow"></a></p> <h3>2.解决方法</h3> <p>在对应的页面，使用style 标签，对样式进行重写，注意不要加 scoped</p> <div class="ay1code"> <pre class="brush:css;">&lt;style lang="scss"&gt;  pre {    margin-bottom: 0;  }  &lt;/style&gt;  </pre> </div> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220424/ce8e8daa88afe77122ece97d03b2d515.jpg"></p> <p class="maodian"><a name="_lab2_5_2" rel="nofollow"></a></p> <h3>3. 处理后的效果</h3> <blockquote> <p>这个是示例，当然你们可以根据实际的项目进行样式改造<br />码字不容易，对你有帮助的话，给个点赞吧 ☻ (✿◠‿◠)<br />更多详情，请查阅官方文档，<br />官网链接：https://highlightjs.org/<br />官网github链接：https://github.com/highlightjs/vue-plugin</p> </blockquote> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220424/434541976935576dd8fcbef7a3c055ee.jpg"></p> <p class="maodian"><a name="_label6" rel="nofollow"></a></p> <h2>总结</h2> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-530.htm">Windows环境下的NodeJS+NPM+Bower安装配置步骤</a></p>
+                                                <p>下一个：<a href="/html/category/article-532.htm">pyspark结合hive使用 spark on hive方式开发代码附上代码实例</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-780.htm" title="@RequestBody某些属性值得不到">@RequestBody某些属性值得不到</a></li>
+                        <li class="py-2"><a href="/html/category/article-785.htm" title="C语言程序设计——用户密码输入与判断">C语言程序设计——用户密码输入与判断</a></li>
+                        <li class="py-2"><a href="/html/category/article-761.htm" title="springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题">springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-729.htm" title="visual studio 使用cmake构建项目并远程连接虚拟机centos7">visual studio 使用cmake构建项目并远程连接虚拟机centos7</a></li>
+                        <li class="py-2"><a href="/html/category/article-749.htm" title="vue @component继承的一些知识点详解">vue @component继承的一些知识点详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-775.htm" title="toString()、new String()和(String) 、String.ValueOf()的区别">toString()、new String()和(String) 、String.ValueOf()的区别</a></li>
+                        <li class="py-2"><a href="/html/category/article-738.htm" title="通过源码了解Java的自动装箱拆箱">通过源码了解Java的自动装箱拆箱</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-736.htm" title="Elasticsearch 三种分页方式">Elasticsearch 三种分页方式</a></li>
+                        <li class="py-2"><a href="/html/category/article-767.htm" title="超详细，Python 多线程总结的太到位了">超详细，Python 多线程总结的太到位了</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-632.htm" />
+    <title>Filebeat和logstash 使用过程中遇到的一些小问题记录 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Filebeat和logstash 使用过程中遇到的一些小问题记录</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<h2 id="一filebeat-收集软链文件日志">一、filebeat 收集软链文件日志</h2> <h3 id="11场景">1.1、场景</h3> <ol> <li> <p>由于我们新部署的<code>Nginx</code> 日志都是采用的软链的形式。</p> <pre><code>lrwxrwxrwx 1 root  root      72 Apr  6 00:00 jy.baidu.com-80-access.log -&gt; /usr/local/openresty/nginx/logs/jy.baidu.com-80-access.log.2022040600 -rw-r--r-- 1 nginx root 4502502 Apr  3 23:59 jy.baidu.com-80-access.log.2022040300 -rw-r--r-- 1 nginx root 5790629 Apr  5 00:00 jy.baidu.com-80-access.log.2022040400 -rw-r--r-- 1 nginx root 9166562 Apr  5 23:59 jy.baidu.com-80-access.log.2022040500 -rw-r--r-- 1 nginx root 2447936 Apr  6 09:31 jy.baidu.com-80-access.log.2022040600</code></pre> </li> <li> <p>我们收集日志的时候，通过配置<code>filebeat</code> 收集日志文件<code>jy.baidu.com-80-access.log</code>,  因为这个文件会一直软链到最新的日志文件。</p> </li> <li> <p>但是我们会发现在启动<code>filebeat</code> 后<code>filebeat</code> 并没有报错什么。 但是我们<code>logstash</code> 好像也没有往es 写日志。</p> </li> </ol> <h3 id="12问题排查">1.2、问题排查</h3> <ol> <li> <p>我们首先是通过开启<code>filebeat</code> 的 debug模式，就是看下<code>filebeat</code> 的详细日志，这一步理论上来说，我们应该先通过<code>kafka</code> 看下是否有日志写入<code>kafka</code>。 但是没有关系，我们通过看<code>filebeat</code> 的详细日志。 可以一步分析到位。</p> <pre><code>logging.level: debug</code></pre> </li> <li> <p>我们在日志中可以看到下面的信息</p> <pre><code>2022-04-03T19:48:21.675+0800        DEBUG        [monitoring]        memqueue/eventloop.go:228        handle ACK took: 54.938µs 2022-04-03T19:48:21.675+0800        DEBUG        [monitoring]        memqueue/ackloop.go:128        ackloop: return ack to broker loop:1 2022-04-03T19:48:21.675+0800        DEBUG        [monitoring]        memqueue/ackloop.go:131        ackloop:  done send ack 2022-04-03T19:48:23.443+0800        DEBUG        [input]        input/input.go:152        Run input 2022-04-03T19:48:23.443+0800        DEBUG        [input]        log/input.go:174        Start next scan 2022-04-03T19:48:23.443+0800        DEBUG        [input]        log/input.go:273        File /usr/local/openresty/nginx/logs/jy.baidu.com-80-access.log skipped as it is a symlink. 2022-04-03T19:48:23.443+0800        DEBUG        [input]        log/input.go:195        input states cleaned up. Before: 1, After: 1, Pending: 0 2022-04-03T19:48:26.443+0800        DEBUG        [input]        input/input.go:152        Run input 2022-04-03T19:48:26.444+0800        DEBUG        [input]        log/input.go:174        Start next scan</code></pre> <p>日志内容</p> <pre><code>File /usr/local/openresty/nginx/logs/jy.baidu.com-80-access.log skipped as it is a symlink.</code></pre> <p>我们可以看到文件因为是软链接所以被忽略了。</p> </li> <li> <p>我们查看官方文档，需要增加配置<code>symlinks: true</code></p> <pre><code>filebeat.inputs: - type: log   symlinks: true</code></pre> </li> <li> <p>然后我们重启<code>filebeat</code> 就可以看到有日志写入kafka了。</p> </li> </ol> <h2 id="二logstash">二、logstash</h2> <h3 id="21logstash-解析日志不写入es">2.1、logstash 解析日志不写入es</h3> <p>每个人的场景不一样。这里只提供大概思路。</p> <ol> <li> <p>kafka 是否有数据， 可以kafka consumer 进行订阅用不同的 group 来同一个 topic。 进行查看是否有kafka数据</p> </li> <li> <p>看<code>logstash</code>  启动是否有报错。</p> <pre><code>[2022-04-02T20:55:06,432][INFO ][logstash.runner          ] Starting Logstash {"logstash.version"=&gt;"6.8.0"} [2022-04-02T20:55:07,554][ERROR][logstash.agent           ] Failed to execute action {:action=&gt;LogStash::PipelineAction::Create/pipeline_id:main, :exception=&gt;"LogStash::ConfigurationError", :message=&gt;"Expected one of #, {, } at line 5, column 43 (byte 118) after input {\n  kafka {\n    group_id =&gt; \"hz-sg\"\n    topics =&gt; [\"hz-sg-nginxlog\"]\n    bootstrap_servers =&gt; \"10.59.4.50:9092\"", :backtrace=&gt;["/usr/share/logstash/logstash-core/lib/logstash/compiler.rb:41:in `compile_imperative'", "/usr/share/logstash/logstash-core/lib/logstash/compiler.rb:49:in `compile_graph'", "/usr/share/logstash/logstash-core/lib/logstash/compiler.rb:11:in `block in compile_sources'", "org/jruby/RubyArray.java:2577:in `map'", "/usr/share/logstash/logstash-core/lib/logstash/compiler.rb:10:in `compile_sources'", "org/logstash/execution/AbstractPipelineExt.java:151:in `initialize'", "/usr/share/logstash/logstash-core/lib/logstash/pipeline.rb:22:in `initialize'", "/usr/share/logstash/logstash-core/lib/logstash/pipeline.rb:90:in `initialize'", "/usr/share/logstash/logstash-core/lib/logstash/pipeline_action/create.rb:43:in `block in execute'", "/usr/share/logstash/logstash-core/lib/logstash/agent.rb:96:in `block in exclusive'", "org/jruby/ext/thread/Mutex.java:165:in `synchronize'", "/usr/share/logstash/logstash-core/lib/logstash/agent.rb:96:in `exclusive'", "/usr/share/logstash/logstash-core/lib/logstash/pipeline_action/create.rb:39:in `execute'", "/usr/share/logstash/logstash-core/lib/logstash/agent.rb:334:in `block in converge_state'"]} [2022-04-02T20:55:07,807][INFO ][logstash.agent           ] Successfully started Logstash API endpoint {:port=&gt;9600} [2022-04-02T20:55:12,703][INFO ][logstash.runner          ] Logstash shut down.</code></pre> <p>像这种就是配置文件格式可能存在一些问题。</p> <pre><code>[2022-04-02T20:36:04,433][ERROR][logstash.pipeline        ] Error registering plugin {:pipeline_id=&gt;"main", :plugin=&gt;"#&lt;LogStash::FilterDelegator:0x5fdbe919&gt;", :error=&gt;"pattern %{SERVICE:service} not defined", :thread=&gt;"#&lt;Thread:0x20114a64 run&gt;"}</code></pre> <p>这种报错就是我们没有定义变量的匹配规则。</p> </li> <li> <p>还有一种是我们最近遇到了的，就是我在 es 的 output 的时候，引用了一个变量<code>service</code> 。 但是前面没有定义这个。最后这个logstash 也没有报错，就是写不到 es 里面。</p> <pre><code>        elasticsearch {             hosts =&gt; ["10.60.4.50","10.60.4.51","10.60.4.52"]             index =&gt; "%{[service]-%{+YYYY.MM.dd}"             template =&gt; "/etc/logstash/template/nginx.json"             template_name =&gt; "nginx.json"             template_overwrite =&gt; true             user =&gt; "elastic"             password =&gt; "1111111"         }</code></pre> </li> <li> <p>开启日志debug.<code> /etc/logstash/logstash.yml</code></p> <pre><code>#log.level: debug</code></pre> </li> </ol> <h3 id="22logstash-配置多个后端">2.2、logstash 配置多个后端</h3> <ol> <li> <p><code>logstash -f  /opt/logstash/conf/conf.d/</code></p> <p>注意<code>/conf.d/</code> 后面不要加***** 这样会导致只匹配一个。</p> </li> <li> <p>使用多个配置文件里面的<strong>input、filter、output</strong> 不是互相独立的。</p> <p>logstash读取多个配置文件只是简单的将所有配置文件整合到了一起</p> <p>如果要彼此独立，需要自己加字段，然后在output 判断一下 ，通过字段进行区分。</p> </li> </ol> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-631.htm">python中sql查询in的使用</a></p>
+                                                <p>下一个：<a href="/html/category/article-633.htm">SpringBoot 使用 Feign进行远程调用、文件上传等操作</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                        <li class="py-2"><a href="/html/category/article-785.htm" title="C语言程序设计——用户密码输入与判断">C语言程序设计——用户密码输入与判断</a></li>
+                        <li class="py-2"><a href="/html/category/article-779.htm" title="vue中动态控制btn的disabled属性方式_vue.js">vue中动态控制btn的disabled属性方式_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-773.htm" title="C ++中的最大和圆子数组">C ++中的最大和圆子数组</a></li>
+                        <li class="py-2"><a href="/html/category/article-764.htm" title="SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法">SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法</a></li>
+                        <li class="py-2"><a href="/html/category/article-741.htm" title="Spring 5 中文解析数据存储篇-JDBC数据存储(下)">Spring 5 中文解析数据存储篇-JDBC数据存储(下)</a></li>
+                        <li class="py-2"><a href="/html/category/article-772.htm" title="如何在代码层面提高CPU分支预测效率">如何在代码层面提高CPU分支预测效率</a></li>
+                        <li class="py-2"><a href="/html/category/article-754.htm" title="手把手带你入门链表的基本操作及其优化">手把手带你入门链表的基本操作及其优化</a></li>
+                        <li class="py-2"><a href="/html/category/article-780.htm" title="@RequestBody某些属性值得不到">@RequestBody某些属性值得不到</a></li>
+                        <li class="py-2"><a href="/html/category/article-742.htm" title="聊聊 node 如何优雅地获取 mac 系统版本">聊聊 node 如何优雅地获取 mac 系统版本</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

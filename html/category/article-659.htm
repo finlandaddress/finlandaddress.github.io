@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-659.htm" />
+    <title>springboot整合微信二维码支付 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>springboot整合微信二维码支付</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="htmledit_views"> <p>微信支付官方文档：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pages/api.shtml"  rel="nofollow">https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pages/api.shtml</a></p> <p>下图是微信支付的一个流程图：</p> <p><img fetchpriority="high" decoding="async" alt="" height="651" src="http://img.555519.xyz/uploads3/20220904/9106d327d90fe7a0a0e5d272f7b6de20.jpg"></p> <p>我们需要做的是：</p> <ul> <li>1、调用微信下单接口，生成支付链接。</li> <li>2、根据链接生成二维码图片（可以使用qrious）</li> <li>3、扫码支付支付</li> <li>4、支付成功会有一个回调函数，根据实际情况来进行支付完成后的业务操作</li> </ul> <p id="toc-heading-40"><span style="color:#f33b45;">微信没有提供maven仓库坐标，因此我们必须下载使用。下载链接</span><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=11_1"  rel="nofollow">https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=11_1</a></p> <p><img decoding="async" alt="" height="350" src="http://img.555519.xyz/uploads3/20220904/835a9dcde7b6cbd5afb4131c304c17ae.jpg"></p> <p><strong>微信SDK提供了一个统一的微信支付工具类：WXPay：</strong></p> <p><img decoding="async" alt="" height="578" src="http://img.555519.xyz/uploads3/20220904/8ec5c4919110680067207f9848efa2fd.jpg"></p> <p><strong>我们主要关注其中的unifiedOrder方法，统一下单：</strong></p> <pre><code class="language-java">/**      * 作用：统一下单&lt;br&gt;      * 场景：公共号支付、扫码支付、APP支付      * @param reqData 向wxpay post的请求数据      * @return API返回数据      * @throws Exception      */ public Map&lt;String, String&gt; unifiedOrder(Map&lt;String, String&gt; reqData) throws Exception {     return this.unifiedOrder(reqData, config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs()); }</code></pre> <p>这里的请求参数是：Map&lt;String, String&gt; reqData，就是官方API说明中的请求参数了，不过并不需要我们填写所有参数，而只需要下面的：</p> <ul> <li>body：商品描述</li> <li>out_trade_no：订单编号</li> <li>total_fee：订单应支付金额</li> <li>spbill_create_ip：设备IP</li> <li>notify_url：回调地址</li> <li>trade_type：交易类型</li> </ul> <p>剩下的：<code>appid</code>、<code>mch_id</code>、<code>nonce_str</code>、<code>sign_type</code>和<code>sign</code>参数都有WXPay对象帮我们设置，那么问题来了：这些参数数据WXPay是怎么拿到的呢？</p> <p>其中，</p> <ul> <li>nonce_str：是随机字符串，因此由WXPay随机生成，</li> <li>sign_type：是签名算法，由WXPay指定，默认是HMACSHA256；</li> <li>sign：是签名，有签名算法结合密钥加密而来，因此这里的关键是密钥：key</li> <li>appid、mch_id是商家信息，需要配置</li> </ul> <p>也就是说，这例需要配置的包括：appid、mch_id、密钥key。这些从哪里来呢？</p> <p>看下WXPay的构造函数：</p> <pre><code class="language-java">public WXPay(final WXPayConfig config) throws Exception {     this(config, null, true, false); }</code></pre> <p>这里需要一个WXPayConfig对象，显然是配置对象。</p> <h3 id="toc-heading-44">WXPayConfig配置</h3> <p>WXPay依赖于WXPayConfig进行配置，那么WXPayConfig是什么呢？</p> <p>看下源码中的关键部分：</p> <pre><code class="language-java">public abstract class WXPayConfig {     /**      * 获取 App ID      *      * @return App ID      */     abstract String getAppID();     /**      * 获取 Mch ID      *      * @return Mch ID      */     abstract String getMchID();     /**      * 获取 API 密钥      *      * @return API密钥      */     abstract String getKey();          // 。。。省略 }</code></pre> <p><strong>这不就是WXPay中需要配置的3个属性嘛，当我们实现这个类，并且给出其中的值，把WXPayConfig传递给WXPay时，WXPay就会获取到这些数据:</strong></p> <p><img decoding="async" alt="1580547534423" src="http://img.555519.xyz/uploads3/20220904/8e8d8b62fcb6237eb585d954206fd68b.jpg"></p> <p><strong>当我们利用WXPay发送请求时，WXPay就会帮我们封装到请求参数中：</strong></p> <p><img decoding="async" alt="1580547680115" src="http://img.555519.xyz/uploads3/20220904/455ad44e59d01ef8eaadf8074d102fe1.jpg"></p> <p><strong>而在我提供给大家的SDK中，就编写了一个WXPayConfig的实现：</strong></p> <pre><code class="language-java">package com.github.wxpay.sdk;  import lombok.Data;  import java.io.InputStream;  /**  * @author 黑马程序员  */ @Data public class WXPayConfigImpl extends WXPayConfig {     /**      * 公众账号ID      */     private String appID;     /**      * 商户号      */     private String mchID;     /**      * 生成签名的密钥      */     private String key;     /**      * 支付回调地址      */     private String notifyUrl;     /**      * 支付方式      */     private String payType;      public InputStream getCertStream(){         return null;     }      public IWXPayDomain getWXPayDomain(){         return WXPayDomainSimpleImpl.instance();     } }</code></pre> <p>将来我们只需要new出这个实现类对象，并且给这3个参数赋值即可。</p> <h2 id="toc-heading-45"></h2> <h1><span style="color:#f33b45;"><strong>话不多说，开撸</strong></span></h1> <p>首先，把下载的SDK打包并安装到本地的maven仓库，方便在项目中使用。</p> <p>直接对SDK进行打包，在项目maven中执行如下命令：</p> <pre><code>mvn source:jar install -Dmaven.test.skip=true</code></pre> <p>如图所示：</p> <p><img decoding="async" alt="image-20200403112617377" src="http://img.555519.xyz/uploads3/20220904/d7e204751d747d98ce17f0a5e51b9253.jpg"></p> <p>打包完成后</p> <p><strong>引入依赖（除了wxpay的依赖，还需要一个转换xml的依赖）</strong></p> <pre><code class="language-XML">&lt;dependency&gt;     &lt;groupId&gt;com.github.wxpay&lt;/groupId&gt;     &lt;artifactId&gt;wxpay-sdk&lt;/artifactId&gt;     &lt;version&gt;3.0.9&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt;     &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;     &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt; &lt;/dependency&gt;</code></pre> <p><strong>&nbsp;在yml中配置 （如果服务运行在本地，那么回调接口就无法回调成功，需要使用内网穿透工具）</strong></p> <pre><code class="language-XML">#微信APP支付参数 pay:   wx:     #商户应用appId     appId:      #设备号     mchId:      #商户key：api秘钥（32位）     key:      #回调接口     notifyUrl: http://服务ip:port/wx/notify     #支付类型（扫码）     payType: NATIVEVE</code></pre> <p><strong>&nbsp;将这些属性注入到PayProperties中：</strong></p> <pre><code class="language-java">import lombok.Data; import org.springframework.boot.context.properties.ConfigurationProperties; import org.springframework.stereotype.Component;  @Data @Component @ConfigurationProperties(prefix = "pay.wx") public class PayProperties {     private String appId;     private String mchId;     private String key;     private String notifyUrl;     private String payType; }</code></pre> <p><strong>配置微信支付所需要的对象注入到spring容器中：</strong></p> <pre><code class="language-java">import com.github.wxpay.sdk.PayConfig; import com.github.wxpay.sdk.WXPay; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.Configuration;  /**  * 初始化微信支付需要的对象  */ @Configuration public class PayConfiguration {     @Autowired     private PayProperties payProps;      @Bean     public WXPay wxPay() throws Exception {         PayConfig payConfig = new PayConfig();         payConfig.setAppID(payProps.getAppId());         payConfig.setMchID(payProps.getMchId());         payConfig.setKey(payProps.getKey());         return new WXPay(payConfig);     }  }</code></pre> <p><strong>封装支付工具类</strong></p> <pre><code class="language-java"> import com.github.wxpay.sdk.WXPay; import com.zhiwan.exception.ZwException; import lombok.extern.slf4j.Slf4j; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.stereotype.Component;  import java.util.HashMap; import java.util.Map;  @Component @Slf4j public class PayHelper {      @Autowired     private WXPay wxPay;     @Autowired     private PayProperties payProps;      /**      * 生成支付链接      */     public String getPayUrl(String orderId,Long totalFee){         // 请求参数：         Map&lt;String, String&gt; data = new HashMap&lt;String, String&gt;();         data.put("body", "乐优商城-商品订单支付");         data.put("out_trade_no", orderId.toString());         data.put("total_fee", totalFee.toString());         data.put("spbill_create_ip", "123.12.12.123");         data.put("notify_url", payProps.getNotifyUrl());         data.put("trade_type", payProps.getPayType());  // 此处指定为扫码支付          try {             Map&lt;String, String&gt; resp = wxPay.unifiedOrder(data);              if(resp.get("return_code").equals("SUCCESS")&amp;&amp;                     resp.get("result_code").equals("SUCCESS")){                 log.info("【微信支付】生成支付链接成功");                 return resp.get("code_url");             }else{                 log.error("【微信支付】生成支付链接失败，原因："+resp.get("return_code"));                 throw new ZwException(500,"【微信支付】生成支付链接失败");             }         } catch (Exception e) {             e.printStackTrace();             throw new ZwException(500,"【微信支付】生成支付链接失败，"+e.getMessage());         }     }  }</code></pre> <h2><span style="color:#f33b45;">到这生成微信支付的代码就已经完成了，调用即可</span></h2> <h2><strong><span style="color:#f33b45;">以下以供参考</span></strong></h2> <h2><strong>controller调用生成支付链接：</strong></h2> <pre><code class="language-java"> @RestController public class OrderController {      @Autowired     private OrderService orderService; /**      * 生成支付链接      *      */     @GetMapping("/order/url/{id}")     public ResponseEntity&lt;String&gt; buildPayUrl(@PathVariable("id") Long id){         String payUrl = orderService.buildPayUrl(id);         return ResponseEntity.ok(payUrl);     } }</code></pre> <p><strong>service代码：</strong></p> <p><strong>可以设置支付链接的有效时间，可以使用redis缓存：</strong></p> <pre><code class="language-java">@Service @Slf4j @Transactional public class OrderService {   /**      * 生成微信支付链接      *      * @param id      * @return      */     public String buildPayUrl(String id) {         //1.先到redis取出当前订单的支付链接         String payUrl = redisTemplate.opsForValue().get("PAY_URL_" + id);         //2.如果redis有，则直接取出订单的支付链接         if (StringUtils.isNotEmpty(payUrl)) {             return payUrl;         }          //3.如果redis没有，则调用微信支付系统生成该订单的支付链接，把该链接存入redis，并设置有效期（2小时）         //根据订单id查询订单（获取支付金额）         //Order order = orderMapper.selectById(id);         //生成支付链接，这里我们直接先设置1分钱         payUrl = payHelper.getPayUrl(id,1L);         //把该链接存入redis，并设置有效期（2小时）         redisTemplate.opsForValue().set("PAY_URL_" + id, payUrl, 2, TimeUnit.HOURS);         return payUrl;     }  }</code></pre> <p><strong>页面响应结果：</strong></p> <p><strong>使用qrious.js将该链接转成二维码</strong></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220904/aecc22bd85365e3d9494680ead863ba5.jpg" alt="springboot整合微信二维码支付" style="max-width:100%;"/></p> <p><strong>支付成功后微信会回调一个请求（回调的接口notifyUrl指定）</strong></p> <p><strong>controller：</strong></p> <pre><code class="language-java">/**      * 微信支付回调方法      * 接受的参数是xml类型      */     @PostMapping(value = "/wx/notify", produces = "application/xml")     public Map&lt;String, String&gt; wxNotify(@RequestBody Map&lt;String, Object&gt; paramMap) {         orderService.wxNotify(paramMap);          log.warn("【回调的信息：】"+paramMap.toString());          //返回成功信息给微信支付         Map&lt;String, String&gt; resultMap = new HashMap&lt;&gt;();         resultMap.put("return_code", "SUCCESS");         resultMap.put("return_msg", "OK");         return resultMap;     }</code></pre> <p>service</p> <pre><code class="language-java">/**      * 微信支付回调      *      * @param paramMap      */     public void wxNotify(Map&lt;String, Object&gt; paramMap) {         //1.订单ID         String orderId = (String) paramMap.get("out_trade_no");         //2.支付金额         Long totalFee = Long.valueOf((String) paramMap.get("total_fee"));          //3.查询订单         Order order = orderMapper.selectById(orderId);         log.warn("订单是：" + order.toString());          if (order == null) {             throw new ZwException(500, "订单不存在");         }          if (order.getActualFee() != totalFee) {             throw new ZwException(500, "订单金额不正确");         }          //修改订单状态         try {             order.setStatus(OrderStatusEnum.PAY_UP.value());             /**              * 微信支付1              */             order.setPaymentType(1);             order.setPayTime(new Date());             QueryWrapper&lt;Order&gt; query = Wrappers.query();             query.eq("order_id", orderId);             orderMapper.update(order, query);             log.info("【微信通知】更新订单状态成功");         } catch (Exception e) {             e.printStackTrace();             log.error("【微信通知】更新订单状态失败");             throw new ZwException(500, "更新订单状态失败");         }     }</code></pre> <h1><span style="color:#f33b45;"><strong>到这里整个支付流程就完成了</strong></span></h1> </div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-658.htm">python调用c代码</a></p>
+                                                <p>下一个：<a href="/html/category/article-660.htm">C/C++ 缓冲区问题、计时循环和基于范围的for循环</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-785.htm" title="C语言程序设计——用户密码输入与判断">C语言程序设计——用户密码输入与判断</a></li>
+                        <li class="py-2"><a href="/html/category/article-744.htm" title="Django项目引入NPM和gulp管理前端资源">Django项目引入NPM和gulp管理前端资源</a></li>
+                        <li class="py-2"><a href="/html/category/article-748.htm" title="Halo 开源项目学习实体类与数据表">Halo 开源项目学习实体类与数据表</a></li>
+                        <li class="py-2"><a href="/html/category/article-747.htm" title="Istio实践流量控制及服务间调用">Istio实践流量控制及服务间调用</a></li>
+                        <li class="py-2"><a href="/html/category/article-749.htm" title="vue @component继承的一些知识点详解">vue @component继承的一些知识点详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-738.htm" title="通过源码了解Java的自动装箱拆箱">通过源码了解Java的自动装箱拆箱</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-772.htm" title="如何在代码层面提高CPU分支预测效率">如何在代码层面提高CPU分支预测效率</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-759.htm" title="golang中的panic">golang中的panic</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-610.htm" />
+    <title>netty系列之:netty中的核心MessageToMessage编码器 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>netty系列之:netty中的核心MessageToMessage编码器</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div class="toc"> <div class="toc-container-header">目录</div> <ul> <li><a href="#%E7%AE%80%E4%BB%8B" rel="nofollow">简介</a></li> <li><a href="#%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B" rel="nofollow">框架简介</a></li> <li><a href="#messagetomessageencoder" rel="nofollow">MessageToMessageEncoder</a></li> <li><a href="#messagetomessagedecoder" rel="nofollow">MessageToMessageDecoder</a></li> <li><a href="#messagetomessagecodec" rel="nofollow">MessageToMessageCodec</a></li> <li><a href="#%E6%80%BB%E7%BB%93" rel="nofollow">总结</a></li> </ul> </div> <h1 id="简介">简介</h1> <p>在netty中我们需要传递各种类型的消息，这些message可以是字符串，可以是数组，也可以是自定义的对象。不同的对象之间可能需要互相转换，这样就需要一个可以自由进行转换的转换器，为了统一编码规则和方便用户的扩展，netty提供了一套消息之间进行转换的框架。本文将会讲解这个框架的具体实现。</p> <h1 id="框架简介">框架简介</h1> <p>netty为消息和消息之间的转换提供了三个类，这三个类都是抽象类，分别是MessageToMessageDecoder,MessageToMessageEncoder和MessageToMessageCodec。</p> <p>先来看下他们的定义：</p> <pre><code>public abstract class MessageToMessageEncoder&lt;I&gt; extends ChannelOutboundHandlerAdapter</code></pre> <pre><code>public abstract class MessageToMessageDecoder&lt;I&gt; extends ChannelInboundHandlerAdapter</code></pre> <pre><code>public abstract class MessageToMessageCodec&lt;INBOUND_IN, OUTBOUND_IN&gt; extends ChannelDuplexHandler</code></pre> <p>MessageToMessageEncoder继承自ChannelOutboundHandlerAdapter，负责向channel中写消息。</p> <p>MessageToMessageDecoder继承自ChannelInboundHandlerAdapter，负责从channel中读取消息。</p> <p>MessageToMessageCodec继承自ChannelDuplexHandler，它是一个双向的handler，可以从channel中读取消息，也可以向channel中写入消息。</p> <p>有了这三个抽象类，我们再看下这三个类的具体实现。</p> <h1 id="messagetomessageencoder">MessageToMessageEncoder</h1> <p>先看一下消息的编码器MessageToMessageEncoder，编码器中最重要的方法就是write,看下write的实现：</p> <pre><code>    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {         CodecOutputList out = null;         try {             if (acceptOutboundMessage(msg)) {                 out = CodecOutputList.newInstance();                 @SuppressWarnings("unchecked")                 I cast = (I) msg;                 try {                     encode(ctx, cast, out);                 } finally {                     ReferenceCountUtil.release(cast);                 }                  if (out.isEmpty()) {                     throw new EncoderException(                             StringUtil.simpleClassName(this) + " must produce at least one message.");                 }             } else {                 ctx.write(msg, promise);             }         } catch (EncoderException e) {             throw e;         } catch (Throwable t) {             throw new EncoderException(t);         } finally {             if (out != null) {                 try {                     final int sizeMinusOne = out.size() - 1;                     if (sizeMinusOne == 0) {                         ctx.write(out.getUnsafe(0), promise);                     } else if (sizeMinusOne &gt; 0) {                         if (promise == ctx.voidPromise()) {                             writeVoidPromise(ctx, out);                         } else {                             writePromiseCombiner(ctx, out, promise);                         }                     }                 } finally {                     out.recycle();                 }             }         }     }</code></pre> <p>write方法接受一个需要转换的原始对象msg，和一个表示channel读写进度的ChannelPromise。</p> <p>首先会对msg进行一个类型判断，这个判断方法是在acceptOutboundMessage中实现的。</p> <pre><code>    public boolean acceptOutboundMessage(Object msg) throws Exception {         return matcher.match(msg);     }</code></pre> <p>这里的matcher是一个TypeParameterMatcher对象，它是一个在MessageToMessageEncoder构造函数中初始化的属性：</p> <pre><code>    protected MessageToMessageEncoder() {         matcher = TypeParameterMatcher.find(this, MessageToMessageEncoder.class, "I");     }</code></pre> <p>这里的I就是要匹配的msg类型。</p> <p>如果不匹配，则继续调用<code>ctx.write(msg, promise);</code> 将消息不做任何转换的写入到channel中，供下一个handler调用。</p> <p>如果匹配成功，则会调用核心的encode方法:<code>encode(ctx, cast, out);</code></p> <p>注意，encode方法在MessageToMessageEncoder中是一个抽象方法，需要用户在继承类中自行扩展。</p> <p>encode方法实际上是将msg对象转换成为要转换的对象，然后添加到out中。这个out是一个list对象，具体而言是一个CodecOutputList对象，作为一个list，out是一个可以存储多个对象的列表。</p> <p>那么out是什么时候写入到channel中去的呢？</p> <p>别急，在write方法中最后有一个finally代码块，在这个代码块中，会将out写入到channel里面。</p> <p>因为out是一个List，可能会出现out中的对象部分写成功的情况，所以这里需要特别处理。</p> <p>首先判断out中是否只有一个对象，如果是一个对象，那么直接写到channel中即可。如果out中多于一个对象，那么又分成两种情况，第一种情况是传入的promise是一个voidPromise，那么调用writeVoidPromise方法。</p> <p>什么是voidPromise呢?</p> <p>我们知道Promise有多种状态，可以通过promise的状态变化了解到数据写入的情况。对于voidPromise来说，它只关心一种失败的状态，其他的状态都不关心。</p> <p>如果用户关心promise的其他状态，则会调用writePromiseCombiner方法，将多个对象的状态合并为一个promise返回。</p> <p>事实上，在writeVoidPromise和writePromiseCombiner中，out中的对象都是一个一个的取出来，写入到channel中的,所以才会生成多个promise和需要将promise进行合并的情况：</p> <pre><code>    private static void writeVoidPromise(ChannelHandlerContext ctx, CodecOutputList out) {         final ChannelPromise voidPromise = ctx.voidPromise();         for (int i = 0; i &lt; out.size(); i++) {             ctx.write(out.getUnsafe(i), voidPromise);         }     }      private static void writePromiseCombiner(ChannelHandlerContext ctx, CodecOutputList out, ChannelPromise promise) {         final PromiseCombiner combiner = new PromiseCombiner(ctx.executor());         for (int i = 0; i &lt; out.size(); i++) {             combiner.add(ctx.write(out.getUnsafe(i)));         }         combiner.finish(promise);     }</code></pre> <h1 id="messagetomessagedecoder">MessageToMessageDecoder</h1> <p>和encoder对应的就是decoder了，MessageToMessageDecoder的逻辑和MessageToMessageEncoder差不多。</p> <p>首先也是需要判断读取的消息类型，这里也定义了一个TypeParameterMatcher对象，用来检测传入的消息类型：</p> <pre><code>    protected MessageToMessageDecoder() {         matcher = TypeParameterMatcher.find(this, MessageToMessageDecoder.class, "I");     }</code></pre> <p>decoder中重要的方法是channelRead方法，我们看下它的实现：</p> <pre><code>    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {         CodecOutputList out = CodecOutputList.newInstance();         try {             if (acceptInboundMessage(msg)) {                 @SuppressWarnings("unchecked")                 I cast = (I) msg;                 try {                     decode(ctx, cast, out);                 } finally {                     ReferenceCountUtil.release(cast);                 }             } else {                 out.add(msg);             }         } catch (DecoderException e) {             throw e;         } catch (Exception e) {             throw new DecoderException(e);         } finally {             try {                 int size = out.size();                 for (int i = 0; i &lt; size; i++) {                     ctx.fireChannelRead(out.getUnsafe(i));                 }             } finally {                 out.recycle();             }         }     }</code></pre> <p>首先检测msg的类型，只有接受的类型才进行decode处理，否则将msg加入到CodecOutputList中。</p> <p>最后在finally代码块中将out中的对象一个个取出来，调用ctx.fireChannelRead进行读取。</p> <p>消息转换的关键方法是decode，这个方法也是一个抽象方法，需要在继承类中实现具体的功能。</p> <h1 id="messagetomessagecodec">MessageToMessageCodec</h1> <p>前面讲解了一个编码器和一个解码器，他们都是单向的。最后要讲解的codec叫做MessageToMessageCodec，这个codec是一个双向的，即可以接收消息，也可以发送消息。</p> <p>先看下它的定义：</p> <pre><code>public abstract class MessageToMessageCodec&lt;INBOUND_IN, OUTBOUND_IN&gt; extends ChannelDuplexHandler</code></pre> <p>MessageToMessageCodec继承自ChannelDuplexHandler，接收两个泛型参数分别是INBOUND_IN和OUTBOUND_IN。</p> <p>它定义了两个TypeParameterMatcher，分别用来过滤inboundMsg和outboundMsg:</p> <pre><code>    protected MessageToMessageCodec() {         inboundMsgMatcher = TypeParameterMatcher.find(this, MessageToMessageCodec.class, "INBOUND_IN");         outboundMsgMatcher = TypeParameterMatcher.find(this, MessageToMessageCodec.class, "OUTBOUND_IN");     }</code></pre> <p>分别实现了channelRead和write方法，用来读写消息：</p> <pre><code>    @Override     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {         decoder.channelRead(ctx, msg);     }      @Override     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {         encoder.write(ctx, msg, promise);     }</code></pre> <p>这里的decoder和encoder实际上就是前面我们讲到的MessageToMessageDecoder和MessageToMessageEncoder:</p> <pre><code>    private final MessageToMessageEncoder&lt;Object&gt; encoder = new MessageToMessageEncoder&lt;Object&gt;() {          @Override         public boolean acceptOutboundMessage(Object msg) throws Exception {             return MessageToMessageCodec.this.acceptOutboundMessage(msg);         }          @Override         @SuppressWarnings("unchecked")         protected void encode(ChannelHandlerContext ctx, Object msg, List&lt;Object&gt; out) throws Exception {             MessageToMessageCodec.this.encode(ctx, (OUTBOUND_IN) msg, out);         }     };      private final MessageToMessageDecoder&lt;Object&gt; decoder = new MessageToMessageDecoder&lt;Object&gt;() {          @Override         public boolean acceptInboundMessage(Object msg) throws Exception {             return MessageToMessageCodec.this.acceptInboundMessage(msg);         }          @Override         @SuppressWarnings("unchecked")         protected void decode(ChannelHandlerContext ctx, Object msg, List&lt;Object&gt; out) throws Exception {             MessageToMessageCodec.this.decode(ctx, (INBOUND_IN) msg, out);         }     };</code></pre> <p>可以看到MessageToMessageCodec实际上就是对MessageToMessageDecoder和MessageToMessageEncoder的封装，如果需要对MessageToMessageCodec进行扩展的话，需要实现下面两个方法：</p> <pre><code>    protected abstract void encode(ChannelHandlerContext ctx, OUTBOUND_IN msg, List&lt;Object&gt; out)             throws Exception;      protected abstract void decode(ChannelHandlerContext ctx, INBOUND_IN msg, List&lt;Object&gt; out)             throws Exception;</code></pre> <h1 id="总结">总结</h1> <p>netty中提供的MessageToMessage的编码框架是后面对编码解码器进行扩展的基础。只有深入了解其中的原理，我们对于新的编码解码器运用起来才能得心应手。</p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-609.htm">vue3-setup中使用mapState</a></p>
+                                                <p>下一个：<a href="/html/category/article-611.htm">Vue导航栏，基于elementUI的导航菜单树</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-772.htm" title="如何在代码层面提高CPU分支预测效率">如何在代码层面提高CPU分支预测效率</a></li>
+                        <li class="py-2"><a href="/html/category/article-767.htm" title="超详细，Python 多线程总结的太到位了">超详细，Python 多线程总结的太到位了</a></li>
+                        <li class="py-2"><a href="/html/category/article-737.htm" title="win11系统找不到网络路径如何解决">win11系统找不到网络路径如何解决</a></li>
+                        <li class="py-2"><a href="/html/category/article-764.htm" title="SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法">SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法</a></li>
+                        <li class="py-2"><a href="/html/category/article-783.htm" title="Vue中所有的v-指令">Vue中所有的v-指令</a></li>
+                        <li class="py-2"><a href="/html/category/article-735.htm" title="机器学习笔记：Python底层实现KNN">机器学习笔记：Python底层实现KNN</a></li>
+                        <li class="py-2"><a href="/html/category/article-740.htm" title="python中repr()函数用法详解">python中repr()函数用法详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-746.htm" title="云环境下集合隐私计算-解读">云环境下集合隐私计算-解读</a></li>
+                        <li class="py-2"><a href="/html/category/article-785.htm" title="C语言程序设计——用户密码输入与判断">C语言程序设计——用户密码输入与判断</a></li>
+                        <li class="py-2"><a href="/html/category/article-782.htm" title="Spring Cloud Config 配置中心(用途、使用、加解密)">Spring Cloud Config 配置中心(用途、使用、加解密)</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

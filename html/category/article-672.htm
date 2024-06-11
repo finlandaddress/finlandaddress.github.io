@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-672.htm" />
+    <title>python里函数怎么样使用元组或字典作为参数调用 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>python里函数怎么样使用元组或字典作为参数调用</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="htmledit_views"> <p>在原来python2里有一个函数apply来做这种事情，如下：</p> <p></p> <pre><code class="language-python"># File: builtin-apply-example-1.py  def function(a, b):     print a, b  apply(function, ("whither", "canada?")) apply(function, (1, 2 + 3))</code></pre> <p></p> <pre><code class="language-python"># File: builtin-apply-example-2.py  def function(a, b):     print a, b  apply(function, ("crunchy", "frog")) apply(function, ("crunchy",), {"b": "frog"}) apply(function, (), {"a": "crunchy", "b": "frog"})</code></pre> <p>现在换成python3了，就不能这样使用了，因为这个函数已经不再使用了。那么怎么办呢？</p> <p>可以如下调用：</p> <pre><code class="language-python"># File: builtin-apply-example-1.py  def function(a, b):     print(a, b)  #apply(function, ("whither", "canada?")) #apply(function, (1, 2 + 3)) function(*("whither", "canada?")) function(*(1, 2 + 3))</code></pre> <p></p> <pre><code class="language-python"># File: builtin-apply-example-1.py  def function(a, b):     print(a, b)  #apply(function, ("whither", "canada?")) #apply(function, (1, 2 + 3)) function(*("whither", "canada?")) function(*(1, 2 + 3)) function(**{"a": "crunchy", "b": "frog"})</code></pre> <p>可以看到采用*元组、**字典的方式调用。</p> <h3 style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial;"><span style="font-size: 18px;"><span style="font-weight: normal;"><span style="font-family: SimSun;">Python游戏开发入门</span></span></span></h3> <div style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px;">  <span style="font-size: 18px;"><span style="font-family: SimSun;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/5690"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/5690</a><br /></span></span> </div> <h3 style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial;"> <a target="_blank" name="t7" style="color: rgb(51, 102, 153);" rel="nofollow"></a><span style="font-size: 18px;"><span style="font-weight: normal;"><span style="font-family: SimSun;">你也能动手修改C编译器</span></span></span><br /> </h3> <div style="color: rgb(51, 51, 51); font-family: Arial; font-size: 14px;">  <span style="font-size: 18px;"><span style="font-family: SimSun;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/5582"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/5582</a><br /></span></span> </div> <h3 style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial;"> <a target="_blank" name="t8" style="color: rgb(51, 102, 153);" rel="nofollow"></a><span style="font-size: 18px;"><span style="font-weight: normal;"><span style="font-family: SimSun;">纸牌游戏开发</span></span></span><br /> </h3> <h3 style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial;"> <a target="_blank" name="t9" style="color: rgb(51, 102, 153);" rel="nofollow"></a><span style="font-size: 18px;"><span style="font-weight: normal;"><span style="font-family: SimSun;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/5538"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/5538&nbsp;</a></span></span></span><br /> </h3> <h3 style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial;"> <a target="_blank" name="t10" style="color: rgb(51, 102, 153);" rel="nofollow"></a><span style="font-size: 18px;"><span style="font-weight: normal;"><span style="font-family: SimSun;">五子棋游戏开发<br /></span></span></span><br /> </h3> <h3 style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial;"> <span style="font-size: 18px;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/5487"  style="color: rgb(51, 102, 153); text-decoration-line: none; font-weight: normal;" rel="nofollow">http://edu.csdn.net/course/detail/5487<br /></a></span><span style="font-weight: normal;"><span style="font-family: SimSun;"><span style="font-size: 18px;">RPG游戏从入门到精通<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/5246"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/5246</a></span></span><span style="font-size: 18px;"><br /></span><span style="font-size: 18px;"><span style="font-weight: normal;">WiX安装工具的使用</span><br /></span><span style="font-weight: normal;"><span style="font-family: SimSun;"><span style="font-size: 18px;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/5207"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/5207<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">俄罗斯方块游戏开发<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/5110"  style="color: rgb(51, 102, 153); text-decoration-line: none; font-weight: normal;" rel="nofollow">http://edu.csdn.net/course/detail/5110<br /></a></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">boost库入门基础<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/5029"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/5029<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">Arduino入门基础<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/4931"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/4931<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">Unity5.x游戏基础入门<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/4810"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/4810<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">TensorFlow API攻略<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/4495"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/4495<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">TensorFlow入门基本教程<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/4369"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/4369<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">C++标准模板库从入门到精通&nbsp;<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/3324"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/3324<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">跟老菜鸟学C++<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/2901"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/2901<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">跟老菜鸟学python<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/2592"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/2592<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">在VC2015里学会使用tinyxml库<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/2590"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/2590<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">在Windows下SVN的版本管理与实战&nbsp;<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/2579"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/2579<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">Visual Studio 2015开发C++程序的基本使用&nbsp;<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/2570"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/2570<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">在VC2015里使用protobuf协议<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/2582"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/2582<br /></a></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;">在VC2015里学会使用MySQL数据库<br /></span></span></span><span style="font-family: SimSun;"><span style="font-size: 18px;"><span style="font-weight: normal;"><a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://edu.csdn.net/course/detail/2672"  style="color: rgb(51, 102, 153); text-decoration-line: none;" rel="nofollow">http://edu.csdn.net/course/detail/2672</a></span></span></span></h3> </p></div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-671.htm">适合初学者的C语言字符串讲解_C 语言_</a></p>
+                                                <p>下一个：<a href="/html/category/article-673.htm">java使用poi生成excel</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-771.htm" title="win11系统如何进入高级启动">win11系统如何进入高级启动</a></li>
+                        <li class="py-2"><a href="/html/category/article-759.htm" title="golang中的panic">golang中的panic</a></li>
+                        <li class="py-2"><a href="/html/category/article-746.htm" title="云环境下集合隐私计算-解读">云环境下集合隐私计算-解读</a></li>
+                        <li class="py-2"><a href="/html/category/article-783.htm" title="Vue中所有的v-指令">Vue中所有的v-指令</a></li>
+                        <li class="py-2"><a href="/html/category/article-767.htm" title="超详细，Python 多线程总结的太到位了">超详细，Python 多线程总结的太到位了</a></li>
+                        <li class="py-2"><a href="/html/category/article-773.htm" title="C ++中的最大和圆子数组">C ++中的最大和圆子数组</a></li>
+                        <li class="py-2"><a href="/html/category/article-782.htm" title="Spring Cloud Config 配置中心(用途、使用、加解密)">Spring Cloud Config 配置中心(用途、使用、加解密)</a></li>
+                        <li class="py-2"><a href="/html/category/article-733.htm" title="vue的router-link的replace属性&amp;编程式路由导航&amp;缓存路由组件&amp;两个新的生命周期钩子&amp;路由守卫">vue的router-link的replace属性&amp;编程式路由导航&amp;缓存路由组件&amp;两个新的生命周期钩子&amp;路由守卫</a></li>
+                        <li class="py-2"><a href="/html/category/article-758.htm" title="Spring Security 一键接入验证码登录和小程序登录">Spring Security 一键接入验证码登录和小程序登录</a></li>
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

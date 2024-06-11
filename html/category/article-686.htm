@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-686.htm" />
+    <title>vue中modal传输数据并刷新部分页面数据方式_vue.js - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>vue中modal传输数据并刷新部分页面数据方式_vue.js</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">modal传输数据刷新部分页面数据</a></li> <li><a href="#_label1" rel="nofollow">vue中modal数据管理</a></li> <ul class="second_class_ul"> <li><a href="#_lab2_1_0" rel="nofollow">完全不封装的Modal代码示例</a></li> <li><a href="#_lab2_1_1" rel="nofollow">将Modal及其数据封装成组件</a></li> <li><a href="#_lab2_1_2" rel="nofollow">将Modal数据进行完全封装</a></li> </ul> </ul> </div> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>modal传输数据刷新部分页面数据</h2> <p>在modal中传入数据至页面，并且页面刷新。</p> <p><strong>我在网上看到了 vue的几种页面传值方式</strong></p> <p>下面展示一些 内联代码片</p> <div class="ay1code"> <pre class="brush:js;">//$ router  this.$router.push({ query: { ids: record.id } })</pre> </div> <p>这种方式会刷新整个页面</p> <div class="ay1code"> <pre class="brush:js;">// router-link  &lt;router-link :to="{ name: 'jeecg-ChildStatistics',query:{ids:record.id} } "&gt;</pre> </div> <p>这种属于一个页面跳转到另一个页面并传值，于是使用后还要去关闭modal并手动刷新才能看到穿过去的参数</p> <p><strong>后面在网上找到了 监听的方式来实现</strong></p> <p>下面展示一些 内联代码片。</p> <div class="ay1code"> <pre class="brush:js;">// A code block  var foo = 'bar';</pre> </div> <div class="ay1code"> <pre class="brush:js;">  // An highlighted block   methods:{        fetchData(){             console.log('路由发送变化doing...');       }    },    created() {          var self = this;          self.fetchData();    },    watch:{        '$route':'fetchData'    },</pre> </div> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>vue中modal数据管理</h2> <p>在编写页面时经常会使用各组件库的Modal组件。一般Modal组件管理的数据非常多，通常一个页面中有多个Modal，如果不将各个Modal封装成组件的话，数据堆砌在主页面将使得代码难以阅读。但是封装也是一门学问。</p> <p class="maodian"><a name="_lab2_1_0" rel="nofollow"></a></p> <h3>完全不封装的Modal代码示例</h3> <p>当在主页面管理编写Modal及管理数据时，当有多个Modal时会使得数据繁杂混乱，难以阅读。</p> <div class="ay1code"> <pre class="brush:xhtml;">&lt;template&gt;    &lt;div&gt;      &lt;Modal v-model="modal1"&gt;        {{ data1 + data2 + data3 }}      &lt;/Modal&gt;      &lt;Modal v-model="modal1"&gt;        {{ data1 + data2 + data3 }}      &lt;/Modal&gt;    &lt;/div&gt;  &lt;/template&gt;</pre> </div> <div class="ay1code"> <pre class="brush:js;">&lt;script&gt;  export default {    name: "ModalTest",    data() {      return {        modal1: false,        data1: 1,        data2: 2,        data3: 3,        modal2: false,        data4: 1,        data5: 2,        data6: 3,      };    },    methods: {      getData() {        reqest("http://api",{params:1}).then((res) =&gt; {          this.data1 = res.data;          this.modal1 = true;        });      },      getData2() {        reqest("http://api",{params:2}).then((res) =&gt; {          this.data5 = res.data;          this.modal2 = true;        });      },    },  };  &lt;/script&gt;</pre> </div> <p class="maodian"><a name="_lab2_1_1" rel="nofollow"></a></p> <h3>将Modal及其数据封装成组件</h3> <p>如下封装虽好，但是modal1、modal2，data1，data5以及数据请求方法的管理依然留在主页面，代码多起来后，依然显得混乱。</p> <div class="ay1code"> <pre class="brush:xhtml;">&lt;template&gt;    &lt;div&gt;      &lt;modal-1 :modal1='modal1' :data1='data1'/&gt;      &lt;modal-1 :modal2='modal2' :data5='data5'/&gt;    &lt;/div&gt;  &lt;/template&gt;</pre> </div> <div class="ay1code"> <pre class="brush:js;">&lt;script&gt;  import modal1 from './modal1.vue';  import modal2 from './modal2.vue';  export default {    name: "ModalTest",    comments:{modal1,modal2},    data() {      return {        modal1: false,        data1: 1,        modal2: false,        data5: 2,      };    },    methods: {      getData() {        reqest("http://api", { params: 1 }).then((res) =&gt; {          this.data1 = res.data;          this.modal1 = true;        });      },      getData2() {        reqest("http://api", { params: 2 }).then((res) =&gt; {          this.data5 = res.data;          this.modal2 = true;        });      },    },  };  &lt;/script&gt;</pre> </div> <div class="ay1code"> <pre class="brush:xhtml;">&lt;template&gt;    &lt;Modal v-model="modal1"&gt;      {{ data1 + data2 + data3 }}    &lt;/Modal&gt;  &lt;/template&gt;  </pre> </div> <div class="ay1code"> <pre class="brush:js;">&lt;script&gt;  export default {    name:'modal1',    prop:{      data1:Number,      modal1:Boolean,    },    data() {      return {        data2:2,        data3:3,      }    }  }  &lt;/script&gt;</pre> </div> <p class="maodian"><a name="_lab2_1_2" rel="nofollow"></a></p> <h3>将Modal数据进行完全封装</h3> <p>最好的封装是将数据请求与其他所有数据都进行封装。由父组件调用子组件的方法。</p> <div class="ay1code"> <pre class="brush:xhtml;">&lt;template&gt;    &lt;div&gt;      &lt;modal-1 ref="modal1"/&gt;      &lt;modal-1 ref="modal2"/&gt;    &lt;/div&gt;  &lt;/template&gt;</pre> </div> <div class="ay1code"> <pre class="brush:js;">&lt;script&gt;  import modal1 from './modal1.vue';  import modal2 from './modal2.vue';  export default {    name: "ModalTest",    comments:{modal1,modal2},    methods: {      getData() {        this.$refs.modal1.getData(1);        this.$refs.modal2.getData(2);      },    },  };  &lt;/script&gt;</pre> </div> <div class="ay1code"> <pre class="brush:xhtml;">&lt;template&gt;    &lt;Modal v-model="modal1"&gt;      {{ data1 + data2 + data3 }}    &lt;/Modal&gt;  &lt;/template&gt;</pre> </div> <div class="ay1code"> <pre class="brush:js;">&lt;script&gt;  export default {    name:'modal1',    data() {      return {        modal1:false,        data1:1,        data2:2,        data3:3,      }    },    methods: {       getData(params) {        reqest("http://api", { params: params }).then((res) =&gt; {          this.data1 = res.data;          this.modal1 = true;        });      },    },  }  &lt;/script&gt;</pre> </div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-685.htm">MyBatis-Plus之多租户架构(Multi-tenancy)——SAAS</a></p>
+                                                <p>下一个：<a href="/html/category/article-687.htm">【C++】类和对象 — 初识类和对象（上篇）</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-780.htm" title="@RequestBody某些属性值得不到">@RequestBody某些属性值得不到</a></li>
+                        <li class="py-2"><a href="/html/category/article-747.htm" title="Istio实践流量控制及服务间调用">Istio实践流量控制及服务间调用</a></li>
+                        <li class="py-2"><a href="/html/category/article-743.htm" title="EditText 不显示光标  光标消失">EditText 不显示光标  光标消失</a></li>
+                        <li class="py-2"><a href="/html/category/article-754.htm" title="手把手带你入门链表的基本操作及其优化">手把手带你入门链表的基本操作及其优化</a></li>
+                        <li class="py-2"><a href="/html/category/article-775.htm" title="toString()、new String()和(String) 、String.ValueOf()的区别">toString()、new String()和(String) 、String.ValueOf()的区别</a></li>
+                        <li class="py-2"><a href="/html/category/article-756.htm" title="java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息">java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息</a></li>
+                        <li class="py-2"><a href="/html/category/article-787.htm" title="微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习">微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习</a></li>
+                        <li class="py-2"><a href="/html/category/article-766.htm" title="Java：线程的三种中断方式">Java：线程的三种中断方式</a></li>
+                        <li class="py-2"><a href="/html/category/article-741.htm" title="Spring 5 中文解析数据存储篇-JDBC数据存储(下)">Spring 5 中文解析数据存储篇-JDBC数据存储(下)</a></li>
+                        <li class="py-2"><a href="/html/category/article-765.htm" title="如何在MySQL DATEDIFF()函数中使用两位数的年份值？">如何在MySQL DATEDIFF()函数中使用两位数的年份值？</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

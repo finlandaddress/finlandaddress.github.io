@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-607.htm" />
+    <title>Go 1.18泛型的局限性初探 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Go 1.18泛型的局限性初探</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<h2 id="前言">前言</h2> <p>Go 1.18 版本之后正式引入泛型，它被称作类型参数（type parameters），本文初步介绍 Go 中泛型的使用。长期以来 go 都没有泛型的概念，只有接口 interface 偶尔类似的充当泛型的作用，然而接口终究无法满足一些基本的泛型需求，比如这篇文章里，我们会尝试用 Go 的泛型循序渐进地实现一些常见的函数式特性，从而探索 Go 泛型的优势和不足。</p> <h2 id="go-118">Go 1.18</h2> <p>在 Go1.18 可以通过如下命令安装体验:</p> <pre><code class="language-sh">go install golang.org/dl/go1.18@latest go1.18 download</code></pre> <h2 id="例1-泛型版本的求和函数">例1: 泛型版本的求和函数</h2> <pre><code class="language-go">import ( 	"golang.org/x/exp/constraints" )  func Sum[T constraints.Integer](values ...T) T { 	var sum T 	for _, v := range values { 		sum += v 	} 	return sum }</code></pre> <blockquote> <p>constraints 原本是放在标准库的包，但是近期被移除了，改到了 x/exp 中，参见<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/golang/go/issues/50792"  target="_blank" rel="nofollow">#50792</a></p> </blockquote> <p>这个版本实现了对任意多个同类型的整数求和。Sum 后面的中括号 [] 内就是定义类型参数的地方，其中 T 为类型参数名，constraints.Integer 是对该类型参数的约束，即 T 应该满足的条件，在这里我们要求 T 是一个整数。剩下的代码就和普通没有泛型的代码一致了，只不过后面 T 可以当作一个类型来使用。</p> <h3 id="泛型语法">泛型语法</h3> <ul> <li> <p>函数名后可以附带一个方括号，包含了该函数涉及的类型参数（Type Paramters）的列表：<code>func F[T any](p T) { ... }</code></p> </li> <li> <p>这些类型参数可以在函数参数和函数体中（作为类型）被使用</p> </li> <li> <p>自定义类型也可以有类型参数列表：<code>type M[T any] []T</code></p> </li> <li> <p>每个类型参数对应一个类型约束，上述的 any 就是预定义的匹配任意类型的约束</p> </li> <li> <p>类型约束在语法上以 interface 的形式存在，在 interface 中嵌入类型 T 可以表示这个类型必须是 T:</p> </li> </ul> <pre><code class="language-go">type Integer1 interface {     int }</code></pre> <ul> <li>嵌入单个类型意义不大，我们可以用 | 来描述类型的 union:</li> </ul> <pre><code class="language-go">type Integer2 interface {     int ｜ int8 | int16 | int32 | int64 }</code></pre> <ul> <li>~T 语法可以表示该类型的「基础类型」是 T，比如说我们的自定义类型 type MyInt int 不满足上述的 Integer1 约束，但满足以下的约束:</li> </ul> <pre><code class="language-go">type Integer3 interface {     ~int }</code></pre> <h2 id="高阶函数实例">高阶函数实例</h2> <p>filter 操作是高阶函数的经典应用，它接受一个函数<code>f（func (T) bool）</code>和一个线性表<code> l（[] T）</code>，对 l 中的每个元素应用函数<code>f</code>，如结果为<code>true</code>，则将该元素加入新的线性表里，否则丢弃该元素，最后返回新的线性表。</p> <pre><code class="language-go">func Filter[T any](f func(T) bool, src []T) []T {         var dst []T         for _, v := range src {                 if f(v) {                         dst = append(dst, v)                 }         }         return dst }  func main() {         src := []int{-2, -1, -0, 1, 2}         dst := Filter(func(v int) bool { return v &gt;= 0 }, src)         fmt.Println(dst) } // Output: // [0 1 2]</code></pre> <h2 id="让人开心的改变--">让人开心的改变 : )</h2> <h3 id="实现一个三元操作">实现一个三元操作</h3> <p>众所周知Go语言不支持三元运算符操作，现在有了泛型，让我们来模拟一个:</p> <pre><code class="language-go">// IFF if yes return a else b func IFF[T any](yes bool, a, b T) T { 	if yes { 		return a 	} 	return b }  // IFN if yes return func, a() else b(). func IFN[T any](yes bool, a, b func() T) T { 	if yes { 		return a() 	} 	return b() }  func main() {         a := -1 	assert.Equal(t, utils.IFF(a &gt; 0, a, 0), 0) 	assert.Equal(t, utils.IFN(a &gt; 0, func() int { return a }, func() int { return 0 }), 0) }</code></pre> <h2 id="令人沮丧-">令人沮丧 ????</h2> <h3 id="泛型类型系统的不足">泛型类型系统的不足</h3> <p>众多函数式特性的实现依赖于一个强大类型系统，Go 的类型系统显然不足以胜任, 在 Go 语言中引入泛型之后，类型系统有哪些水土不服的地方。</p> <h3 id="编译期类型判断">编译期类型判断</h3> <p>当我们在写一段泛型代码里的时候，有时候会需要根据 T 实际上的类型决定接下来的流程，可 Go 的完全没有提供在编译期操作类型的能力。运行期的 workaround 当然有，怎么做呢：将 T 转化为<code>interface{}</code>，然后做一次 type assertion, 比如我想实现一个通用的字符串类型到数字类型的转换函数:</p> <pre><code class="language-go">import "strconv"  type Number interface { 	int | int32 | int64 | uint32 | uint64 | float64 }  func Str2Number[N Number](strNumber string) (N, error) { 	var num N 	switch (interface{})(num).(type) { 	case int: 		cn, err := strconv.Atoi(strNumber) 		return N(cn), err 	case int32: 		cn, err := strconv.ParseInt(strNumber, 10, 32) 		return N(cn), err 	case int64: 		cn, err := strconv.ParseInt(strNumber, 10, 64) 		return N(cn), err 	case uint32: 		cn, err := strconv.ParseUint(strNumber, 10, 32) 		return N(cn), err 	case uint64: 		cn, err := strconv.ParseUint(strNumber, 10, 64) 		return N(cn), err 	case float64: 		cn, err := strconv.ParseFloat(strNumber, 64) 		return N(cn), err 	} 	return 0, nil }</code></pre> <h3 id="无法辨认基础类型">无法辨认「基础类型」</h3> <p>在类型约束中可以用 ~T 的语法约束所有 基础类型为 T 的类型，这是 Go 在语法层面上首次暴露出「基础类型」的概念，在之前我们只能通过 reflect.(Value).Kind 获取。而在 type assertion 和 type switch 里并没有对应的语法处理「基础类型」:</p> <pre><code class="language-go">type Int interface {         ~int ｜ ~uint }  func IsSigned[T Int](n T) {         switch (interface{})(n).(type) {         case int:                 fmt.Println("signed")         default:                 fmt.Println("unsigned")         } }  func main() {         type MyInt int         IsSigned(1)         IsSigned(MyInt(1)) } // Output: // signed // unsigned</code></pre> <p>乍一看很合理，MyInt 确实不是 int。那我们要如何在函数不了解 MyInt 的情况下把它当 int 处理呢, 比较抱歉的是目前在1.18中没办法对这个进行处理。</p> <h3 id="类型约束不可用于-type-assertion">类型约束不可用于 type assertion</h3> <p>一个直观的想法是单独定义一个 Signed 约束，然后判断 T 是否满足 Signed:</p> <pre><code class="language-go">type Signed interface {         ~int }  func IsSigned[T Int](n T) {         if _, ok := (interface{})(n).(Signed); ok {                 fmt.Println("signed")         } else {                 fmt.Println("unsigned")         } }</code></pre> <p>但很可惜，类型约束不能用于 type assertion/switch，编译器报错如下：</p> <blockquote> <p>interface contains type constraints</p> </blockquote> <p>尽管让类型约束用于 type assertion 可能会引入额外的问题，但牺牲这个支持让 Go 的类型表达能力大大地打了折扣。</p> <h2 id="总结">总结</h2> <ul> <li> <p>确实可以实现部分函数式特性能以更通用的方式。</p> </li> <li> <p>灵活度比代码生成更高 ，用法更自然，但细节上的小问题很多。</p> </li> <li> <p>1.18 的泛型在引入 type paramters 语法之外并没有其他大刀阔斧的改变，导致泛型和这个语言的其他部分显得有些格格不入，也使得泛型的能力受限。 至少在 1.18 里，我们要忍受泛型中存在的种种不一致。</p> </li> <li> <p>受制于 Go 类型系统的表达能力，我们无法表示复杂的类型约束，自然也无法实现完备的函数式特性。</p> </li> </ul> <h2 id="推广">推广</h2> <p>推广下个人项目，目前也正在使用Go 1.18的特性也踩了很多坑：</p> <p>YoyoGo is a simple, light and fast , dependency injection based micro-service framework written in Go. Support Nacos ,Consoul ,Etcd ,Eureka ,kubernetes.</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/yoyofx/yoyogo"  target="_blank" rel="nofollow">https://github.com/yoyofx/yoyogo</a></p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-606.htm">vue组件之间相互传值和方法调用</a></p>
+                                                <p>下一个：<a href="/html/category/article-608.htm">机器学习-学习笔记(一) &#8211;&gt; （假设空间 &amp; 版本空间）及 归纳偏好_在线工具</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-748.htm" title="Halo 开源项目学习实体类与数据表">Halo 开源项目学习实体类与数据表</a></li>
+                        <li class="py-2"><a href="/html/category/article-765.htm" title="如何在MySQL DATEDIFF()函数中使用两位数的年份值？">如何在MySQL DATEDIFF()函数中使用两位数的年份值？</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-742.htm" title="聊聊 node 如何优雅地获取 mac 系统版本">聊聊 node 如何优雅地获取 mac 系统版本</a></li>
+                        <li class="py-2"><a href="/html/category/article-732.htm" title="在MySQL中，如何获取数字的二进制值的对应字符串表示形式？">在MySQL中，如何获取数字的二进制值的对应字符串表示形式？</a></li>
+                        <li class="py-2"><a href="/html/category/article-781.htm" title="一文搞定CompletableFuture并行处理，成倍缩短查询时间。">一文搞定CompletableFuture并行处理，成倍缩短查询时间。</a></li>
+                        <li class="py-2"><a href="/html/category/article-780.htm" title="@RequestBody某些属性值得不到">@RequestBody某些属性值得不到</a></li>
+                        <li class="py-2"><a href="/html/category/article-761.htm" title="springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题">springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-779.htm" title="vue中动态控制btn的disabled属性方式_vue.js">vue中动态控制btn的disabled属性方式_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-755.htm" title="第2章 图灵的计算王国">第2章 图灵的计算王国</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

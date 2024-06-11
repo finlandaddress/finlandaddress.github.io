@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-601.htm" />
+    <title>Java基础知识 29（同步代码块，同步方法，静态同步方法，Lock锁，死锁问题） - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Java基础知识 29（同步代码块，同步方法，静态同步方法，Lock锁，死锁问题）</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <h2> <a id="Java_29_0" rel="nofollow"></a>Java基础知识 29</h2> <p> 先回顾一下上节课讲的多个窗口共同卖票的问题，首先我们设置三个不同的线程来同步进行卖票，我们把所有的票数全部设置成静态变量，让这三个线程可以共享这些票。通过设置这个静态变量我们实现了三个窗口共同卖票的问题。但是现实生活中我们打开APP买票时，通常会有广告出现，这些就是线程睡眠的结果。这个线程睡眠可能就会导致共享出现问题，可能会出现0票，甚至还有-1票的问题。那么这是什么原因呢？其实这是由于三个线程之间是抢夺式调度模型，当有一个线程进入了子线程准备购票的时候，这个时候线程中只有1张票了；另一个线程也开始了进入线程准备购票，由于第一个线程进入以后还没有来得及将票数减1，第二个线程已经完成了所有操作，这个时候就会出现0票的情况，而第三个线程又抢先一步于第一个线程完成所有的操作，那么就会出现0票的情况。所以接下我们要研究的是如何解决这个问题？</p> <p>（1）出现了0张票或负数票的问题，原因：这是由于<strong>线程的随机性</strong>导致的。</p> <p>（2）出现了相同的票数，原因：这是由于<strong>线程的原子性</strong>导致的。</p> <p>原子性问题（不可分割性） 线程对（piao–不是一个原子性操作，他要对票这个变量进行读改写三个操作）</p> <p>出现线程安全问题符合三个条件：</p> <p>（1）是否为多线程环境</p> <p>（2）多个线程之间有没有共享数据</p> <p>（3）有没有多条语句在操作这个共享变量piao–</p> <p><strong>对于数据安全的问题，我们把有可能出现数据安全问题的代码使用同步代码块进行包裹。</strong></p> <h4> <a id="_20" rel="nofollow"></a>同步代码块</h4> <p>synchronized（对象）{<!-- --></p> <p> 放你认为有可能出现问题的代码；</p> <p>}</p> <p>锁：你可以用Java里面的任意一个对象来充当锁，多个线程要共享一把锁才能锁住。</p> <p>这个<strong>同步代码块能够保证数据的安全性的一个主要原因是这个对象要被定义成静态成员变量，才能被所有线程共享。需要这个对象被所有的线程所共享，这个对象其实就是一把锁，这个对象习惯叫作监视器。</strong></p> <p><strong>同步代码块的好处</strong>：同步的出现解决了多线程的安全问题。</p> <p><strong>同步代码块的弊端</strong>：当线程相当多时，因为每一个线程都会区判断同步上的锁，很耗费资源，无形中会降低程序的运行效率。</p> <pre><code>public class Mytest {     public static void main(String[] args) {         CellRunnable cellRunnable = new CellRunnable();         Thread thread1 = new Thread(cellRunnable, "窗口1：");         Thread thread2 = new Thread(cellRunnable, "窗口2：");         Thread thread3 = new Thread(cellRunnable, "窗口3：");         thread1.start();         thread2.start();         thread3.start();     } } ---------------------------------- public class CellRunnable implements Runnable{     //这些票让三个线程共享     static int piao=100;     //确保这个锁对象只有一个，多个线程共用一把锁     static Object obj=new Object();     @Override     public void run() {         while (true){             synchronized (obj){                 //当线程1进来同步代码块后，就持有了这个锁，其他线程没有持有锁，那么就处于等待状态，等待在同步代码块的外面。                 if (piao&gt;=1){                     try {                         Thread.sleep(50);                     } catch (InterruptedException e) {                         e.printStackTrace();                     }                     System.out.println(Thread.currentThread().getName()+"正在出售第："+(piao--)+"张票");                 }             }             //执行完了，出了同步代码块，就会释放锁。释放锁了之后，多个线程再去争抢CPU的时间片         }     } } </code></pre> <h4> <a id="_74" rel="nofollow"></a>同步方法</h4> <p><strong>我们可以把一个方法用synchronized这个关键字修饰，来封装一段代码解决线程安全问题。</strong></p> <p><strong>同步方法使用的锁对象是this（隐含对象）。</strong></p> <pre><code>public class Mytest {     public static void main(String[] args) {         CellRunnable cellRunnable = new CellRunnable();         Thread thread1 = new Thread(cellRunnable, "窗口1：");         Thread thread2 = new Thread(cellRunnable, "窗口2：");         Thread thread3 = new Thread(cellRunnable, "窗口3：");         thread1.start();         thread2.start();         thread3.start();     } } ---------------------------------- public class CellRunnable implements Runnable{     //这些票让三个线程共享     static int piao=100;     //确保这个锁对象只有一个，多个线程共用一把锁     static Object obj=new Object();     int i=1;     @Override     public void run() {         while (true){             if (i%2==0){                 //由于同步方法的锁对象默认是this，同步代码块和同步方法使用的锁不是同一个锁，                 // 因为我们要将其改成同一个锁对象。                 synchronized (this){                     //当线程1进来同步代码块后，就持有了这个锁，其他线程没有持有锁，那么就处于等待状态，等待在同步代码块的外面。                     if (piao&gt;=1){                         try {                             Thread.sleep(50);                         } catch (InterruptedException e) {                             e.printStackTrace();                         }                         System.out.println(Thread.currentThread().getName()+"正在出售第："+(piao--)+"张票");                     }                 }             }else {                 maipiao();             }             i++;         }     }     //同步方法：我们可以把一个方法用synchronized这个关键字来修饰，来封装一段代码，解决线程安全问题，     //同步方法默认使用的锁对象就是this     //同步方法使用的锁对象是this，和上面的锁使用的对象不一致，因此我们要将上面的锁对象改为this     private synchronized void maipiao() {         if (piao &gt;= 1) {             try {                 Thread.sleep(50);             } catch (InterruptedException e) {                 e.printStackTrace();             }             System.out.println(Thread.currentThread().getName() + "正在出售第：" + (piao--) + "张票");         }     } } </code></pre> <h4> <a id="_138" rel="nofollow"></a>静态同步方法</h4> <p><strong>静态同步方法的锁对象是当前类的字节码对象。</strong></p> <pre><code>public class Mytest {     public static void main(String[] args) {         CellRunnable cellRunnable = new CellRunnable();         Thread thread1 = new Thread(cellRunnable, "窗口1：");         Thread thread2 = new Thread(cellRunnable, "窗口2：");         Thread thread3 = new Thread(cellRunnable, "窗口3：");         thread1.start();         thread2.start();         thread3.start();     } } ---------------------------------------- public class CellRunnable implements Runnable{     //这些票让三个线程共享     static int piao=100;     //确保这个锁对象只有一个，多个线程共用一把锁     private final static Object obj=new Object();     int i=1;     @Override     public void run() {         while (true){             if (i%2==0){                 //由于静态同步方法和同步代码块使用的锁对象不是同一个锁对象，                 // 因为我们要将同步代码块的锁对象修改成当前类的字节码对象。                 synchronized (CellRunnable.class){                     //当线程1进来同步代码块后，就持有了这个锁，其他线程没有持有锁，那么就处于等待状态，等待在同步代码块的外面。                     if (piao&gt;=1){                         try {                             Thread.sleep(50);                         } catch (InterruptedException e) {                             e.printStackTrace();                         }                         System.out.println(Thread.currentThread().getName()+"正在出售第："+(piao--)+"张票");                     }                 }                 //执行完了，出了同步代码块，就会释放锁。释放锁了之后，多个线程再去争抢CPU的时间片             }else {                 maiPiao();             }         }     }     //同步方法：我们可以把一个方法用synchronized这个关键字修饰，来封装一段代码，解决线程安全的问题。     //静态同步方法：默认使用的锁对象，是当前类的字节码对象。     private static synchronized void maiPiao() {         if (piao &gt;= 1) {             try {                 Thread.sleep(50);             } catch (InterruptedException e) {                 e.printStackTrace();             }             System.out.println(Thread.currentThread().getName() + "正在出售第：" + (piao--) + "张票");         }     } } </code></pre> <h4> <a id="Lock_199" rel="nofollow"></a>Lock锁的概述及使用</h4> <p><strong>lock.lock(); lock.unlock();</strong></p> <pre><code>public class Mytest {     public static void main(String[] args) {         CellRunnable cellRunnable = new CellRunnable();         Thread thread1 = new Thread(cellRunnable, "窗口1：");         Thread thread2 = new Thread(cellRunnable, "窗口2：");         Thread thread3 = new Thread(cellRunnable, "窗口3：");         thread1.start();         thread2.start();         thread3.start();     } } ------------------------------------- public class CellRunnable implements Runnable{     //这些票三个线程共享     static int piao=100;     private final static ReentrantLock lock=new ReentrantLock();     @Override     public void run() {         while (true){             //th1  th2  th3 加锁             lock.lock();             try {                 if (piao&gt;=1){                     try {                         Thread.sleep(50);                         System.out.println(Thread.currentThread().getName()+"正在出售第："+(piao--)+"张票");                     } catch (InterruptedException e) {                         e.printStackTrace();                     }                 }             } catch (Exception e) {                 e.printStackTrace();             } finally {                 lock.unlock();//解锁             }         }     } } </code></pre> <h4> <a id="_244" rel="nofollow"></a>死锁问题概述及使用</h4> <p>如果<strong>出现了同步嵌套，就容易出现死锁问题，指的是两个或者两个以上的线程在执行的过程中，因争夺资源而产生的一种互相等待的现象。</strong></p> <pre><code>public class Mytest {     public static void main(String[] args) throws InterruptedException {         MyThread th1 = new MyThread(true);         MyThread th2 = new MyThread(false);         th1.start();         Thread.sleep(50);         th2.start();     } } ----------------------------------------- public class MyThread extends Thread{     //标记     boolean flag;     public MyThread(boolean flag) {         this.flag = flag;     }     @Override     public void run() {         if (flag){             synchronized (ObjectUtils.objA){                 System.out.println("true  线程持有了objA锁，进来执行了AAA");                 synchronized (ObjectUtils.objB){                     System.out.println("true  线程持有了objB锁，进来执行了BBB");                 }             }         }else {             synchronized (ObjectUtils.objB){                 System.out.println("false  线程持有了objB锁，进来执行了BBB");                 synchronized (ObjectUtils.objA){                     System.out.println("false  线程持有了objA锁，进来执行了AAA");                 }             }         }     } } -------------------------------------- public interface ObjectUtils {     //创建两个对象，来充当两把锁对象     public static final Object objA=new Object();     public static final Object objB=new Object(); } </code></pre> </p></div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-600.htm">基于Python编写一个简单的端口扫描器_python</a></p>
+                                                <p>下一个：<a href="/html/category/article-602.htm">JavaScript如何将字符串的字母映射到数组的对象</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-754.htm" title="手把手带你入门链表的基本操作及其优化">手把手带你入门链表的基本操作及其优化</a></li>
+                        <li class="py-2"><a href="/html/category/article-787.htm" title="微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习">微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习</a></li>
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                        <li class="py-2"><a href="/html/category/article-737.htm" title="win11系统找不到网络路径如何解决">win11系统找不到网络路径如何解决</a></li>
+                        <li class="py-2"><a href="/html/category/article-753.htm" title="爬虫系列：爬虫验证码识别_在线工具">爬虫系列：爬虫验证码识别_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-731.htm" title="springboot项目部署好之后第一次启动慢的解决办法">springboot项目部署好之后第一次启动慢的解决办法</a></li>
+                        <li class="py-2"><a href="/html/category/article-779.htm" title="vue中动态控制btn的disabled属性方式_vue.js">vue中动态控制btn的disabled属性方式_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-760.htm" title="win11系统怎么隐藏菜单">win11系统怎么隐藏菜单</a></li>
+                        <li class="py-2"><a href="/html/category/article-775.htm" title="toString()、new String()和(String) 、String.ValueOf()的区别">toString()、new String()和(String) 、String.ValueOf()的区别</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

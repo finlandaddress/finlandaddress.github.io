@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-772.htm" />
+    <title>如何在代码层面提高CPU分支预测效率 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>如何在代码层面提高CPU分支预测效率</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<p><span style="font-size: 1em;">说几个常见的能够提升CPU分支预测效率的方法。</span></p> <h3>将最常见的条件比较单独从switch中移出</h3> <p data-pid="ArQDDrLO">分支预测除了需要预测方向，还需要预测分支的目标地址。目标地址BTA(Branch Target Address)分为两种：</p> <ul> <li data-pid="kkGZ5out">直接跳转(PC-relative, direct) ： offset以立即数形式固定在指令中，所以目标地址也是固定的。</li> <li data-pid="cHPpELa1">间接跳转(absolute, indirect)：目标地址来自通用寄存器，而寄存器的值不固定。</li> </ul> <p data-pid="BaneM2qD">对于直接跳转，使用BTB可以很好的进行预测。但是对于间接跳转，目标地址不固定，更难预测。switch-case的指令实现(类似<code>jmpq *$rax</code>，$rax是case对应label地址)、C++虚函数调用就属于间接跳转。间接跳转如果还用直接跳转的BTB预测，准确率只有50%左右。</p> <p data-pid="_Sqvm3rG">很多CPU针对间接跳转都有单独的预测器，比如的Intel的论文<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//www.ece.ucdavis.edu/~akella/270W05/centrino+microarchitecture+and+performance.pdf"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">The Intel Pentium M Processor: Microarchitecture and Performance</a>中介绍额Indirect Branch Predictor：通过额外引入context-information——Global Branch History来提高间接跳转的目标地址预测准确率。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/6e8fd883bda4de1da5207559b461fe3d.jpg" alt="如何在代码层面提高CPU分支预测效率" class="content_image lazy" data-caption="" data-size="normal" data-actualsrc="https://pica.zhimg.com/50/v2-95792370007181005cb78c6cb1ef5bbb_720w.jpg?source=1940ef5c" data-lazy-status="ok"/></p> <p data-pid="IJFPDyVY">switch-case的优点是将诸多if/else(conditional branch)转换为统一的unconditioal branch，但缺点就是目标地址难以预测。如果某个case的命中率特别高，就可以将其从switch中单独提出来，这样该分支的预测方向 &amp;&amp; 目标地址都很好预测。</p> <p data-pid="H6E-BHP8">比如<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//github1s.com/apache/dubbo/blob/HEAD/dubbo-remoting/dubbo-remoting-api/src/main/java/org/apache/dubbo/remoting/transport/dispatcher/ChannelEventRunnable.java"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">java dubbo代码里的一个例子：</a>：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/9fa24c43115d0171b3831af745d898fb.jpg" alt="如何在代码层面提高CPU分支预测效率" width="1416" class="origin_image zh-lightbox-thumb lazy" data-caption="" data-size="normal" data-rawwidth="1416" data-rawheight="1061" data-default-watermark-src="https://pica.zhimg.com/50/v2-afa0c41c03c2d64a87cf4738525a886c_720w.jpg?source=1940ef5c" data-original="https://pic1.zhimg.com/v2-10be5de9ab63643490383a617938bd17_r.jpg?source=1940ef5c" data-actualsrc="https://pica.zhimg.com/50/v2-10be5de9ab63643490383a617938bd17_720w.jpg?source=1940ef5c" data-lazy-status="ok"/></p> <p data-pid="fecnnu-V">超过99.9%情况state取值都是<code>ChannelState.RECEIVED</code>&nbsp;，将其单独提出来。<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//dubbo.apache.org/zh/blog/2019/02/03/%25E6%258F%2590%25E5%2589%258Dif%25E5%2588%25A4%25E6%2596%25AD%25E5%25B8%25AE%25E5%258A%25A9cpu%25E5%2588%2586%25E6%2594%25AF%25E9%25A2%2584%25E6%25B5%258B/"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">官网博客有一个benchmark</a>，性能有很大的改观。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/02bc34b77842d50958bb74cd62c46bc8.jpg" alt="如何在代码层面提高CPU分支预测效率" width="994" class="origin_image zh-lightbox-thumb lazy" data-caption="" data-size="normal" data-rawwidth="994" data-rawheight="316" data-default-watermark-src="https://pic2.zhimg.com/50/v2-19b15c6c16058f0bb740fe6595559efa_720w.jpg?source=1940ef5c" data-original="https://pic1.zhimg.com/v2-901e0d7bbd2a88bf644632c33d3e613d_r.jpg?source=1940ef5c" data-actualsrc="https://pic2.zhimg.com/50/v2-901e0d7bbd2a88bf644632c33d3e613d_720w.jpg?source=1940ef5c" data-lazy-status="ok"/></p> <h3>将使用【控制】的条件转移转换为使用【数据】的条件转移</h3> <p data-pid="YUFn9yle">CMOV指令就是典型的例子。<strong>CPU无需进行分支预测</strong>，但是会计算一个条件的两种结果，然后通过检查条件码，要么更新目的寄存器，要么保持不变。</p> <p data-pid="BGDfjo8Y">比如</p> <div class="highlight"> <pre><code>v = test-expr ? then-expr : else-expr</code></pre> </div> <p data-pid="AqS7-Udj">会转换为下列伪代码：</p> <div class="highlight"> <pre><code>v = then-expr; ve = else-expr; t = test-expr; if(!t) v=ve;</code></pre> </div> <p data-pid="43xwBoDw">编译器会倾向于将使用三元运算符且两种结果的计算量不大的表达式转换为CMOV条件数据转移。<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//github1s.com/facebook/folly/blob/main/folly/FBString.h%23L404"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">例如facebook folly中的例子</a>，注意看注释：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/4baa13a2600caecd1573dd275ded07a1.jpg" alt="如何在代码层面提高CPU分支预测效率" width="960" class="origin_image zh-lightbox-thumb lazy" data-caption="" data-size="normal" data-rawwidth="960" data-rawheight="563" data-default-watermark-src="https://pica.zhimg.com/50/v2-da0175054957a2a150d8ea6ec5abbe7f_720w.jpg?source=1940ef5c" data-original="https://pic3.zhimg.com/v2-e3448b9e83a27a146c7c73f0efe58b1b_r.jpg?source=1940ef5c" data-actualsrc="https://pica.zhimg.com/50/v2-e3448b9e83a27a146c7c73f0efe58b1b_720w.jpg?source=1940ef5c" data-lazy-status="ok"/></p> <p data-pid="0fD_qaiZ"><strong>当分支的结果完全由外部输入决定，local branch history和global branch history都毫无规律时，效果会更好。</strong>下面这个是《Computer Systems A Programmer's Perspective 》5.11.2小节的例子，第二个版本性能是第一个三倍：</p> <div class="highlight"> <pre><code>/* Rearrange two vectors so that for each i, b[i] &gt;= a[i] */ void minmax1(long a[], long b[], long n) {   long i;   for (i = 0; i &lt; n; i++) {     if (a[i] &gt; b[i]) {       long t = a[i];       a[i] = b[i];       b[i] = t;     }   } }  /* Rearrange two vectors so that for each i, b[i] &gt;= a[i] */ void minmax2(long a[], long b[], long n) {   long i;   for (i = 0; i &lt; n; i++) {     long min = a[i] &lt; b[i] ? a[i] : b[i];     long max = a[i] &lt; b[i] ? b[i] : a[i];     a[i] = min;     b[i] = max;   } }</code></pre> </div> <h3>使用算数逻辑代替分支</h3> <p data-pid="wo4OfPsE">比如<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=http%3A//www.davespace.co.uk/arm/efficient-c-for-arm/unsignedrange.html"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">ARM优化手册</a>里提到，可以将范围比较转换为无条件计算，编译器有时候也会自动做这个转换：</p> <div class="highlight"> <pre><code>// origin version int insideRange1(int v, int min, int max) {   return v &gt;= min &amp;&amp; v &lt; max; }  // optimized version int insideRange2(int v, int min, int max) {   return (unsigned) (v - min) &lt; (max - min); }</code></pre> </div> <p data-pid="nEFaw8QS">韦易笑大佬针对这个做过更详细的优化和测试，反正我是看晕了：</p> <div class="RichText-LinkCardContainer"> <p class="md-end-block md-p"><span class="md-link md-pair-s"><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://zhuanlan.zhihu.com/p/144963553"  rel="nofollow">https://zhuanlan.zhihu.com/p/144963553</a></span></p> <p class="md-end-block md-p md-focus"><span class="md-link md-pair-s"><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://zhuanlan.zhihu.com/p/147039093"  rel="nofollow">https://zhuanlan.zhihu.com/p/147039093</a></span></p> </div> <p data-pid="o0J9D8WT">引用文章内的<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//quick-bench.com/q/EbCR9psA3lUEhpn8bYLwVtJ-FWk"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">测试数据</a>：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/2e1af4966bc88308b808cd7cb15556fa.jpg" alt="如何在代码层面提高CPU分支预测效率" width="2246" class="origin_image zh-lightbox-thumb lazy" data-caption="" data-size="normal" data-rawwidth="2246" data-rawheight="1109" data-default-watermark-src="https://pica.zhimg.com/50/v2-e02d9890c38786a7710bf5b6424b53da_720w.jpg?source=1940ef5c" data-original="https://pic2.zhimg.com/v2-2cd5e95da0ff0233591a9e4ee9526304_r.jpg?source=1940ef5c" data-actualsrc="https://pic3.zhimg.com/50/v2-2cd5e95da0ff0233591a9e4ee9526304_720w.jpg?source=1940ef5c" data-lazy-status="ok"/></p> <p data-pid="SS2rZVgj"><a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//www.chessprogramming.org/Avoiding_Branches%23Absolute_value_of_an_Integer"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">Avoiding Branches</a>里有更多的例子，不过用之前还是做测试更靠谱。</p> <h3>使用template移除分支</h3> <p data-pid="EWhVdfub">2018年Stephen Yang的博士论文<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//www.usenix.org/system/files/conference/atc18/atc18-yang.pdf"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">NanoLog: A Nanosecond Scale Logging System</a>介绍了一款C++日志库Nanolog，将日志调用开销的中位数降为了个位数纳秒级别。作者在文章<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//web.stanford.edu/~ouster/cgi-bin/papers/YangPhD.pdf"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">NANOLOG: A NANOSECOND SCALE LOGGING SYSTEM</a>中提到了Nanolog的关键技术和优化，第三条就是将printf在运行时的大量分支逻辑利用C++ template优化成编译期的运算。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/759e6eace0e901be37e7c6b5cd3e0443.jpg" alt="如何在代码层面提高CPU分支预测效率" width="1651" class="origin_image zh-lightbox-thumb lazy" data-caption="" data-size="normal" data-rawwidth="1651" data-rawheight="589" data-default-watermark-src="https://pic1.zhimg.com/50/v2-2878d969b6a4b84beb7b9bc1bd9cedde_720w.jpg?source=1940ef5c" data-original="https://pic3.zhimg.com/v2-fa5011f2b84df8b3c2698ff3b892b8fd_r.jpg?source=1940ef5c" data-actualsrc="https://pica.zhimg.com/50/v2-fa5011f2b84df8b3c2698ff3b892b8fd_720w.jpg?source=1940ef5c" data-lazy-status="ok"/></p> <h3>likely/unlikely</h3> <p data-pid="9ZjiraMw">这个很多人已经介绍过了，<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//en.cppreference.com/w/cpp/language/attributes/likely"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">C++20已经将其标准化</a>，支持将更可能执行的代码放在hot path上，对icache更友好。<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=https%3A//github1s.com/facebook/folly/blob/main/folly/FBString.h%23L501-L502"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">例如facebook folly中的例子</a>：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/64e04468398523a68de1de4547aef6c2.jpg" alt="如何在代码层面提高CPU分支预测效率" width="1616" class="origin_image zh-lightbox-thumb lazy" data-caption="" data-size="normal" data-rawwidth="1616" data-rawheight="433" data-default-watermark-src="https://pica.zhimg.com/50/v2-33c14cb00e0fc814f60ae165484aef88_720w.jpg?source=1940ef5c" data-original="https://pic3.zhimg.com/v2-2d92d999be5a94bdca5bd2be858e9e75_r.jpg?source=1940ef5c" data-actualsrc="https://pic1.zhimg.com/50/v2-2d92d999be5a94bdca5bd2be858e9e75_720w.jpg?source=1940ef5c" data-lazy-status="ok"/></p> <p data-pid="hX8YEiyi"><code>FOLLY_LIKELY</code>是一个包装：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/714207a2f8893ce12a8317c82d654c2f.jpg" alt="如何在代码层面提高CPU分支预测效率" width="1465" class="origin_image zh-lightbox-thumb lazy" data-caption="" data-size="normal" data-rawwidth="1465" data-rawheight="1047" data-default-watermark-src="https://pica.zhimg.com/50/v2-24f6e8e34e2afee59083857ccf618553_720w.jpg?source=1940ef5c" data-original="https://pic3.zhimg.com/v2-66ea0b1f7c06e3268871228f611599a1_r.jpg?source=1940ef5c" data-actualsrc="https://pic1.zhimg.com/50/v2-66ea0b1f7c06e3268871228f611599a1_720w.jpg?source=1940ef5c" data-lazy-status="ok"/></p> <p data-pid="lh7W5ouq">更进一步，有些ISA的分支指令有一个bit，支持programmer去指定分支是否taken。现代CPU使用的<a class="wrap external" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://link.zhihu.com/?target=http%3A//www.irisa.fr/caps/people/seznec/JILP-COTTAGE.pdf"  target="_blank" data-za-detail-view-id="1043" rel="nofollow">TAGE分支预测器</a>，部分实现会使用该bit去初始化predictor(是初始化，不是一直使用programmer指定的跳转结果)。TAGE预测器可以参考下我开头放的回答：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.zhihu.com/question/486239354/answer/2410692045"  rel="nofollow">https://www.zhihu.com/question/486239354/answer/2410692045</a></p> <p data-pid="lh7W5ouq"> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/3bd5ef629020e63fd77e216d7e45099f.jpg" alt="如何在代码层面提高CPU分支预测效率" width="2066" class="origin_image zh-lightbox-thumb lazy" data-caption="" data-size="normal" data-rawwidth="2066" data-rawheight="1008" data-default-watermark-src="https://pic2.zhimg.com/50/v2-618c0f9fbb0d6ad5d74635b99cd9fe01_720w.jpg?source=1940ef5c" data-original="https://pic2.zhimg.com/v2-7537152214f116d15b1930b5de8f452b_r.jpg?source=1940ef5c" data-actualsrc="https://pica.zhimg.com/50/v2-7537152214f116d15b1930b5de8f452b_720w.jpg?source=1940ef5c" data-lazy-status="ok"/></p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-771.htm">win11系统如何进入高级启动</a></p>
+                                                <p>下一个：<a href="/html/category/article-773.htm">C ++中的最大和圆子数组</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-766.htm" title="Java：线程的三种中断方式">Java：线程的三种中断方式</a></li>
+                        <li class="py-2"><a href="/html/category/article-773.htm" title="C ++中的最大和圆子数组">C ++中的最大和圆子数组</a></li>
+                        <li class="py-2"><a href="/html/category/article-762.htm" title="SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)">SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-737.htm" title="win11系统找不到网络路径如何解决">win11系统找不到网络路径如何解决</a></li>
+                        <li class="py-2"><a href="/html/category/article-731.htm" title="springboot项目部署好之后第一次启动慢的解决办法">springboot项目部署好之后第一次启动慢的解决办法</a></li>
+                        <li class="py-2"><a href="/html/category/article-745.htm" title="Kubernetes集群环境初始化_云其它_">Kubernetes集群环境初始化_云其它_</a></li>
+                        <li class="py-2"><a href="/html/category/article-761.htm" title="springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题">springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-759.htm" title="golang中的panic">golang中的panic</a></li>
+                        <li class="py-2"><a href="/html/category/article-746.htm" title="云环境下集合隐私计算-解读">云环境下集合隐私计算-解读</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

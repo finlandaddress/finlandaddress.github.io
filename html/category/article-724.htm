@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-724.htm" />
+    <title>如何在 Java 中实现无向环和有向环的检测 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>如何在 Java 中实现无向环和有向环的检测</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<h1 id="无向环">无向环</h1> <p>一个含有环的无向图如下所示，其中有两个环，分别是 0-2-1-0 和 2-3-4-2：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/703b8094c58a94b2454623ffb32d12e3.jpg" alt="如何在 Java 中实现无向环和有向环的检测"></p> <p>要检测无向图中的环，可以使用深度优先搜索。假设从顶点 0 出发，再走到相邻的顶点 2，接着走到顶点 2 相邻的顶点 1，由于顶点 0 和顶点 1 相邻，并且顶点 0 被标记过了，说明我们饶了一圈，所以无向图中存在环。虽然顶点 2 和顶点 1 相邻，但是并不能说明存在环，因为我们就是从顶点 2 直接走到顶点 1 的，这二者只有边的关系。算法如下所示：</p> <pre><code class="language-java">package com.zhiyiyo.graph;  import com.zhiyiyo.collection.stack.LinkStack; import com.zhiyiyo.collection.stack.Stack;  /**  * 无向图中的环  */ public class Cycle {     private boolean[] marked;     private Graph graph;     private boolean hasCycle;      public Cycle(Graph graph) {         this.graph = graph;         marked = new boolean[graph.V()];          for (int v = 0; v &lt; graph.V(); ++v) {             if (!marked[v]) {                 dfs(v);             }         }     }      private void dfs(int s) {         if (hasCycle()) return;          Stack&lt;Integer&gt; vertexes = new LinkStack&lt;&gt;();         vertexes.push(s);         marked<span class="show-more" title="文字折叠"><span><i class="be be-squareplus"></i>展开</span></span> = true;          int lastVertex = s;         while (!vertexes.isEmpty()) {             int v = vertexes.pop();              for (int w : graph.adj(v)) {                 if (!marked[w]) {                     marked[w] = true;                     vertexes.push(w);                 } else if (w != lastVertex) {                     hasCycle = true;                     return;                 }             }              lastVertex = v;         }     }      /**      * 图中是否有环      */     public boolean hasCycle() {         return hasCycle;     } }</code></pre> <h1 id="有向环">有向环</h1> <h2 id="有向图">有向图</h2> <p>有向图的实现方式和上一篇博客<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/zhiyiYo/p/16101613.html"  target="_blank" rel="nofollow">《如何在 Java 中实现无向图》</a> 中无向图的实现方式几乎一样，只是在添加边 v-w 时只在顶点 v 的链表上添加顶点 w，而不对顶点 w 的链表进行操作。如果把<code>LinkGraph</code> 中成员变量的访问权限改成<code>protected</code>，只需继承并重写<code>addEdge</code> 方法即可：</p> <pre><code class="language-java">package com.zhiyiyo.graph;   public class LinkDigraph extends LinkGraph implements Digraph {      public LinkDigraph(int V) {         super(V);     }      @Override     public void addEdge(int v, int w) {         adj[v].push(w);         E++;     }      @Override     public Digraph reverse() {         Digraph digraph = new LinkDigraph(V());         for (int v = 0; v &lt; V(); ++v) {             for (int w : adj(v)) {                 digraph.addEdge(w, v);             }         }         return digraph;     } }</code></pre> <h2 id="检测算法">检测算法</h2> <p>一个含有有向环的有向图如下所示，其中 5-4-3-5 构成了一个环：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/4ddf22fafabfa544bb54bb06efa991e7.jpg" alt="如何在 Java 中实现无向环和有向环的检测"></p> <p>这里使用递归实现的深度优先搜索来检测有向环。假设从顶点 0 开始走，一路经过 5、4、3 这三个顶点，最终又碰到了与顶点 3 相邻的顶点 5，这时候如果知道顶点 5 已经被访问过了，并且递归函数还被压在栈中，就说明深度优先搜索从顶点 5 开始走，又回到了顶点 5，也就是找到了有向环。算法如下所示：</p> <pre><code class="language-java">package com.zhiyiyo.graph;  import com.zhiyiyo.collection.stack.LinkStack; import com.zhiyiyo.collection.stack.Stack;  /**  * 有向图中的环  */ public class DirectedCycle {     private boolean[] marked;     private boolean[] onStack;     private int[] edgeTo;     private Graph graph;     private Stack&lt;Integer&gt; cycle;      public DirectedCycle(Digraph graph) {         this.graph = graph;         marked = new boolean[graph.V()];         onStack = new boolean[graph.V()];         edgeTo = new int[graph.V()];          for (int v = 0; v &lt; graph.V(); ++v) {             if (!marked[v]) {                 dfs(v);             }         }     }      private void dfs(int v) {         marked[v] = true;         onStack[v] = true;          for (int w : graph.adj(v)) {             if (hasCycle()) return;             if (!marked[w]) {                 marked[w] = true;                 edgeTo[w] = v;                 dfs(w);             } else if (onStack[w]) {                 cycle = new LinkStack&lt;&gt;();                 cycle.push(w);                 for (int i = v; i != w; i = edgeTo[i]) {                     cycle.push(i);                 }                 cycle.push(w);             }         }          onStack[v] = false;     }      /**      * 图中是否有环      */     public boolean hasCycle() {         return cycle != null;     }      /**      * 图中的一个环      */     public Iterable&lt;Integer&gt; cycle() {         return cycle;     } }</code></pre> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-723.htm">TypeScript 与 JavaScript 的区别（TypeScript万字基础入门，了解TS，看这一篇就够了）</a></p>
+                                                <p>下一个：<a href="/html/category/article-725.htm">深入理解Kafka核心设计及原理（二）：生产者</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-737.htm" title="win11系统找不到网络路径如何解决">win11系统找不到网络路径如何解决</a></li>
+                        <li class="py-2"><a href="/html/category/article-750.htm" title="torch报错TypeError: can&#8217;t convert CUDA tensor to numpy. Use Tensor.cpu() to copy the tensor">torch报错TypeError: can&#8217;t convert CUDA tensor to numpy. Use Tensor.cpu() to copy the tensor</a></li>
+                        <li class="py-2"><a href="/html/category/article-762.htm" title="SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)">SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)</a></li>
+                        <li class="py-2"><a href="/html/category/article-743.htm" title="EditText 不显示光标  光标消失">EditText 不显示光标  光标消失</a></li>
+                        <li class="py-2"><a href="/html/category/article-745.htm" title="Kubernetes集群环境初始化_云其它_">Kubernetes集群环境初始化_云其它_</a></li>
+                        <li class="py-2"><a href="/html/category/article-753.htm" title="爬虫系列：爬虫验证码识别_在线工具">爬虫系列：爬虫验证码识别_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                        <li class="py-2"><a href="/html/category/article-729.htm" title="visual studio 使用cmake构建项目并远程连接虚拟机centos7">visual studio 使用cmake构建项目并远程连接虚拟机centos7</a></li>
+                        <li class="py-2"><a href="/html/category/article-756.htm" title="java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息">java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息</a></li>
+                        <li class="py-2"><a href="/html/category/article-779.htm" title="vue中动态控制btn的disabled属性方式_vue.js">vue中动态控制btn的disabled属性方式_vue.js</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

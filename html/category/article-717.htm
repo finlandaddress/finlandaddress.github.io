@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-717.htm" />
+    <title>Shell基础管道符介绍 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Shell基础管道符介绍</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div class="toc"> <div class="toc-container-header"><span style="font-size: 1em;">我们之前已经有文章说过管道符了，今天这里再简单总结一下用法。</span></div> </div> <h2 id="1行提取命令grep">1、行提取命令grep</h2> <p><code>grep</code>命令的作用，是在指定的文件中，搜索符合条件的字符串。</p> <p>命令格式：</p> <pre><code class="language-shell">[root@localhost ~ ] # grep [选项] ”搜索内容” 文件名</code></pre> <p>选项：</p> <ul> <li><code>-A 数字</code>：列出符合条件的行，并列出后续的n行。</li> <li><code>-B 数字</code>：列出符合条件的行，并列出前面的n行。</li> <li><code>-c</code>：统计找到的符合条件的字符串的次数。</li> <li><code>-i</code>：忽略大小写。</li> <li><code>-n</code>：输出行号。</li> <li><code>-v</code>：反向查找。</li> <li><code>--color=auto</code>：搜索出的关键字用颜色显示。</li> </ul> <p>示例：</p> <ul> <li>例子1：查找用户信息文件<code>/etc/passwd</code>中，有多少可以登录的用户。 <pre><code class="language-shell">[root@localhost ~]# grep "/bin/bash" /etc/passwd</code></pre> </li> <li>例子2：查找用户信息文件<code>/etc/passwd</code>中，包含有<code>root</code>的行，并列出后续的3行。 <pre><code class="language-shell">[root@localhost ~]# grep -A 3 "root" /etc/passwd</code></pre> </li> <li>例子3：查找用户信息文件<code>/etc/passwd</code>中，可以登录的用户，并显示行号。 <pre><code class="language-shell">[root@localhost ~]# grep -n "/bin/bash" /etc/passwd</code></pre> </li> <li>例子4：查找用户信息文件<code>/etc/passwd</code>中，不含有<code>/bin/bash</code>的行，其实就是列出所有的伪用户。 <pre><code class="language-shell">[root@localhost ~]# grep -v "/bin/bash" /etc/passwd</code></pre> </li> </ul> <h2 id="2find和grep的区别">2、find和grep的区别</h2> <p><code>find</code>命令是在系统当中搜索符合条件的文件名，搜索时文件名是完全匹配。如果需要模糊查询，使用通配符进行匹配。</p> <pre><code class="language-shell">#建立文件abc [root@localhost ~ ] # touch abc  #建立文件abcd [root@localhost ~ ] # touch abcd  #查找abc文件 [root@localhost ~ ] # find . -name ”abc" ./abc</code></pre> <p>搜索文件名是<code>abc</code>的文件，只会找到<code>abc</code>文件，而不会找到文件<code>abcd</code>。虽然<code>abed</code>文件名中包含<code>abc</code>，但是<code>find</code>命令是完全匹配，只能和要搜索的数据完全一样，才能找到。</p> <blockquote> <p>注意：</p> <p><code>find</code>命令是可以通过<code>-regex</code>选项识别正则表达式规则的，也就是说<code>find</code>命令可以按照正则表达式规则匹配，而正则表达式是模糊匹配。但是对于初学者而言，<code>find</code>命令和<code>grep</code>命令本身就不好理解，所以我们这里只按照通配符规则来进行<code>find</code>查询。</p> </blockquote> <p><code>grep</code>命令是在文件当中搜索符合条件的字符串，如果需要模糊查询，使用正则表达式进行匹配，搜索时字符串是包含匹配。</p> <pre><code class="language-shell">#在test文件中写入abc数据 [root@localhost ~ ] # echo abc &gt; test  #在test文件中再追加abcd数据 [root@localhost ~]#echo abcd &gt;&gt; test  #在test文件中查找abc字符串 [root@localhost ~]#grep”abc" test abc abcd</code></pre> <p><code>grep</code>命令查找时，只要数据行中包含有<code>abc</code>，就会都列出，所以<code>abc</code>和<code>abed</code>都可以查询到。</p> <h2 id="3管道符">3、管道符</h2> <p>管道符之前总结过，请看之前的文章：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/liuyuelinfighting/p/15530010.html"  target="_blank" rel="nofollow">https://www.cnblogs.com/liuyuelinfighting/p/15530010.html</a>。</p> <p>我们下面简单的做几个练习：</p> <ul> <li>练习1：<br /> 查询本地所有网络连接，提取包含ESTABLISHED（已建立连接）的行，就可以知道我们的服务器上有多少已经成功连接的网络连接。</p> <pre><code class="language-shell">[root@localhost ~]# netstat -an | grep "ESTABLISHED"</code></pre> </li> <li>练习2：<br /> 如果想知道具体的网络连接数量，就可以再使用<code>wc</code>命令统计行数。</p> <pre><code class="language-shell">[root@localhost ~]# netstat -an | grep "ESTABLISHED" | wc -l</code></pre> </li> </ul> <h2 id="4通配符">4、通配符</h2> <p>通配符是用来匹配文件名的，文件名在查询的时候是完全匹配的，必须一模一样才会查询出，否则就要加通配符，进行模糊查询。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/f215829c6a91f22afaccaf13cc181b75.jpg" alt="Shell基础管道符介绍"></p> <p>练习：</p> <pre><code class="language-shell"># 创建4个测试文件 [root@localhost tmp]# touch abc [root@localhost tmp]# touch abcd [root@localhost tmp]# touch 012 [root@localhost tmp]# touch 0abc  # “*”代表查找所有的文件 [root@localhost tmp]# ls * 012 0abc abc abcd  # “？"匹配任意一个字符，所以会匹配0abc #但是不能匹配abc，因为“？”"不能匹配空 [root@localhost tmp]# ls ?abc 0abc  # 匹配任何以数字开头的文件 [root@localhost tmp]# ls [0-9]* 012 0abc  # 匹配不已数字开头的文件 [root@localhost tmp]# ls [^0-9]* abc abed</code></pre> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-716.htm">Spring IOC Bean 创建的整体流程</a></p>
+                                                <p>下一个：<a href="/html/category/article-718.htm">vue 实现高德坐标转GPS坐标</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-756.htm" title="java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息">java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息</a></li>
+                        <li class="py-2"><a href="/html/category/article-781.htm" title="一文搞定CompletableFuture并行处理，成倍缩短查询时间。">一文搞定CompletableFuture并行处理，成倍缩短查询时间。</a></li>
+                        <li class="py-2"><a href="/html/category/article-729.htm" title="visual studio 使用cmake构建项目并远程连接虚拟机centos7">visual studio 使用cmake构建项目并远程连接虚拟机centos7</a></li>
+                        <li class="py-2"><a href="/html/category/article-753.htm" title="爬虫系列：爬虫验证码识别_在线工具">爬虫系列：爬虫验证码识别_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-730.htm" title="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具">基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-775.htm" title="toString()、new String()和(String) 、String.ValueOf()的区别">toString()、new String()和(String) 、String.ValueOf()的区别</a></li>
+                        <li class="py-2"><a href="/html/category/article-738.htm" title="通过源码了解Java的自动装箱拆箱">通过源码了解Java的自动装箱拆箱</a></li>
+                        <li class="py-2"><a href="/html/category/article-780.htm" title="@RequestBody某些属性值得不到">@RequestBody某些属性值得不到</a></li>
+                        <li class="py-2"><a href="/html/category/article-778.htm" title="nginx.conf配置文件结构小结_nginx">nginx.conf配置文件结构小结_nginx</a></li>
+                        <li class="py-2"><a href="/html/category/article-731.htm" title="springboot项目部署好之后第一次启动慢的解决办法">springboot项目部署好之后第一次启动慢的解决办法</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

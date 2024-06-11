@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-679.htm" />
+    <title>Vue混入mixins，让你减少一半代码 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Vue混入mixins，让你减少一半代码</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。</p> <p>一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。</p> <h2> <a id="_4" rel="nofollow"></a>实例</h2> <p>web 应用免不了要和表格打交道，特别是管理类或者后台类的应用。</p> <p>多个组件可能都包含有表格组件，但是逻辑基本都一样，比如表格分页、分页数量调整等等操作，这个时候就适用混入来实现。</p> <h2> <a id="_10" rel="nofollow"></a>使用</h2> <p>技术栈使用 Vue 项目 + elementUI</p> <p>在 src 目录下新建 mixins 目录，统一管理混入 js。</p> <p>然后在该目录下新建 pageMixin.js</p> <p><strong>pageMixin.js</strong></p> <pre><code class="prism language-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> pageMixin <span class="token operator">=</span> <span class="token punctuation">{<!-- --></span>   <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token keyword">return</span> <span class="token punctuation">{<!-- --></span>       <span class="token literal-property property">url</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>       <span class="token literal-property property">queryData</span><span class="token operator">:</span> <span class="token punctuation">{<!-- --></span>         <span class="token literal-property property">currPage</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>         <span class="token literal-property property">pageSize</span><span class="token operator">:</span> <span class="token number">10</span>       <span class="token punctuation">}</span><span class="token punctuation">,</span>       <span class="token literal-property property">tableData</span><span class="token operator">:</span> <span class="token punctuation">{<!-- --></span>         <span class="token literal-property property">rows</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>         <span class="token literal-property property">total</span><span class="token operator">:</span> <span class="token number">0</span>       <span class="token punctuation">}</span><span class="token punctuation">,</span>       <span class="token literal-property property">loading</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// 加载列表数据的Loading</span>       <span class="token literal-property property">pageSizes</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// 每页行数列表,用于切换每页行数</span>       <span class="token literal-property property">layout</span><span class="token operator">:</span> <span class="token string">"total, sizes, prev, pager, next, jumper"</span> <span class="token comment">// Element表格组件中使用的功能</span>     <span class="token punctuation">}</span>   <span class="token punctuation">}</span><span class="token punctuation">,</span>   <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{<!-- --></span>     <span class="token comment">// 查询列表数据</span>     <span class="token function">getList</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>       <span class="token keyword">this</span><span class="token punctuation">.</span>$axios<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>url<span class="token punctuation">,</span> <span class="token punctuation">{<!-- --></span>         <span class="token literal-property property">params</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>queryData       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{<!-- --></span>         <span class="token keyword">this</span><span class="token punctuation">.</span>tableData <span class="token operator">=</span> res<span class="token punctuation">.</span>data<span class="token punctuation">;</span>       <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">// 修改当前页</span>     <span class="token function">handleCurrentChange</span><span class="token punctuation">(</span><span class="token parameter">currPage</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>       <span class="token keyword">this</span><span class="token punctuation">.</span>queryData<span class="token punctuation">.</span>currPage <span class="token operator">=</span> currPage<span class="token punctuation">;</span>       <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">// 修改每页行数</span>     <span class="token function">handleSizeChange</span><span class="token punctuation">(</span><span class="token parameter">pageSize</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>       <span class="token keyword">this</span><span class="token punctuation">.</span>queryData<span class="token punctuation">.</span>currPage <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>       <span class="token keyword">this</span><span class="token punctuation">.</span>queryData<span class="token punctuation">.</span>pageSize <span class="token operator">=</span> pageSize<span class="token punctuation">;</span>       <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span><span class="token punctuation">,</span>   <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">}</span>  </code></pre> <p>组件引入</p> <pre><code class="prism language-javascript"><span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>   <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span>el<span class="token operator">-</span>table <span class="token operator">:</span>data<span class="token operator">=</span><span class="token string">"tableData.rows"</span><span class="token operator">&gt;</span>       <span class="token operator">&lt;</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column prop<span class="token operator">=</span><span class="token string">"userID"</span> label<span class="token operator">=</span><span class="token string">"ID"</span> width<span class="token operator">=</span><span class="token string">"180"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column<span class="token operator">&gt;</span>       <span class="token operator">&lt;</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column prop<span class="token operator">=</span><span class="token string">"account"</span> label<span class="token operator">=</span><span class="token string">"账号"</span> width<span class="token operator">=</span><span class="token string">"180"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column<span class="token operator">&gt;</span>       <span class="token operator">&lt;</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column prop<span class="token operator">=</span><span class="token string">"password"</span> label<span class="token operator">=</span><span class="token string">"密码"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>table<span class="token operator">-</span>column<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>table<span class="token operator">&gt;</span>      <span class="token operator">&lt;</span>div style<span class="token operator">=</span><span class="token string">"text-align:left;margin:10px"</span><span class="token operator">&gt;</span>       <span class="token operator">&lt;</span>el<span class="token operator">-</span>pagination         @size<span class="token operator">-</span>change<span class="token operator">=</span><span class="token string">"handleSizeChange"</span>         @current<span class="token operator">-</span>change<span class="token operator">=</span><span class="token string">"handleCurrentChange"</span>         <span class="token operator">:</span>page<span class="token operator">-</span>sizes<span class="token operator">=</span><span class="token string">"pageSizes"</span>         <span class="token operator">:</span>page<span class="token operator">-</span>size<span class="token operator">=</span><span class="token string">"pageSizes[0]"</span>         <span class="token literal-property property">background</span>         <span class="token operator">:</span>layout<span class="token operator">=</span><span class="token string">"layout"</span>         <span class="token operator">:</span>total<span class="token operator">=</span><span class="token string">"tableData.total"</span>       <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>el<span class="token operator">-</span>pagination<span class="token operator">&gt;</span>     <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>   <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>  <span class="token operator">&lt;</span>script<span class="token operator">&gt;</span> <span class="token keyword">import</span> <span class="token punctuation">{<!-- --></span> pageMixin <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@/mixins/pageMixin"</span><span class="token punctuation">;</span>  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{<!-- --></span>   <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">"HelloWorld"</span><span class="token punctuation">,</span>   <span class="token literal-property property">mixins</span><span class="token operator">:</span> <span class="token punctuation">[</span>pageMixin<span class="token punctuation">]</span><span class="token punctuation">,</span>   <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token keyword">return</span> <span class="token punctuation">{<!-- --></span>       <span class="token literal-property property">url</span><span class="token operator">:</span> <span class="token string">"/api/user/list"</span>     <span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token punctuation">}</span><span class="token punctuation">,</span>   <span class="token literal-property property">components</span><span class="token operator">:</span> <span class="token punctuation">{<!-- --></span><span class="token punctuation">}</span><span class="token punctuation">,</span>   <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token punctuation">}</span><span class="token punctuation">,</span>   <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{<!-- --></span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span> </code></pre> <p>因各个组件的请求列表 api 不一致，需要对应设置接口变量。</p> <h2> <a id="_109" rel="nofollow"></a>多条件查询</h2> <p>当组件和混入对象含有同名选项时，这些选项将以恰当的方式进行“合并”，发生冲突时以组件数据优先。</p> <p>有些组件可能有多条件查询，而且各个 api 查询字段都不一样。</p> <p>这时候在组件中可以设置 queryData 参数。</p> <pre><code class="prism language-javascript"><span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>     <span class="token keyword">return</span> <span class="token punctuation">{<!-- --></span>       <span class="token literal-property property">queryData</span><span class="token operator">:</span> <span class="token punctuation">{<!-- --></span>         <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">""</span>       <span class="token punctuation">}</span><span class="token punctuation">,</span>       <span class="token literal-property property">url</span><span class="token operator">:</span> <span class="token string">"/api/user/list"</span>     <span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token punctuation">}</span><span class="token punctuation">,</span> </code></pre> <p>这时候接口查询时会加上 title 参数。</p> </p></div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-678.htm">.NET宝藏API之：IHostedService，后台任务执行</a></p>
+                                                <p>下一个：<a href="/html/category/article-680.htm">SpringBoot使用线程池之ThreadPoolTaskExecutor和ThreadPoolExecutor</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-746.htm" title="云环境下集合隐私计算-解读">云环境下集合隐私计算-解读</a></li>
+                        <li class="py-2"><a href="/html/category/article-757.htm" title="SDS-redis动态字符串">SDS-redis动态字符串</a></li>
+                        <li class="py-2"><a href="/html/category/article-768.htm" title="mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）">mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）</a></li>
+                        <li class="py-2"><a href="/html/category/article-765.htm" title="如何在MySQL DATEDIFF()函数中使用两位数的年份值？">如何在MySQL DATEDIFF()函数中使用两位数的年份值？</a></li>
+                        <li class="py-2"><a href="/html/category/article-729.htm" title="visual studio 使用cmake构建项目并远程连接虚拟机centos7">visual studio 使用cmake构建项目并远程连接虚拟机centos7</a></li>
+                        <li class="py-2"><a href="/html/category/article-756.htm" title="java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息">java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息</a></li>
+                        <li class="py-2"><a href="/html/category/article-736.htm" title="Elasticsearch 三种分页方式">Elasticsearch 三种分页方式</a></li>
+                        <li class="py-2"><a href="/html/category/article-788.htm" title="深入浅出Vue3 Composition API">深入浅出Vue3 Composition API</a></li>
+                        <li class="py-2"><a href="/html/category/article-744.htm" title="Django项目引入NPM和gulp管理前端资源">Django项目引入NPM和gulp管理前端资源</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

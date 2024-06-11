@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-718.htm" />
+    <title>vue 实现高德坐标转GPS坐标 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>vue 实现高德坐标转GPS坐标</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<h1 id="vue-实现高德坐标转gps坐标">vue 实现高德坐标转GPS坐标</h1> <p>首先介绍一下常见的几种地图的坐标类型：</p> <ol> <li><strong>WGS-84</strong>：这是一个国际标准，也就是GPS坐标（Google Earth、或者GPS模块采集的都是这个类型）。</li> <li><strong>GCJ-02</strong>：中国坐标偏移标准，像是Google Map、高德、腾讯地图都是采用这种坐标展示。</li> <li><strong>BD-09</strong>：百度坐标偏移标准，百度地图专用的便宜标准。</li> </ol> <p>所以说这篇博文主要是实现GCJ-02坐标转换成WGS-84坐标。</p> <p>什么时候会用到需要解决坐标转换的问题呢？起因是一个demo，它使用GPS模块采集经纬度数据，然后使用高德地图进行转换，是的，高德地图官方提供了API，实现了GPS坐标转换到高德坐标进行展示，也就是WGS-84转GCJ-02高德官方已经支持了，看下面。</p> <p>高德坐标转换地址（<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://lbs.amap.com/demo/list/jsapi-v2"  target="_blank" rel="nofollow">点这里</a>）<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/bd6a077ad2e88dbd7ee0d827f7b6c22d.jpg" alt="vue 实现高德坐标转GPS坐标"><br /> 通过高德官方提供的两个案例可以实现GPS坐标转换/批量转换成高德坐标展示，但是这种API接口是有访问次数限制的，当日访问次数超限额，是会被禁止访问转换的，所以说如果转换的坐标过多，尽量使用批量，不要一个一个的转换浪费次数。</p> <p>但是比如说这样一个功能，我需要根据当前地图可视化范围，获取当前可视化范围的点，这样可能会出现问题，因为查询的点是GPS坐标，但是传给后台的可视化范围是高德坐标，两个坐标不统一，就会出现坐标偏差，效果就不是特别的好。</p> <p>因此，就需要将可视化范围的东北角坐标和西南角坐标转换成GPS坐标在传给后台过滤，这样的话，可以将误差缩到最小。</p> <p>这种转换的代码在网上很多，各式各样的都存在，但是有的效果不是特别的好，然后我找了一个测试了一下，感觉效果还是可以的，起码我能接受，需要的话看一下最后的效果图，如果接受的话，可以用起来。</p> <p>首先有一个封装好的js文件，里面的代码就是下面的代码。</p> <pre><code class="language-javascript"> /**  * 高德地图坐标转GPS坐标算法  */  //定义一些常量 const PI = 3.1415926535897932384626; const a = 6378245.0;  //长半轴 const ee = 0.00669342162296594323; //扁率  /**  * GCJ02 转换为 WGS84  * @param lng  * @param lat  * @returns {*[]}  */ function gcj02towgs84(lng, lat) {   lat = +lat   lng = +lng   if (out_of_china(lng, lat)) {     return [lng, lat]   } else {     let dlat = transformlat(lng - 105.0, lat - 35.0)     let dlng = transformlng(lng - 105.0, lat - 35.0)     let radlat = lat / 180.0 * PI     let magic = Math.sin(radlat)     magic = 1 - ee * magic * magic     let sqrtmagic = Math.sqrt(magic)     dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI)     dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI)     let mglat = lat + dlat     let mglng = lng + dlng     return [lng * 2 - mglng, lat * 2 - mglat]   } }  /**  * WGS84 转换为 GCJ02  * @param lng  * @param lat  * @returns {*[]}  */ function wgs84togcj02(lng, lat) {   lat = +lat   lng = +lng   if (out_of_china(lng, lat)) {     return [lng, lat]   } else {     let dlat = transformlat(lng - 105.0, lat - 35.0)     let dlng = transformlng(lng - 105.0, lat - 35.0)     let radlat = lat / 180.0 * PI     let magic = Math.sin(radlat)     magic = 1 - ee * magic * magic     let sqrtmagic = Math.sqrt(magic)     dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI)     dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI)     return [lng + dlng, lat + dlat]   } }  /**  * 判断是否在国内，不在国内则不做偏移  * @param lng  * @param lat  * @returns {boolean}  */ function out_of_china(lng, lat) {   lat = +lat   lng = +lng   // 纬度3.86~53.55,经度73.66~135.05   return !(lng &gt; 73.66 &amp;&amp; lng &lt; 135.05 &amp;&amp; lat &gt; 3.86 &amp;&amp; lat &lt; 53.55) }  function transformlat(lng, lat) {   lat = +lat   lng = +lng   let ret = -100.0 + 2.0 * lng + 3.0 * lat + 0.2 * lat * lat + 0.1 * lng * lat + 0.2 * Math.sqrt(Math.abs(lng))   ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0   ret += (20.0 * Math.sin(lat * PI) + 40.0 * Math.sin(lat / 3.0 * PI)) * 2.0 / 3.0   ret += (160.0 * Math.sin(lat / 12.0 * PI) + 320 * Math.sin(lat * PI / 30.0)) * 2.0 / 3.0   return ret }  function transformlng(lng, lat) {   lat = +lat   lng = +lng   let ret = 300.0 + lng + 2.0 * lat + 0.1 * lng * lng + 0.1 * lng * lat + 0.1 * Math.sqrt(Math.abs(lng))   ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0   ret += (20.0 * Math.sin(lng * PI) + 40.0 * Math.sin(lng / 3.0 * PI)) * 2.0 / 3.0   ret += (150.0 * Math.sin(lng / 12.0 * PI) + 300.0 * Math.sin(lng / 30.0 * PI)) * 2.0 / 3.0   return ret }  export {   gcj02towgs84 }</code></pre> <p>就这些，然后用法大概都知道，就不详细说了。</p> <p>我特意转换试了一下误差，我先找了一个原始的高德坐标，然后把这个高德坐标通过上面的代码转成GPS的坐标，然后又把转成的GPS坐标再使用高德官方提供的方法转回高德坐标，我感觉前后两个高德坐标是差不多的，起码误差我能接受。</p> <p>下面是来回转换的效果图。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220509/d368f4ed9a3472b7cc43be6c60bbcbd0.jpg" alt="vue 实现高德坐标转GPS坐标"><br /> 然后封装的方法有 WGS84 转 GCJ02 的，也有 GCJ02 转 WGS84的，需要啥自己用。可以不用高德的，毕竟访问次数有限制，而且批量转化的坐标点多了还会出问题，毕竟是get请求嘛，加油！</p> <p>完成~</p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-717.htm">Shell基础管道符介绍</a></p>
+                                                <p>下一个：<a href="/html/category/article-719.htm">Vue项目自动设置版本号，版本号变更清空缓存</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-742.htm" title="聊聊 node 如何优雅地获取 mac 系统版本">聊聊 node 如何优雅地获取 mac 系统版本</a></li>
+                        <li class="py-2"><a href="/html/category/article-757.htm" title="SDS-redis动态字符串">SDS-redis动态字符串</a></li>
+                        <li class="py-2"><a href="/html/category/article-749.htm" title="vue @component继承的一些知识点详解">vue @component继承的一些知识点详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-738.htm" title="通过源码了解Java的自动装箱拆箱">通过源码了解Java的自动装箱拆箱</a></li>
+                        <li class="py-2"><a href="/html/category/article-781.htm" title="一文搞定CompletableFuture并行处理，成倍缩短查询时间。">一文搞定CompletableFuture并行处理，成倍缩短查询时间。</a></li>
+                        <li class="py-2"><a href="/html/category/article-760.htm" title="win11系统怎么隐藏菜单">win11系统怎么隐藏菜单</a></li>
+                        <li class="py-2"><a href="/html/category/article-767.htm" title="超详细，Python 多线程总结的太到位了">超详细，Python 多线程总结的太到位了</a></li>
+                        <li class="py-2"><a href="/html/category/article-745.htm" title="Kubernetes集群环境初始化_云其它_">Kubernetes集群环境初始化_云其它_</a></li>
+                        <li class="py-2"><a href="/html/category/article-751.htm" title="Azure Service Fabric 踩坑日志_在线工具">Azure Service Fabric 踩坑日志_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-768.htm" title="mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）">mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

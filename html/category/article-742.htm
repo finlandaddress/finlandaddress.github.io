@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-742.htm" />
+    <title>聊聊 node 如何优雅地获取 mac 系统版本 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>聊聊 node 如何优雅地获取 mac 系统版本</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<h2 id="背景">背景</h2> <p>今天突然碰到了一个兼容性需求，需要根据不同 macOS 版本，进行不同的兼容性处理。</p> <p>没想到看似简单的需求，中间也经历了一番波折，好在最后解决了问题。</p> <p>在此记录一下解决问题的过程，也方便其他有类似需求的同学参考。</p> <h2 id="获取系统类型">获取系统类型</h2> <p>既然需要针对 mac 系统进行兼容性处理，首先需要区分系统类型，好在 node 提供了相关的 API，只需使用<code>os.platform()</code> 即可直接获取系统类型。</p> <pre><code class="language-TypeScript">import { platform } from 'os';  console.log(platform()); // 'darwin'</code></pre> <p>值得一提的是，macOS 对应的名称不是<code>macOS</code> 而是<strong><code>darwin</code></strong>。</p> <p>除了可以通过<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://nodejs.cn/api/os.html"  target="_blank" rel="nofollow">os</a> 这个包获取系统类型，我们还可以通过<code>process.platform</code> 来获取。</p> <pre><code class="language-TypeScript">import { platform } from 'process';  console.log(platform); // 'darwin'</code></pre> <h2 id="获取系统版本">获取系统版本</h2> <p>很多熟悉 node 的同学这时候会说了，可以通过<code>os.release()</code> 快速获取系统版本。但是，当你执行<code>os.release()</code> ，你会发现，它的结果并符合常规认知。</p> <p>比如，我的系统版本是<code>12.0.1</code>，但是，<code>os.release()</code> 的执行结果却是<code>21.1.0</code>。</p> <p>查看<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://nodejs.cn/api/os.html#osrelease"  target="_blank" rel="nofollow">node 官方文档</a>可以发现，node 是通过<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://linux.die.net/man/3/uname"  target="_blank" rel="nofollow">uname(3)</a> 来确定操作系统的，所以执行结果比较违背常规认知。</p> <h2 id="通过命令行获取系统版本">通过命令行获取系统版本</h2> <p>既然<code>os.release()</code> 获取的系统版本很难让人理解，那么有没有什么方案可以直接获取实际的系统版本号呢？</p> <p>mac 上存在<code>sw_vers</code> 命令，可以直接获取系统信息。</p> <pre><code class="language-Bash">$ sw_vers ProductName:    macOS ProductVersion: 12.0.1 BuildVersion:   21A559</code></pre> <p>可以看到<code>sw_vers</code> 命令直接获取到了系统版本：<code>12.0.1</code> 。</p> <p>如果不需要其他系统信息，我们可以通过添加命令行参数，过滤命令行结果，直接获取系统版本。</p> <pre><code class="language-Bash">$ sw_vers -ProductVersion 12.0.1</code></pre> <p>由于命令行不区分大小写，所以命令行参数无所谓大小写，你也可以写成<code>-productversion</code> 或者<code>-ProductVersion</code>。</p> <p>既然知道命令行怎么写，接下来我们只需要在 node 中调用命令行即可。</p> <pre><code class="language-TypeScript">import { execSync } from 'child_process'; console.log(execSync('sw_vers -ProductVersion', { encoding: 'utf-8' })); // 12.0.1</code></pre> <h2 id="优雅地获取系统版本">优雅地获取系统版本</h2> <p>通过 node 子进程执行命令行命令，可以获取正确的系统版本。但是这种方式有着性能方面的缺陷，需要创建子进程执行命令行，相对于<code>os.release()</code> 的方式，开销较大。</p> <p>之前使用<code>os.release()</code> 的问题在于返回结果比较违反常规认知，但是它的结果其实是正确的，只不过需要进行一次映射。</p> <p>所以，通过<code>os.release()</code> 配合映射表即可优雅地获取系统版本。</p> <pre><code class="language-TypeScript">import os from 'os';  const macVersionMap = new Map([   [21, ['Monterey', '12']],   [20, ['Big Sur', '11']],   [19, ['Catalina', '10.15']],   [18, ['Mojave', '10.14']],   [17, ['High Sierra', '10.13']],   [16, ['Sierra', '10.12']],   [15, ['El Capitan', '10.11']],   [14, ['Yosemite', '10.10']],   [13, ['Mavericks', '10.9']],   [12, ['Mountain Lion', '10.8']],   [11, ['Lion', '10.7']],   [10, ['Snow Leopard', '10.6']],   [9, ['Leopard', '10.5']],   [8, ['Tiger', '10.4']],   [7, ['Panther', '10.3']],   [6, ['Jaguar', '10.2']],   [5, ['Puma', '10.1']], ]);  const getMacRelease = (release: string) =&gt; {   const macRelease = release ?? os.release();   const firstReleaseVersion = Number(macRelease.split('.')[0]);   const [name, version] = macVersionMap.get(firstReleaseVersion) || [     'Unknown',     '',   ];    return {     name,     version,   }; };  console.log(getMacRelease()) // 12</code></pre> <p>为了方便 mac 新发布系统后依然能够识别，将新系统版本名称识别为<code>Unknow</code>，新版本识别为空字符串。</p> <p>此举是学习移动端机型打分平台，如果出现版本为空时，默认为高版本，不影响低版本的兼容性处理。</p> <p>现在，我们就能够通过 node 优雅地获取系统版本啦。</p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-741.htm">Spring 5 中文解析数据存储篇-JDBC数据存储(下)</a></p>
+                                                <p>下一个：<a href="/html/category/article-743.htm">EditText 不显示光标  光标消失</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-746.htm" title="云环境下集合隐私计算-解读">云环境下集合隐私计算-解读</a></li>
+                        <li class="py-2"><a href="/html/category/article-741.htm" title="Spring 5 中文解析数据存储篇-JDBC数据存储(下)">Spring 5 中文解析数据存储篇-JDBC数据存储(下)</a></li>
+                        <li class="py-2"><a href="/html/category/article-744.htm" title="Django项目引入NPM和gulp管理前端资源">Django项目引入NPM和gulp管理前端资源</a></li>
+                        <li class="py-2"><a href="/html/category/article-761.htm" title="springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题">springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-731.htm" title="springboot项目部署好之后第一次启动慢的解决办法">springboot项目部署好之后第一次启动慢的解决办法</a></li>
+                        <li class="py-2"><a href="/html/category/article-770.htm" title="win11系统怎么更改屏幕刷新率">win11系统怎么更改屏幕刷新率</a></li>
+                        <li class="py-2"><a href="/html/category/article-752.htm" title="jpa 原生SQL写法">jpa 原生SQL写法</a></li>
+                        <li class="py-2"><a href="/html/category/article-743.htm" title="EditText 不显示光标  光标消失">EditText 不显示光标  光标消失</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-762.htm" title="SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)">SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

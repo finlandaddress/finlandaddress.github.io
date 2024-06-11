@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-655.htm" />
+    <title>通过systemd配置Docker - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>通过systemd配置Docker</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="htmledit_views"> <p><span style="white-space:pre"></span><span style="font-size:14px">前面一直是用的1.8.2版本的Docker，最近集群中增加了几个节点装了1.9.1版本，结果在配置使用“--insecure-registry"方式不通过key直接登录local registry时，发现1.9.1版本中没有了"/etc/sysconfig/docker"文件，也没有”/etc/default/docker"这个文件。</span></p> <p><span style="font-size:14px"><span style="white-space:pre"></span>后来参考官方文档通过配置systemd service文件的方式解决了这个问题。关于官方文档中介绍的更多通过systemd配置内容，请参考官方文档“<a target="_blank" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://docs.docker.com/engine/articles/systemd/#custom-docker-daemon-options"  rel="nofollow">Control and Configure Docker with systemd</a>”。本文重点通过介绍配置--insecure-registry来介绍如何通过systemd配置Docker。</span></p> <p><span style="white-space:pre"></span></p> <h1>1. systemd Service相关目录</h1> <p><span style="white-space:pre"></span><span style="font-size:14px">通常情况下，我们有3种方式可以配置etcd中的service。以docker为例，1）在目录/etc/systemd/system/docker.service.d目录下放systemd drop-in文件；2）通过修改/etc/systemd/system/docker.service文件；3）通过修改/lib/systemd/system/docker.service文件。如果2）和3）的文件同时存在，2）将覆盖3）。</span></p> <p><span style="font-size:14px"><span style="white-space:pre"></span>默认情况下1）和2）都不存在，我们此处也用不着太复杂的去使用选项1）和2），直接修改3）就可以解决问题。</span></p> <h1>2. Version 1.8.2 到 Version 1.9.1 docker.service文件的变化</h1> <p><span style="white-space:pre"></span><span style="font-size:14px">版本1.8.2的docker.service文件内容如下。可以看到“/etc/sysconfig/docker" 文件是如何被引用的，以及该文件中定义的”INSECURE_REGISTRY"变量是如何生效的。首先，在“/etc/sycconfig/docker" 中定义变量；然后通过“EnvironmentFile” 引用“/etc/sysconfig/docker"文件；最后在”ExecStart“启动daemon时，将”INSECURE_REGISTRY"变量作为daemon选项执行。</span></p> <pre><code class="language-plain">[Unit] Description=Docker Application Container Engine Documentation=http://docs.docker.com After=network.target Wants=docker-storage-setup.service  [Service] Type=notify EnvironmentFile=-/etc/sysconfig/docker EnvironmentFile=-/etc/sysconfig/docker-storage EnvironmentFile=-/etc/sysconfig/docker-network Environment=GOTRACEBACK=crash ExecStart=/usr/bin/docker daemon $OPTIONS \           $DOCKER_STORAGE_OPTIONS \           $DOCKER_NETWORK_OPTIONS \           $ADD_REGISTRY \           $BLOCK_REGISTRY \           $INSECURE_REGISTRY LimitNOFILE=1048576 LimitNPROC=1048576 LimitCORE=infinity MountFlags=slave TimeoutStartSec=1min Restart=on-failure  [Install] WantedBy=multi-user.target</code></pre> <p><span style="white-space:pre"></span><br /> <span style="font-size:14px">版本1.9.1的docker.service文件内容如下所示。可以看到一个很主要的区别就是1.9.1中缺少了对EnvironmentFile的引用，以及在‘ExecStart’启动docker daemon时对环境变量的使用。</span></p> <pre><code class="language-plain">[Unit] Description=Docker Application Container Engine Documentation=https://docs.docker.com After=network.target docker.socket Requires=docker.socket  [Service] Type=notify ExecStart=/usr/bin/docker daemon -H fd:// MountFlags=slave LimitNOFILE=1048576 LimitNPROC=1048576 LimitCORE=infinity</code></pre> <p><span style="white-space:pre"> </span></p> <h1>3. 解决方案</h1> <p><span style="white-space:pre"></span><span style="font-size:14px">1）参考1.8.2的方式，也为了保持与1.8.2的向上兼容。首先在创建"/etc/sysconfig/docker"文件，并在文件加入如下行：</span></p> <pre><code class="language-plain">&lt;span style="font-size:14px;"&gt;INSECURE_REGISTRY='--insecure-registry=https://xingwangc.docker.rg --insecure-registry=xingwangc.docker.rg'&lt;/span&gt;</code></pre> <p><span style="font-size:14px"><span style="white-space:pre"> </span> 注：上面变量定义中，第一个“--insecure-registry=https://xingwangc.docker.rg”用于通过用户名/密码登陆registry，第二个“--insecure-registry=xingwangc.docker.rg"用于向registry push image和从registry pull image。第二个定义中没有指明“https”协议，如果加了“https”将造成无法从registry pull/push。理解了这个过程之后，就可以定义任何变量名了。</span></p> <p><span style="white-space:pre"><span style="font-size:14px"></span></span></p> <p><span style="font-size:14px"><span style="white-space:pre"></span>2）修改/lib/systemd/system/docker，增加EnvironmentFile引用/etc/sysconfig/docker文件，并在ExecStart中增加对环境变量的引用。</span></p> <pre><code class="language-plain">[Unit] Description=Docker Application Container Engine Documentation=https://docs.docker.com After=network.target docker.socket Requires=docker.socket  [Service] Type=notify EnvironmentFile=-/etc/sysconfig/docker ExecStart=/usr/bin/docker daemon -H fd:// $INSECURE_REGISTRY MountFlags=slave LimitNOFILE=1048576 LimitNPROC=1048576 LimitCORE=infinity  [Install] WantedBy=multi-user.target</code></pre> <p><span style="white-space:pre"> </span></p> <p><span style="white-space:pre"></span><span style="font-size:14px">3）在刷新改动前，先查看下是否使用了EnvironmentFile，默认的是没有引用EnvironmentFile的。使用命令“systemctl show”</span></p> <pre><code class="language-plain">sudo systemctl show docker | grep EnvironmentFile EnvironmentFile=-</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230203/f07f5ef7282c15a7fc28cb32935bae6a.jpg" alt="通过systemd配置Docker"></p> <p><span style="white-space:pre"></span></p> <p><span style="white-space:pre"></span><span style="font-size:14px">4）刷新改动，并重启docker，并检查EnvironmentFile</span></p> <pre><code class="language-plain">sudo systemctl daemon-reload sudo systemctl restart docker</code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230203/8b742397607878e940d6a6ccea6e7ce6.jpg" alt="通过systemd配置Docker"></p> <p><span style="white-space:pre"></span><br /> <span style="font-size:14px">5）验证登陆registry，pull image</span></p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230203/8cc5bacb31703bdcb5409b4989879fd9.jpg" alt="通过systemd配置Docker"></p> <p></p> <p>参考链接：</p> <p>Control and Configure Docker with Systemd</p> </p></div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-654.htm">Kafka数据存储流程和log日志介绍-初级入门(六)</a></p>
+                                                <p>下一个：<a href="/html/category/article-656.htm">SpringBoot集成redis简要_在线工具</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-751.htm" title="Azure Service Fabric 踩坑日志_在线工具">Azure Service Fabric 踩坑日志_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-788.htm" title="深入浅出Vue3 Composition API">深入浅出Vue3 Composition API</a></li>
+                        <li class="py-2"><a href="/html/category/article-758.htm" title="Spring Security 一键接入验证码登录和小程序登录">Spring Security 一键接入验证码登录和小程序登录</a></li>
+                        <li class="py-2"><a href="/html/category/article-776.htm" title="vue实现文字滚动效果_vue.js">vue实现文字滚动效果_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-739.htm" title="如何使用JavaScript在新标签页（而不是新窗口）中打开URL">如何使用JavaScript在新标签页（而不是新窗口）中打开URL</a></li>
+                        <li class="py-2"><a href="/html/category/article-749.htm" title="vue @component继承的一些知识点详解">vue @component继承的一些知识点详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-768.htm" title="mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）">mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）</a></li>
+                        <li class="py-2"><a href="/html/category/article-775.htm" title="toString()、new String()和(String) 、String.ValueOf()的区别">toString()、new String()和(String) 、String.ValueOf()的区别</a></li>
+                        <li class="py-2"><a href="/html/category/article-733.htm" title="vue的router-link的replace属性&amp;编程式路由导航&amp;缓存路由组件&amp;两个新的生命周期钩子&amp;路由守卫">vue的router-link的replace属性&amp;编程式路由导航&amp;缓存路由组件&amp;两个新的生命周期钩子&amp;路由守卫</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

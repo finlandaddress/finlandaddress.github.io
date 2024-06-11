@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-758.htm" />
+    <title>Spring Security 一键接入验证码登录和小程序登录 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Spring Security 一键接入验证码登录和小程序登录</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<p>最近实现了一个多端登录的<strong>Spring Security</strong>组件，用起来非常丝滑，开箱即用，可插拔，而且灵活性非常强。我觉得能满足大部分场景的需要。目前完成了手机号验证码和微信小程序两种自定义登录，加上默认的Form登录，一共三种，现在开源分享给大家，接下来简单介绍一下这个插件包。</p> <h3 id="dsl配置风格">DSL配置风格</h3> <p>切入正题，先来看看配置：</p> <pre><code class="language-java">    @Bean     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {         http.csrf().disable()                 .authorizeRequests()                 .mvcMatchers("/foo/**")                 .access("hasAuthority('ROLE_USER')").anyRequest().authenticated()                 .and()                 // 默认form表单登录                 .formLogin()                 .and()                 .apply(new LoginFilterSecurityConfigurer&lt;&gt;())                 // 验证码登录                 .captchaLogin(captchaLoginConfigurer -&gt;                                 // 验证码校验 1 在此处配置 优先级最高 2 注册为Spring Bean 可以免配置                                 captchaLoginConfigurer.captchaService(this::verifyCaptchaMock)                                         // 根据手机号查询用户UserDetials  1 在此处配置 优先级最高 2 注册为Spring Bean 可以免配置                                         .captchaUserDetailsService(this::loadUserByPhoneMock)                                         // 生成JWT 返回  1 在此处配置 优先级最高 2 注册为Spring Bean 可以免配置                                         .jwtTokenGenerator(this::tokenResponseMock)                         //todo 其它配置省略……                 )                 // 小程序登录 同时支持多个小程序                 .miniAppLogin(miniAppLoginConfigurer -&gt; miniAppLoginConfigurer                                 // 实现小程序多租户                                 // 根据请求携带的clientid 查询小程序的appid和secret 1 在此处配置 优先级最高 2 注册为Spring Bean 可以免配置                                 .miniAppClientService(this::miniAppClientMock)                                 // 小程序用户 自动注册和检索  1 在此处配置 优先级最高 2 注册为Spring Bean 可以免配置                                 .miniAppUserDetailsService(new MiniAppUserDetailsServiceMock())                                 // 小程序sessionkey缓存 过期时间应该小于微信官方文档的声明   1 在此处配置 优先级最高 2 注册为Spring Bean 可以免配置                                 .miniAppSessionKeyCache(new MiniAppSessionKeyCacheMock())                                 // 生成JWT 返回  1 在此处配置 优先级最高 2 注册为Spring Bean 可以免配置                                 .jwtTokenGenerator(this::tokenResponseMock)                         //todo 其它配置省略……                 );          return http.build();     }</code></pre> <p>这种风格完全贴合了<strong>Spring Security</strong>的<strong>DSL</strong>配置风格，不仅仅高大上，而且可以按需配置。如果你没有验证码登录直接删掉<code>captchaLogin</code>方法；如果你没有微信小程序登录直接删掉<code>miniAppLogin</code>方法。甚至还可以对单种登录进行细粒度定制化，<code>formLogin</code>有的功能基本验证码登录和微信小程序登录的都有。</p> <h3 id="为什么这么灵活">为什么这么灵活？</h3> <p>这里抽象了一个登录配置类：</p> <pre><code class="language-java">&nbsp;public abstract class AbstractLoginFilterConfigurer&lt;H extends HttpSecurityBuilder&lt;H&gt;,  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;C extends AbstractLoginFilterConfigurer&lt;H, C, F&gt;,  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;F extends AbstractAuthenticationProcessingFilter&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;extends AbstractHttpConfigurer&lt;AbstractLoginFilterConfigurer&lt;H, C, F&gt;, H&gt; { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 省略…… &nbsp; &nbsp; &nbsp; &nbsp;  }</code></pre> <p>所有额外的登录渠道大都可以通过这个类来扩展，负责验证码登录的<code>CaptchaLoginFilterConfigurer</code>和微信小程序登录的<code>MiniAppLoginFilterConfigurer</code>都是该类实现的，基本上你看了源码也能照葫芦画瓢来一个。</p> <p>另外上面这些配置项接口，都可以放在<strong>Spring IoC</strong>中，配置类能自动获取，不过优先级最高的还是通过上面代码中配置的具体实现，原理参见下面的的样例：</p> <pre><code class="language-java">&nbsp; @Override &nbsp; &nbsp; &nbsp;protected AuthenticationSuccessHandler defaultSuccessHandler(H http) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 如果配置类没有配置 就尝试去Spring IoC中发现 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (this.jwtTokenGenerator == null) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ApplicationContext applicationContext = http.getSharedObject(ApplicationContext.class); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;jwtTokenGenerator = getBeanOrNull(applicationContext, JwtTokenGenerator.class); &nbsp; &nbsp; &nbsp; &nbsp;  } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Assert.notNull(jwtTokenGenerator, "jwtTokenGenerator is required"); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return new LoginAuthenticationSuccessHandler(jwtTokenGenerator); &nbsp; &nbsp;  } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;public final &lt;T&gt; T getBeanOrNull(ApplicationContext applicationContext, Class&lt;T&gt; beanType) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;String[] beanNames = applicationContext.getBeanNamesForType(beanType); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (beanNames.length == 1) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return applicationContext.getBean(beanNames[0], beanType); &nbsp; &nbsp; &nbsp; &nbsp;  } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return null; &nbsp; &nbsp;  }</code></pre> <h3 id="使用方法">使用方法</h3> <p>自行使用Maven命令<code>mvn install</code>到本地仓库，然后引入：</p> <pre><code class="language-xml">        &lt;dependency&gt;             &lt;groupId&gt;cn.felord&lt;/groupId&gt;             &lt;artifactId&gt;spring-security-extension&lt;/artifactId&gt;             &lt;version&gt;1.0.0&lt;/version&gt;         &lt;/dependency&gt;</code></pre> <p>然后参考样例<strong>sample</strong>项目进行开发，登录方式有三种。</p> <h3 id="普通登录">普通登录</h3> <blockquote> <p>原生Spring Security接口</p> </blockquote> <pre><code class="language-http"> POST /login?username=user&amp;password=12345 HTTP/1.1 Host: localhost:8080</code></pre> <h3 id="验证码登录">验证码登录</h3> <blockquote> <p>需要先实现必须的配置接口</p> </blockquote> <p>发送验证码后调用验证码登录接口：</p> <pre><code class="language-http"> POST /login/captcha?phone=11111111111&amp;captcha=123123 HTTP/1.1 Host: localhost:8080</code></pre> <h3 id="小程序登录">小程序登录</h3> <blockquote> <p>需要先实现必须的配置接口</p> </blockquote> <p>前端先调用微信授权登录接口获取<code>openid</code>:</p> <pre><code class="language-http"> POST /miniapp/preauth?clientId=wxxda23234&amp;jsCode=051A23234ZHa1tZ5yj3AOlFr HTTP/1.1 Host: localhost:8080</code></pre> <p>响应：</p> <pre><code class="language-json">{     "code": 200,     "data": {         "errcode": null,         "errmsg": null,         "sessionKey": null,         "openid": "oWmZj5QBrZxxxxx8OUxRrZJi4",         "unionid": "oS-dxxxxxx4w_x7dA-h9MIuA"     },     "msg": "",     "identifier": true }</code></pre> <p>然后调用小程序登录接口：</p> <pre><code class="language-http">POST /login/miniapp HTTP/1.1 Host: localhost:8080 Content-Type: application/json  {     "clientId": "wxd14qr6",     "openId": "oWmZj5QBrZIBks0xx8OUxRrZJi4",     "unionId": "oS-dK520tgW8xxxx7dA-h9MIuA",     "iv":"LQUOt8BSTa7xxxpe1Q==",     "encryptedData": "10hn3o4xxxxxrO/Ag5nRD3QkLSzduKnWuzN9B/H4Y0G5mDPR8siA7T8yaaqZsrMycLAoe2qrd1J75yYetYuWifiq3jUrcceRZHVxxl9LnQdW8f5+pMTnQtCYiMJ7Jm9paCw2Bh+5Lowkyqkx1q0fALvCQ9LXPPLAbLOB9CavRfKoenAmyyHQjZ/6lz0njzA==" }</code></pre> <h3 id="获取方式">获取方式</h3> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://gitee.com/felord/spring-security-login-extension"  target="_blank" rel="nofollow">Gitee: felord/spring-security-login-extension</a></p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-757.htm">SDS-redis动态字符串</a></p>
+                                                <p>下一个：<a href="/html/category/article-759.htm">golang中的panic</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-755.htm" title="第2章 图灵的计算王国">第2章 图灵的计算王国</a></li>
+                        <li class="py-2"><a href="/html/category/article-758.htm" title="Spring Security 一键接入验证码登录和小程序登录">Spring Security 一键接入验证码登录和小程序登录</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-735.htm" title="机器学习笔记：Python底层实现KNN">机器学习笔记：Python底层实现KNN</a></li>
+                        <li class="py-2"><a href="/html/category/article-777.htm" title="基于51单片机的秒表，单独按键控制启动，暂停，复位。">基于51单片机的秒表，单独按键控制启动，暂停，复位。</a></li>
+                        <li class="py-2"><a href="/html/category/article-785.htm" title="C语言程序设计——用户密码输入与判断">C语言程序设计——用户密码输入与判断</a></li>
+                        <li class="py-2"><a href="/html/category/article-765.htm" title="如何在MySQL DATEDIFF()函数中使用两位数的年份值？">如何在MySQL DATEDIFF()函数中使用两位数的年份值？</a></li>
+                        <li class="py-2"><a href="/html/category/article-766.htm" title="Java：线程的三种中断方式">Java：线程的三种中断方式</a></li>
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                        <li class="py-2"><a href="/html/category/article-738.htm" title="通过源码了解Java的自动装箱拆箱">通过源码了解Java的自动装箱拆箱</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

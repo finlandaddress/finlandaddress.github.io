@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-726.htm" />
+    <title>JS/JQ动态创建（添加）optgroup和option属性 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>JS/JQ动态创建（添加）optgroup和option属性</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<h1 id="javascript和jquery动态操作select下拉框">JavaScript和Jquery动态操作select下拉框</h1> <p><em>相信在前端设计中必然不会少的了表单，因为经常会使用到下拉框选项，又或是把数据动态回显到下拉框中。因为之前牵扯到optgroup标签时遇到了问题，没查到太过详细的解决方案，自己动手操作记录一下。</em></p> <h3 id="首先就是咱们的老朋友select标签因为需要jsjq两种操作所以就定义两个select标签">首先就是咱们的老朋友<em>"select"</em>标签，因为需要js、jq两种操作，所以就定义两个select标签。</h3> <blockquote> <p>HTML代码：</p> </blockquote> <pre><code>&lt;div style="width: 200px;height: 100px;margin: auto;margin-top: 100px;padding: 20px;background-color: pink;"&gt; 	&lt;select id="mySelect1" style="width: 120px;"&gt;&lt;/select&gt; 	&lt;select id="mySelect2" style="width: 160px;"&gt;&lt;/select&gt; 	&lt;button id="addSelect2"&gt;添加&lt;/button&gt; &lt;!-- 此处用于点击动态添加到mySelect2 --&gt; &lt;/div&gt;</code></pre> <h3 id="之后就是引用jq定义jsjq操作代码我都贴下面了">之后就是引用jq，定义js、jq操作，代码我都贴下面了。</h3> <blockquote> <p>JS代码：</p> </blockquote> <pre><code>&lt;script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt; &lt;script type="text/javascript"&gt;         //1.动态操作 - JS方式         //这里先定义一个json对象，用于获取并新增到select标签         let language={ 	        "languageList":[ 	        { 		    "groupName":"前端", 		    "optionName":[ 			    {"languageName":"html"}, 			    {"languageName":"CSS"}, 			    {"languageName":"javascript"} 				], 	        }, 	        { 		    "groupName":"后端", 		    "optionName":[ 			    {"languageName":"java"}, 			    {"languageName":"JSP"} 				] 	        } 	      ] 	    };         //language.languageList - 数据位置         let index=0;         for (obj of language.languageList) { 	        //js创建optgroup标签 	        let optgroup=document.createElement("optgroup"); 	        //设置optgroup标签的label和id值 	        optgroup.label=obj.groupName; 	        optgroup.id="optgroupId"+index;                 //把创建optgroup新增到select下 	        document.getElementById("mySelect1").add(optgroup); 	        //针对optgroup标签，添加它的option标签 	        for (var i = 0; i &lt; obj.optionName.length; i++) { 		        //js创建option标签 		        let option=document.createElement("option"); 		        option.value=obj.optionName[i].languageName; 		        option.innerHTML=obj.optionName[i].languageName; 		        document.getElementById("optgroupId"+index).appendChild(option); 	        } 	        index+=1; //自定义下标放在最后新增，防止添加option时id增加         } 		         //2.动态新增 - JQ方式         let item=0;         $("#addSelect2").click(function(){ 	        item=item+1; 	        //jq点击按钮后向下拉框新增optgroup标签 	        $("#mySelect2").append("&lt;optgroup id='optgroup"+item+"' label='生成的optgroup标签"+item+"'&gt;&lt;/optgroup&gt;"); 	        let r=Math.floor((Math.random()*5)+1); //生成随机数1-5                 //把随机数个数个的option添加到当前新增的optgroup下 	        for (var i = 1; i &lt;= r; i++) { 		        $("#optgroup"+item).append(`&lt;option value="`+i+`"&gt;随机生成的option`+i+`&lt;/option&gt;`); 	        }         }); &lt;/script&gt;</code></pre> <p><strong>需要注意的是：</strong>尽管用的id是递增产生的，但前面的名字也不要一样，我在测试按钮功能的时候，没注意就把两种optgroup的id定义成一样的，结果按钮随机生成的option都加到了相应id的mySelect1的optgroup里面了。????</p> <h3 id="最后再贴一下运行效果">最后再贴一下运行效果</h3> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/255a62426ca91bf40fde27e4510f4137.jpg" alt="JS/JQ动态创建（添加）optgroup和option属性"></p> <p>首先就是mySelect1回显json中的数据</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/07c62b5086550bea2173f67bb38df9a8.jpg" alt="JS/JQ动态创建（添加）optgroup和option属性"></p> <p>点击添加按钮，新增到mySelect2</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/f7f3c17c58602280a337af469efbe88d.jpg" alt="JS/JQ动态创建（添加）optgroup和option属性"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/6853b957b0106a99bf97d0581b55d388.jpg" alt="JS/JQ动态创建（添加）optgroup和option属性"></p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-725.htm">深入理解Kafka核心设计及原理（二）：生产者</a></p>
+                                                <p>下一个：<a href="/html/category/article-727.htm">用Python读hdfs集群parquet格式文件</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-774.htm" title="手把手教你调用微信扫一扫！三分钟包会">手把手教你调用微信扫一扫！三分钟包会</a></li>
+                        <li class="py-2"><a href="/html/category/article-740.htm" title="python中repr()函数用法详解">python中repr()函数用法详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-734.htm" title="Dubbo源码学习系列整合网络框架Netty详解">Dubbo源码学习系列整合网络框架Netty详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-768.htm" title="mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）">mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）</a></li>
+                        <li class="py-2"><a href="/html/category/article-757.htm" title="SDS-redis动态字符串">SDS-redis动态字符串</a></li>
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                        <li class="py-2"><a href="/html/category/article-770.htm" title="win11系统怎么更改屏幕刷新率">win11系统怎么更改屏幕刷新率</a></li>
+                        <li class="py-2"><a href="/html/category/article-755.htm" title="第2章 图灵的计算王国">第2章 图灵的计算王国</a></li>
+                        <li class="py-2"><a href="/html/category/article-776.htm" title="vue实现文字滚动效果_vue.js">vue实现文字滚动效果_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-753.htm" title="爬虫系列：爬虫验证码识别_在线工具">爬虫系列：爬虫验证码识别_在线工具</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

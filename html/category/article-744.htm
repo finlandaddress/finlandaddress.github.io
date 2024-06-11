@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-744.htm" />
+    <title>Django项目引入NPM和gulp管理前端资源 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Django项目引入NPM和gulp管理前端资源</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<h2 id="前言">前言</h2> <p>之前写了一篇<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/deali/p/15905760.html"  target="_blank" rel="nofollow">《Asp-Net-Core开发笔记：使用NPM和gulp管理前端静态文件》</a>，现在又来用Django开发项目了，之前我搞了一个Django的快速开发脚手架<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/Deali-Axy/DjangoStarter"  target="_blank" rel="nofollow">「DjangoStarter」</a>，正好给升级一下~</p> <p>关于npm和gulp我就不多重复了，之前那篇文章都写了，直接上操作</p> <h2 id="安装依赖">安装依赖</h2> <p>安装依赖的操作跟上一篇文章是一样的，不过我这里直接提供<code>package.json</code>文件，复制到项目根目录里面，然后直接执行命令安装依赖。</p> <p><code>package.json</code>文件如下：</p> <pre><code class="language-json">{   "name": "django_starter",   "version": "1.0.0",   "description": "",   "main": "index.js",   "repository": "https://github.com/Deali-Axy/DjangoStarter",   "author": "DealiAxy",   "license": "Apache License 2.0",   "dependencies": {     "bootstrap": "^5.1.3",   },   "devDependencies": {     "gulp": "^4.0.2",     "gulp-changed": "^4.0.3",     "gulp-clean-css": "^4.3.0",     "gulp-concat": "^2.6.1",     "gulp-rename": "^2.0.0",     "gulp-uglify": "^3.0.2",     "rimraf": "^3.0.2"   } }</code></pre> <p>执行命令：</p> <pre><code class="language-bash">npm install # 或者有安装yarn的话可以 yarn</code></pre> <h2 id="gulp配置">gulp配置</h2> <p>在项目根目录下创建<code>gulpfile.js</code>文件</p> <p>直接上配置文件：</p> <pre><code class="language-js">/// &lt;binding BeforeBuild='min' Clean='clean' ProjectOpened='auto' /&gt; "use strict";  //加载使用到的 gulp 插件 const gulp = require("gulp"),     rimraf = require("rimraf"),     concat = require("gulp-concat"),     cssmin = require("gulp-clean-css"),     rename = require("gulp-rename"),     uglify = require("gulp-uglify"),     changed = require("gulp-changed");   //定义 static 下的各文件存放路径 const paths = {     root: "./static/",     css: './static/css/',     js: './static/js/',     lib: './static/lib/' };  //css paths.cssDist = paths.css + "**/*.css";//匹配所有 css 的文件所在路径 paths.minCssDist = paths.css + "**/*.min.css";//匹配所有 css 对应压缩后的文件所在路径 paths.concatCssDist = paths.css + "app.min.css";//将所有的 css 压缩到一个 css 文件后的路径  //js paths.jsDist = paths.js + "**/*.js";//匹配所有 js 的文件所在路径 paths.minJsDist = paths.js + "**/*.min.js";//匹配所有 js 对应压缩后的文件所在路径 paths.concatJsDist = paths.js + "app.min.js";//将所有的 js 压缩到一个 js 文件后的路径   //使用 npm 下载的前端组件包 const libs = [     {name: "bootstrap", dist: "./node_modules/bootstrap/dist/**/*.*"}, ];  // 使用 npm 下载的前端组件，自定义存放位置 const customLibs = [     // {name: 'font-awesome', dist: './node_modules/@fortawesome/fontawesome-free/**/*.*'}, ]  //清除压缩后的文件 gulp.task("clean:css", done =&gt; rimraf(paths.minCssDist, done)); gulp.task("clean:js", done =&gt; rimraf(paths.minJsDist, done));  gulp.task("clean", gulp.series(["clean:js", "clean:css"]));  //移动 npm 下载的前端组件包到 wwwroot 路径下 gulp.task("move:dist", done =&gt; {     libs.forEach(item =&gt; {         gulp.src(item.dist)             .pipe(gulp.dest(paths.lib + item.name + "/dist"));     });     done() }) gulp.task("move:custom", done =&gt; {     customLibs.forEach(item =&gt; {         gulp.src(item.dist)             .pipe(gulp.dest(paths.lib + item.name))     })     done() })  //每一个 css 文件压缩到对应的 min.css gulp.task("min:css", () =&gt; {     return gulp.src([paths.cssDist, "!" + paths.minCssDist], {base: "."})         .pipe(rename({suffix: '.min'}))         .pipe(changed('.'))         .pipe(cssmin())         .pipe(gulp.dest('.')); });  //将所有的 css 文件合并打包压缩到 app.min.css 中 gulp.task("concat:css", () =&gt; {     return gulp.src([paths.cssDist, "!" + paths.minCssDist], {base: "."})         .pipe(concat(paths.concatCssDist))         .pipe(changed('.'))         .pipe(cssmin())         .pipe(gulp.dest(".")); });  //每一个 js 文件压缩到对应的 min.js gulp.task("min:js", () =&gt; {     return gulp.src([paths.jsDist, "!" + paths.minJsDist], {base: "."})         .pipe(rename({suffix: '.min'}))         .pipe(changed('.'))         .pipe(uglify())         .pipe(gulp.dest('.')); });  //将所有的 js 文件合并打包压缩到 app.min.js 中 gulp.task("concat:js", () =&gt; {     return gulp.src([paths.jsDist, "!" + paths.minJsDist], {base: "."})         .pipe(concat(paths.concatJsDist))         .pipe(changed('.'))         .pipe(uglify())         .pipe(gulp.dest(".")); });   gulp.task('move', gulp.series(['move:dist', 'move:custom'])) gulp.task("min", gulp.series(["min:js", "min:css"])) gulp.task("concat", gulp.series(["concat:js", "concat:css"]))   //监听文件变化后自动执行 gulp.task("auto", () =&gt; {     gulp.watch(paths.css, gulp.series(["min:css", "concat:css"]));     gulp.watch(paths.js, gulp.series(["min:js", "concat:js"])); });</code></pre> <p>无脑复制粘贴就行，真正使用的时候，只需要关注这两段代码</p> <pre><code class="language-js">//使用 npm 下载的前端组件包 const libs = [     {name: "bootstrap", dist: "./node_modules/bootstrap/dist/**/*.*"}, ];  // 使用 npm 下载的前端组件，自定义存放位置 const customLibs = [     // {name: 'font-awesome', dist: './node_modules/@fortawesome/fontawesome-free/**/*.*'}, ]</code></pre> <p>第一段是针对比较规范的npm包，资源文件都在<code>dist</code>目录下的，配置规则就比较简单，原样复制到我们项目的<code>/static/lib</code>目录下就行。（一般比较新的npm包都是这种结构）</p> <p>第二段是针对不按规范的npm包，按照习惯，我们把它包下的css和js文件分开放到<code>/static/lib</code>目录下，当然具体怎么放可以自己决定，这些规则配置很自由的。</p> <p>举个例子：</p> <pre><code class="language-js">const customLibs = [     {name: 'example-lib/css', dist: './node_modules/example-lib/a/b/*.css'},     {name: 'example-lib/js', dist: './node_modules/example-lib/a/c/*.js'}, ]</code></pre> <p>这样就可以把<code>example-lib</code>包里面，<code>a/b</code>目录下的css文件，和<code>a/c</code>目录下的js文件，分别复制到我们项目目录的<code>/static/lib/example-lib/css</code>和<code>/static/lib/example-lib/js</code>目录，到时我们项目中引用会比较方便。</p> <h2 id="执行gulp任务">执行gulp任务</h2> <p>配置完了之后，直接执行这个命令就行：</p> <pre><code class="language-bash">gulp move</code></pre> <p>之前的gulp配置里还配了很多其他任务，不过感觉必要性不大，毕竟我们这是后端项目，只用一个move命令就行了</p> <p>关于其他的命令可以看<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/deali/p/15905760.html"  target="_blank" rel="nofollow">上一篇</a>有具体讲到。</p> <h2 id="在项目中引用">在项目中引用</h2> <p>这部分其实不在本文范畴，不过既然提到就写一下吧。</p> <p>在模板文件中，首先加载<code>static</code>标签，在模板代码的开头写上：</p> <pre><code class="language-jinja2">{% load static %}</code></pre> <p>然后需要引用静态文件的地方：</p> <pre><code class="language-jinja2">&lt;link ref="stylesheet" href="{% static 'lib/bootstrap/dist/css/bootstrap.css' %}"&gt;</code></pre> <p>因为我们之前配置gulp的时候，把所有npm包都复制到了<code>/static/lib</code>目录下，所以引用的时候是<code>lib/</code>开头。</p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-743.htm">EditText 不显示光标  光标消失</a></p>
+                                                <p>下一个：<a href="/html/category/article-745.htm">Kubernetes集群环境初始化_云其它_</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-737.htm" title="win11系统找不到网络路径如何解决">win11系统找不到网络路径如何解决</a></li>
+                        <li class="py-2"><a href="/html/category/article-773.htm" title="C ++中的最大和圆子数组">C ++中的最大和圆子数组</a></li>
+                        <li class="py-2"><a href="/html/category/article-746.htm" title="云环境下集合隐私计算-解读">云环境下集合隐私计算-解读</a></li>
+                        <li class="py-2"><a href="/html/category/article-750.htm" title="torch报错TypeError: can&#8217;t convert CUDA tensor to numpy. Use Tensor.cpu() to copy the tensor">torch报错TypeError: can&#8217;t convert CUDA tensor to numpy. Use Tensor.cpu() to copy the tensor</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-777.htm" title="基于51单片机的秒表，单独按键控制启动，暂停，复位。">基于51单片机的秒表，单独按键控制启动，暂停，复位。</a></li>
+                        <li class="py-2"><a href="/html/category/article-783.htm" title="Vue中所有的v-指令">Vue中所有的v-指令</a></li>
+                        <li class="py-2"><a href="/html/category/article-776.htm" title="vue实现文字滚动效果_vue.js">vue实现文字滚动效果_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-758.htm" title="Spring Security 一键接入验证码登录和小程序登录">Spring Security 一键接入验证码登录和小程序登录</a></li>
+                        <li class="py-2"><a href="/html/category/article-739.htm" title="如何使用JavaScript在新标签页（而不是新窗口）中打开URL">如何使用JavaScript在新标签页（而不是新窗口）中打开URL</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

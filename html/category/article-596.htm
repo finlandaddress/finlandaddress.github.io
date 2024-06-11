@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-596.htm" />
+    <title>Vue3项目中的骨架屏 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Vue3项目中的骨架屏</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="htmledit_views"> <p>实现场景:刚进入页面的时候,需要后端接口回传的数据,还没有回来,为了客户有更好的体验,需要设置骨架屏,效果图如下:</p> <p><img fetchpriority="high" decoding="async" alt="" height="839" src="http://img.555519.xyz/uploads3/20220610/2d4593aa60d8480504ae5d88aea0d11d.jpg"><img decoding="async" alt="" height="779" src="http://img.555519.xyz/uploads3/20220610/d0a25fd7bfc056ba46af6a8dacecbd6d.jpg"></p> <p>&nbsp;实现步骤:</p> <p>1.设置通用组件骨架屏(可以设置的属性:<span style="color:#fe2c24;">高，宽，背景颜色，是否有闪动画</span>)</p> <p>基本传值如下图:</p> <p><img decoding="async" alt="" height="137" src="http://img.555519.xyz/uploads3/20220610/332d826c23c8236cbe526a99a061c55b.jpg"></p> <p>2.设置业务组件骨架屏</p> <p>1).设置通用组件骨架屏基本构建</p> <p>&nbsp;src/components/library/Skeleton.vue</p> <pre><code class="language-html">&lt;template&gt; &lt;div class="skeleton" :style="{width,height}" :class="{shan:animated}"&gt; &lt;!-- 1 盒子--&gt; &lt;div class="block" :style="{backgroundColor:bg}"&gt;&lt;/div&gt;  //一个盒子包含了另一个盒子,样式写在                                                                                                                              // 一个div中也是可以的 &lt;!-- 2 闪效果 xtx-skeleton 伪元素 ---&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: 'Skeleton', // 使用的时候需要动态设置 高度，宽度，背景颜色，是否闪下 props: { bg: { type: String, default: '#efefef' }, width: { type: String, default: '100px' }, height: { type: String, default: '100px' }, animated: { type: Boolean, default: false } } } &lt;/script&gt; &lt;style scoped lang="less"&gt; .skeleton { display: inline-block; position: relative; overflow: hidden; vertical-align: middle; .block { width: 100%; height: 100%; border-radius: 2px; } } .shan { &amp;::after { content: ""; position: absolute; animation: shan 1.5s ease 0s infinite; top: 0; width: 50%; height: 100%; background: linear-gradient( to left, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100% ); transform: skewX(-45deg); } } @keyframes shan { 0% { left: -100%; } 100% { left: 120%; } } &lt;/style&gt;</code></pre> <p>&nbsp;全局注册(main.js中记得导入这个文件,并用Vue中use注册)</p> <p>src/componets/library/index.j</p> <pre><code class="language-javascript">import Skeleton from './Skeleton.vue'  export default { install (app) {  app.component(Skeleton.name, XtxSkeleton) } }</code></pre> <p>实现第一个图</p> <p><img loading="lazy" decoding="async" alt="" height="181" src="http://img.555519.xyz/uploads3/20220610/69c0d7cf461b6204f9fbb5cd42cebffa.jpg"></p> <p>&nbsp;src/views/home/components/home-cate.vue</p> <pre><code class="language-javascript">&lt;ul class="menu"&gt; &lt;li :class="{active:categoryId===item.id}" v-for="item in list" :key="item.id" @mouseenter="categoryId=item.id"&gt; &lt;RouterLink to="/"&gt;{<!-- -->{item.name}}&lt;/RouterLink&gt; &lt;template v-if="item.children"&gt; &lt;RouterLink to="/" v-for="sub in item.children" :key="sub.id"&gt;{<!-- -->{sub.name}}&lt;/RouterLink&gt; &lt;/template&gt;  &lt;span v-else&gt;  &lt;Skeleton width="60px" height="18px" style="margin-right:5px" bg="rgba(255,255,255,0.2)" /&gt;  &lt;Skeleton width="50px" height="18px" bg="rgba(255,255,255,0.2)" /&gt;  &lt;/span&gt; &lt;/li&gt; &lt;/ul&gt;</code></pre> <p>封装业务组件src/views/home/components/home-skeleton.vue,实现第二图的效果</p> <p><img loading="lazy" decoding="async" alt="" height="408" src="http://img.555519.xyz/uploads3/20220610/55086381dd679ce9efa7581d2a1dd212.jpg"></p> <pre><code class="language-html">&lt;template&gt; &lt;div class='home-skeleton'&gt; &lt;div class="item" v-for="i in 4" :key="i" :style="{backgroundColor:bg}"&gt; &lt;Skeleton bg="#e4e4e4" width="306px" height="306px" animated /&gt; &lt;Skeleton bg="#e4e4e4" width="160px" height="24px" animated /&gt; &lt;Skeleton bg="#e4e4e4" width="120px" height="24px" animated /&gt; &lt;/div&gt; &lt;/div&gt; &lt;/template&gt;  &lt;script&gt; export default { name: 'HomeSkeleton', props: { bg: { type: String, default: '#fff' } } } &lt;/script&gt;  &lt;style scoped lang='less'&gt; .home-skeleton { width: 1240px; height: 406px; display: flex; justify-content: space-between; .item { width: 306px; .xtx-skeleton ~ .xtx-skeleton{ display: block; margin: 16px auto 0; } } } &lt;/style&gt;</code></pre> <p>在需要用的组件中,导入业务组件使用</p> <pre><code class="language-html">&lt;HomePanel title="人气推荐" sub-title="人气爆款 不容错过"&gt;  &lt;Transition name="fade"&gt;  // 配合了vue中的淡入淡出的动画  &lt;ul v-if="goods.length" ref="pannel" class="goods-list"&gt;  // v-if有数据显示数据 &lt;li v-for="item in goods" :key="item.id"&gt; &lt;RouterLink to="/"&gt; &lt;img :src="item.picture" alt=""&gt; &lt;p class="name"&gt;{<!-- -->{item.title}}&lt;/p&gt; &lt;p class="desc"&gt;{<!-- -->{item.alt}}&lt;/p&gt; &lt;/RouterLink&gt; &lt;/li&gt; &lt;/ul&gt;  &lt;HomeSkeleton v-else /&gt;   // 没有数据就显示骨架  &lt;/Transition&gt;  &lt;/div&gt; &lt;/HomePanel&gt;</code></pre> </div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-595.htm">java8日期常用API，日期详解</a></p>
+                                                <p>下一个：<a href="/html/category/article-597.htm">vue2.x版本中Object.defineProperty对象属性监听和关联_在线工具</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-732.htm" title="在MySQL中，如何获取数字的二进制值的对应字符串表示形式？">在MySQL中，如何获取数字的二进制值的对应字符串表示形式？</a></li>
+                        <li class="py-2"><a href="/html/category/article-780.htm" title="@RequestBody某些属性值得不到">@RequestBody某些属性值得不到</a></li>
+                        <li class="py-2"><a href="/html/category/article-729.htm" title="visual studio 使用cmake构建项目并远程连接虚拟机centos7">visual studio 使用cmake构建项目并远程连接虚拟机centos7</a></li>
+                        <li class="py-2"><a href="/html/category/article-765.htm" title="如何在MySQL DATEDIFF()函数中使用两位数的年份值？">如何在MySQL DATEDIFF()函数中使用两位数的年份值？</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-770.htm" title="win11系统怎么更改屏幕刷新率">win11系统怎么更改屏幕刷新率</a></li>
+                        <li class="py-2"><a href="/html/category/article-742.htm" title="聊聊 node 如何优雅地获取 mac 系统版本">聊聊 node 如何优雅地获取 mac 系统版本</a></li>
+                        <li class="py-2"><a href="/html/category/article-771.htm" title="win11系统如何进入高级启动">win11系统如何进入高级启动</a></li>
+                        <li class="py-2"><a href="/html/category/article-788.htm" title="深入浅出Vue3 Composition API">深入浅出Vue3 Composition API</a></li>
+                        <li class="py-2"><a href="/html/category/article-775.htm" title="toString()、new String()和(String) 、String.ValueOf()的区别">toString()、new String()和(String) 、String.ValueOf()的区别</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

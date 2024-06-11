@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-733.htm" />
+    <title>vue的router-link的replace属性&amp;编程式路由导航&amp;缓存路由组件&amp;两个新的生命周期钩子&amp;路由守卫 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>vue的router-link的replace属性&amp;编程式路由导航&amp;缓存路由组件&amp;两个新的生命周期钩子&amp;路由守卫</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="htmledit_views"> <h2>1.router-link的replace属性</h2> <p style="margin-left:0;text-align:justify;">*给router-link添加replace属性后页签不能后退：</p> <p><img fetchpriority="high" decoding="async" alt="" height="142" src="http://img.555519.xyz/uploads3/20220604/be02351f6c611d20622ad5cf5634efe5.jpg"></p> <h2>2.编程式路由导航</h2> <p style="margin-left:0;text-align:justify;">*作用：不借助router-link实现路由的跳转，让落跳转更加灵活：</p> <p><img decoding="async" alt="" height="661" src="http://img.555519.xyz/uploads3/20220604/9184a9c512d154177af7bd9c3160c1a6.jpg"></p> <p><img decoding="async" alt="" height="888" src="http://img.555519.xyz/uploads3/20220604/86577180f942359e9fb38f10331d027b.jpg"></p> <h2>&nbsp;3.缓存路由组件</h2> <p style="margin-left:0;text-align:justify;">*作用：让不展示的路由组件保持挂载，不被销毁</p> <p>&lt;keep-alive include='组件的名字'&gt;</p> <p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;router-view&gt;&lt;/router-view&gt;</p> <p>&lt;/keep-alive&gt;</p> <p><img loading="lazy" decoding="async" alt="" height="273" src="http://img.555519.xyz/uploads3/20220604/cd727724c1ff7bd7832c6599c26ecc42.jpg"></p> <h2 style="margin-left:0;text-align:justify;">4.两个新的生命周期钩子</h2> <p style="margin-left:0;text-align:justify;">*路由组件特有的两个生命周期钩子：activated、deactivated</p> <p style="margin-left:0;text-align:justify;">&nbsp;用于捕获路由组件的激活状态</p> <pre><code>&lt;template&gt;     &lt;ul&gt;         &lt;h2 :style="{opacity}"&gt;欢迎学习&lt;/h2&gt;         &lt;li&gt;news001&lt;input type="text"&gt;&lt;/li&gt;         &lt;li&gt;news002&lt;input type="text"&gt;&lt;/li&gt;         &lt;li&gt;news003&lt;input type="text"&gt;&lt;/li&gt;     &lt;/ul&gt; &lt;/template&gt;  &lt;script&gt; export default {     name:"News",     data() {         return {             opacity:1         }     },     activated(){         this.timer=setInterval(() =&gt; {             this.opacity-=0.01             if (this.opacity&lt;=0) {                 this.opacity=1             }         }, 16);     },     deactivated() {         clearInterval(this.timer)     }, } &lt;/script&gt;</code></pre> <h2>5.全局前置_路由守卫</h2> <p><img loading="lazy" decoding="async" alt="" height="456" src="http://img.555519.xyz/uploads3/20220604/35de4b9d7d5af3f15b69420ae1d830c3.jpg"></p> <p style="margin-left:0;text-align:justify;">*meta{}//表示路由元信息，是用户自定义的信息</p> <p style="margin-left:0;text-align:justify;">*简化上方代码：</p> <p style="margin-left:0;text-align:justify;">&nbsp;&nbsp; 在需要权限校验的路由里配置meta：</p> <p><img loading="lazy" decoding="async" alt="" height="653" src="http://img.555519.xyz/uploads3/20220604/c9c19c4407e754fa375f22b5b75d5bf1.jpg"></p> <h2>&nbsp;6.全局后置_路由守卫</h2> <p style="margin-left:0;text-align:justify;">*页面跳转后执行</p> <pre><code>//全局后置路由守卫 router.afterEach((to) =&gt; {     document.title=to.meta.title || "硅谷系统" })</code></pre> <h2>&nbsp;7.独享路由守卫</h2> <p style="margin-left:0;text-align:justify;">*独享路由守卫，只有前置没有后置，规则和全局前置路由守卫一样，配置在某个路由中</p> <p style="margin-left:0;text-align:justify;">beforeEnter: (to, from, next) =&gt; {<!-- --></p> <p style="margin-left:0;text-align:justify;">&nbsp;&nbsp; ···</p> <p style="margin-left:0;text-align:justify;">}</p> <h2 style="margin-left:0;text-align:justify;">8.组件内路由守卫</h2> <pre><code>&lt;template&gt;   &lt;div&gt;       &lt;h2&gt;我是About的内容&lt;/h2&gt;   &lt;/div&gt; &lt;/template&gt;  &lt;script&gt; export default {   //通过路由规则，进入该组件时被调用   beforeRouteEnter (to, from, next) {     next()   },   //通过路由规则，离开该组件时被调用   beforeRouteLeave (to, from, next) {     next()   } } &lt;/script&gt;</code></pre> </div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-732.htm">在MySQL中，如何获取数字的二进制值的对应字符串表示形式？</a></p>
+                                                <p>下一个：<a href="/html/category/article-734.htm">Dubbo源码学习系列整合网络框架Netty详解</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-742.htm" title="聊聊 node 如何优雅地获取 mac 系统版本">聊聊 node 如何优雅地获取 mac 系统版本</a></li>
+                        <li class="py-2"><a href="/html/category/article-761.htm" title="springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题">springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-765.htm" title="如何在MySQL DATEDIFF()函数中使用两位数的年份值？">如何在MySQL DATEDIFF()函数中使用两位数的年份值？</a></li>
+                        <li class="py-2"><a href="/html/category/article-777.htm" title="基于51单片机的秒表，单独按键控制启动，暂停，复位。">基于51单片机的秒表，单独按键控制启动，暂停，复位。</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-788.htm" title="深入浅出Vue3 Composition API">深入浅出Vue3 Composition API</a></li>
+                        <li class="py-2"><a href="/html/category/article-764.htm" title="SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法">SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法</a></li>
+                        <li class="py-2"><a href="/html/category/article-757.htm" title="SDS-redis动态字符串">SDS-redis动态字符串</a></li>
+                        <li class="py-2"><a href="/html/category/article-738.htm" title="通过源码了解Java的自动装箱拆箱">通过源码了解Java的自动装箱拆箱</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

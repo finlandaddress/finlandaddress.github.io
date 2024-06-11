@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-729.htm" />
+    <title>visual studio 使用cmake构建项目并远程连接虚拟机centos7 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>visual studio 使用cmake构建项目并远程连接虚拟机centos7</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>初学踩了点坑，记录下初步环境搭建</p> <h1><a id="1visual_studio_2022_2" rel="nofollow"></a>1、下载安装visual studio 2022</h1> <p>https://visualstudio.microsoft.com/zh-hans/</p> <p>只需勾选图中"使用c++进行lunix和嵌入式开发"，其他看个人需求勾选即可<br /><img decoding="async" src="http://img.555519.xyz/uploads/20221105/d01ab2c8db571cd0f90b64fea91eaa5d.jpg" alt="visual studio 使用cmake构建项目并远程连接虚拟机centos7"></p> <h1><a id="2centos_14" rel="nofollow"></a>2、centos基础环境搭建</h1> <p>根据https://learn.microsoft.com/zh-cn/cpp/linux/cmake-linux-project，需要在centos上安装gcc，gdb，rsync，zip，ninja-build以及cmake（3.14+）</p> <h2><a id="21centosgccg_18" rel="nofollow"></a>2.1、centos安装gcc，g++</h2> <pre><code class="prism language-shell">yum -y<span class="token function">install</span> gcc<span class="token function">rpm</span> -qa<span class="token operator">|</span><span class="token function">grep</span><span class="token string">"g++"</span><span class="token comment"># -q查询，-a全部</span> yum whatprovides<span class="token string">"*/g++"</span>  yum -y<span class="token function">install</span> gcc-c++-4.8.5-44.el7.x86_64</code></pre> <h2><a id="22_29" rel="nofollow"></a>2.2、其余安装</h2> <pre><code>yum -y install rsync zip unzip</code></pre> <h2><a id="23cmake_35" rel="nofollow"></a>2.3、cmake安装</h2> <p>我选择https://github.com/Microsoft/CMake/releases下载了cmake-3.19.4268486-MSVC_2-Linux-x64.sh</p> <pre><code class="prism language-shell">https://github.com/Microsoft/CMake/releases 下载cmake-3.19.4268486-MSVC_2-Linux-x64.sh放置到/usr/local/cmake/cmake-3.19.4268486-MSVC_2-Linux-x64.sh<span class="token builtin class-name">cd</span> /usr/local/cmake ./cmake-3.19.4268486-MSVC_2-Linux-x64.sh<span class="token function">ln</span> -sf /usr/local/cmake/cmake-3.19.4268486-MSVC_2-Linux-x64/bin/cmake /usr/bin/cmake<span class="token comment">#ln命令</span><span class="token comment">#-s, --symbolic : make symbolic links instead of hard links</span><span class="token comment">#-f, --force : remove existing destination files</span></code></pre> <h2><a id="24ninja_54" rel="nofollow"></a>2.4、安装ninja</h2> <pre><code class="prism language-shell">https://github.com/ninja-build/ninja 下载项目ninja-master.zip 项目拷贝到/usr/local/ninja/ninja-master.zip路径 或者 直接clone项目到目标位置也行<span class="token builtin class-name">cd</span> /usr/local/ninja/<span class="token function">unzip</span> ninja-master.zip<span class="token builtin class-name">cd</span> ninja-master cmake -Bbuild-cmake cmake --build build-cmake<span class="token comment"># The ninja binary will now be inside the build-cmake directory</span><span class="token function">cp</span> /usr/local/ninja/ninja-master/build-cmake/ninja /usr/local/ninja<span class="token comment">#只需要ninja一个文件，所以直接cp</span></code></pre> <h1><a id="3_69" rel="nofollow"></a>3、创建项目</h1> <h2><a id="31CMake_71" rel="nofollow"></a>3.1、创建CMake项目</h2> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221105/241f0693d7743c3f2c7a2b14dee647d9.jpg" alt="visual studio 使用cmake构建项目并远程连接虚拟机centos7"></p> <h2><a id="32_75" rel="nofollow"></a>3.2、配置远程服务器</h2> <p>菜单栏的工具 工具-&gt;选项-&gt;跨平台-&gt;连接管理器（“跨平台”菜单下）-&gt;添加(右边)</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221105/d3cbcc68669454dc22826545d9445d3e.jpg" alt="visual studio 使用cmake构建项目并远程连接虚拟机centos7"></p> <h2><a id="33_84" rel="nofollow"></a>3.3、选择添加的服务器</h2> <p><img decoding="async" src="http://img.555519.xyz/uploads/20221105/3cfbb64c2505092a2517bd9398b65081.jpg" alt="visual studio 使用cmake构建项目并远程连接虚拟机centos7"></p> <p>这时visual studio会部署项目至服务器。注意下方“输出”窗口中的日志，返回值为 0即成功了。如果返回值是1，根据其中错误日志去修改配置即可。最后点击右边绿色箭头运行即可</p> </div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-728.htm">SpringCloud Gateway详解与配置</a></p>
+                                                <p>下一个：<a href="/html/category/article-730.htm">基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-781.htm" title="一文搞定CompletableFuture并行处理，成倍缩短查询时间。">一文搞定CompletableFuture并行处理，成倍缩短查询时间。</a></li>
+                        <li class="py-2"><a href="/html/category/article-776.htm" title="vue实现文字滚动效果_vue.js">vue实现文字滚动效果_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-771.htm" title="win11系统如何进入高级启动">win11系统如何进入高级启动</a></li>
+                        <li class="py-2"><a href="/html/category/article-758.htm" title="Spring Security 一键接入验证码登录和小程序登录">Spring Security 一键接入验证码登录和小程序登录</a></li>
+                        <li class="py-2"><a href="/html/category/article-749.htm" title="vue @component继承的一些知识点详解">vue @component继承的一些知识点详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-764.htm" title="SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法">SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-773.htm" title="C ++中的最大和圆子数组">C ++中的最大和圆子数组</a></li>
+                        <li class="py-2"><a href="/html/category/article-736.htm" title="Elasticsearch 三种分页方式">Elasticsearch 三种分页方式</a></li>
+                        <li class="py-2"><a href="/html/category/article-730.htm" title="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具">基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

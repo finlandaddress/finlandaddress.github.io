@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-690.htm" />
+    <title>详解数据库连接池概念、原理、运行机制等 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>详解数据库连接池概念、原理、运行机制等</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="htmledit_views"> <div id="cnblogs_post_body" class="blogpost-body"> <h1><span style="font-family:'Microsoft YaHei';">概述</span></h1> <p><span style="font-family:'Microsoft YaHei';">　　数据库连接池是负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个。那么其中的运行机制又是怎样的呢？今天主要介绍一下数据库连接池原理和常用的连接池。</span></p> <h1><span style="font-family:'Microsoft YaHei';">01 为什么要使用连接池</span></h1> <p><span style="font-family:'Microsoft YaHei';">　　数据库连接是一种关键的有限的昂贵的资源，这一点在多用户的网页应用程序中体现得尤为突出。 一个数据库连接对象均对应一个物理数据库连接，每次操作都打开一个物理连接，使用完都关闭连接，这样造成系统的性能低下。</span></p> <p><span style="font-family:'Microsoft YaHei';"><img decoding="async" src="http://img.555519.xyz/uploads3/20220904/10aeccc59d4efb3f334ec6445f144d6c.jpg" alt="详解数据库连接池概念、原理、运行机制等"></span></p> <p><span style="font-family:'Microsoft YaHei';">　　数据库连接池的解决方案是在应用程序启动时建立足够的数据库连接，并讲这些连接组成一个连接池(简单说：在一个“池”里放了好多半成品的数据库连接对象)，由应用程序动态地对池中的连接进行申请、使用和释放。对于多于连接池中连接数的并发请求，应该在请求队列中排队等待。并且应用程序可以根据池中连接的使用率，动态增加或减少池中的连接数。</span></p> <p><span style="font-family:'Microsoft YaHei';">　　连接池技术尽可能多地重用了消耗内存地资源，大大节省了内存，提高了服务器地服务效率，能够支持更多的客户服务。通过使用连接池，将大大提高程序运行效率，同时，我们可以通过其自身的管理机制来监视数据库连接的数量、使用情况等。</span></p> <h1><span style="font-family:'Microsoft YaHei';">02</span><span style="font-family:'Microsoft YaHei';">传统的连接机制与数据库连接池运行机制区别</span></h1> <h2><span style="font-family:'Microsoft YaHei';">1、不使用连接池流程</span></h2> <p><span style="font-family:'Microsoft YaHei';">下面以访问MySQL为例，执行一个SQL命令，如果不使用连接池，需要经过哪些流程。</span></p> <p><span style="font-family:'Microsoft YaHei';"><img decoding="async" src="http://img.555519.xyz/uploads3/20220904/736b8af7444ca4578550a0b1687c0f81.jpg" alt="详解数据库连接池概念、原理、运行机制等"></span></p> <p><span style="font-family:'Microsoft YaHei';">不使用数据库连接池的步骤：</span></p> <ol> <li><span style="font-family:'Microsoft YaHei';">TCP建立连接的三次握手</span></li> <li><span style="font-family:'Microsoft YaHei';">MySQL认证的三次握手</span></li> <li><span style="font-family:'Microsoft YaHei';">真正的SQL执行</span></li> <li><span style="font-family:'Microsoft YaHei';">MySQL的关闭</span></li> <li><span style="font-family:'Microsoft YaHei';">TCP的四次握手关闭</span></li> </ol> <p><span style="font-family:'Microsoft YaHei';">可以看到，为了执行一条SQL，却多了非常多网络交互。</span></p> <p><span style="font-family:'Microsoft YaHei';">优点：</span></p> <ul> <li><span style="font-family:'Microsoft YaHei';">实现简单</span></li> </ul> <p><span style="font-family:'Microsoft YaHei';">缺点：</span></p> <ul> <li><span style="font-family:'Microsoft YaHei';">网络IO较多</span></li> <li><span style="font-family:'Microsoft YaHei';">数据库的负载较高</span></li> <li><span style="font-family:'Microsoft YaHei';">响应时间较长及QPS较低</span></li> <li><span style="font-family:'Microsoft YaHei';">应用频繁的创建连接和关闭连接，导致临时对象较多，GC频繁</span></li> <li><span style="font-family:'Microsoft YaHei';">在关闭连接后，会出现大量TIME_WAIT 的TCP状态（在2个MSL之后关闭）</span></li> </ul> <h2><span style="font-family:'Microsoft YaHei';">2、使用连接池流程</span></h2> <p><span style="font-family:'Microsoft YaHei';">使用数据库连接池的步骤：</span></p> <p><span style="font-family:'Microsoft YaHei';"><img decoding="async" src="http://img.555519.xyz/uploads3/20220904/8e04e47187903790ae605e6ece57e20e.jpg" alt="详解数据库连接池概念、原理、运行机制等"></span></p> <p><span style="font-family:'Microsoft YaHei';">第一次访问的时候，需要建立连接。 但是之后的访问，均会复用之前创建的连接，直接执行SQL语句。</span></p> <p><span style="font-family:'Microsoft YaHei';">优点：</span></p> <ul> <li><span style="font-family:'Microsoft YaHei';">较少了网络开销</span></li> <li><span style="font-family:'Microsoft YaHei';">系统的性能会有一个实质的提升</span></li> <li><span style="font-family:'Microsoft YaHei';">没了麻烦的TIME_WAIT状态</span></li> </ul> <h1><span style="font-family:'Microsoft YaHei';">03</span><span style="font-family:'Microsoft YaHei';">数据库连接池的工作原理</span></h1> <p><span style="font-family:'Microsoft YaHei';">连接池的工作原理主要由三部分组成，分别为</span></p> <ul> <li><span style="font-family:'Microsoft YaHei';">连接池的建立</span></li> <li><span style="font-family:'Microsoft YaHei';">连接池中连接的使用管理</span></li> <li><span style="font-family:'Microsoft YaHei';">连接池的关闭</span></li> </ul> <h2><span style="font-family:'Microsoft YaHei';">第一、连接池的建立。</span></h2> <p><span style="font-family:'Microsoft YaHei';">　　一般在系统初始化时，连接池会根据系统配置建立，并在池中创建了几个连接对象，以便使用时能从连接池中获取。连接池中的连接不能随意创建和关闭，这样避免了连接随意建立和关闭造成的系统开销。</span></p> <p><span style="font-family:'Microsoft YaHei';">Java中提供了很多容器类可以方便的构建连接池，例如Vector、Stack等。</span></p> <h2><span style="font-family:'Microsoft YaHei';">第二、连接池的管理。</span></h2> <p><span style="font-family:'Microsoft YaHei';">　　连接池管理策略是连接池机制的核心，连接池内连接的分配和释放对系统的性能有很大的影响。其管理策略是：</span></p> <p><span style="font-family:'Microsoft YaHei';">当客户请求数据库连接时，首先查看连接池中是否有空闲连接，如果存在空闲连接，则将连接分配给客户使用；如果没有空闲连接，则查看当前所开的连接数是否已经达到最大连接数，如果没达到就重新创建一个连接给请求的客户；如果达到就按设定的最大等待时间进行等待，如果超出最大等待时间，则抛出异常给客户。</span></p> <p><span style="font-family:'Microsoft YaHei';">当客户释放数据库连接时，先判断该连接的引用次数是否超过了规定值，如果超过就从连接池中删除该连接，否则保留为其他客户服务。</span></p> <p><span style="font-family:'Microsoft YaHei';">该策略保证了数据库连接的有效复用，避免频繁的建立、释放连接所带来的系统资源开销。</span></p> <h2><span style="font-family:'Microsoft YaHei';">第三、连接池的关闭。</span></h2> <p><span style="font-family:'Microsoft YaHei';">当应用程序退出时，关闭连接池中所有的连接，释放连接池相关的资源，该过程正好与创建相反。</span></p> <h1><span style="font-family:'Microsoft YaHei';">04</span></h1> <h1><span style="font-family:'Microsoft YaHei';">连接池需要注意的点</span></h1> <p><span style="font-family:'Microsoft YaHei';">1、并发问题</span></p> <p><span style="font-family:'Microsoft YaHei';">为了使连接管理服务具有最大的通用性，必须考虑多线程环境，即并发问题。</span></p> <p><span style="font-family:'Microsoft YaHei';">这个问题相对比较好解决，因为各个语言自身提供了对并发管理的支持像java,c#等等，使用synchronized(java)lock(C#)关键字即可确保线程是同步的。</span></p> <p><span style="font-family:'Microsoft YaHei';">2、事务处理</span></p> <p><span style="font-family:'Microsoft YaHei';">我们知道，事务具有原子性，此时要求对数据库的操作符合“ALL-OR-NOTHING”原则,即对于一组SQL语句要么全做，要么全不做。</span></p> <p><span style="font-family:'Microsoft YaHei';">我们知道当2个线程共用一个连接Connection对象，而且各自都有自己的事务要处理时候，对于连接池是一个很头疼的问题，因为即使Connection类提供了相应的事务支持，可是我们仍然不能确定那个数据库操作是对应那个事务的，这是由于我们有２个线程都在进行事务操作而引起的。</span></p> <p><span style="font-family:'Microsoft YaHei';">为此我们可以使用每一个事务独占一个连接来实现，虽然这种方法有点浪费连接池资源但是可以大大降低事务管理的复杂性。</span></p> <p><span style="font-family:'Microsoft YaHei';">3、连接池的分配与释放</span></p> <p><span style="font-family:'Microsoft YaHei';">连接池的分配与释放，对系统的性能有很大的影响。合理的分配与释放，可以提高连接的复用度，从而降低建立新连接的开销，同时还可以加快用户的访问速度。</span></p> <p><span style="font-family:'Microsoft YaHei';">对于连接的管理可使用一个List。即把已经创建的连接都放入List中去统一管理。每当用户请求一个连接时，系统检查这个List中有没有可以分配的连接。如果有就把那个最合适的连接分配给他，如果没有就抛出一个异常给用户。</span></p> <p><span style="font-family:'Microsoft YaHei';">４、连接池的配置与维护</span></p> <p><span style="font-family:'Microsoft YaHei';">连接池中到底应该放置多少连接，才能使系统的性能最佳？</span></p> <p><span style="font-family:'Microsoft YaHei';">系统可采取设置最小连接数（minConnection）和最大连接数（maxConnection）等参数来控制连接池中的连接。比方说，最小连接数是系统启动时连接池所创建的连接数。如果创建过多，则系统启动就慢，但创建后系统的响应速度会很快；如果创建过少，则系统启动的很快，响应起来却慢。这样，可以在开发时，设置较小的最小连接数，开发起来会快，而在系统实际使用时设置较大的，因为这样对访问客户来说速度会快些。最大连接数是连接池中允许连接的最大数目，具体设置多少，要看系统的访问量，可通过软件需求上得到。</span></p> <p><span style="font-family:'Microsoft YaHei';">如何确保连接池中的最小连接数呢？有动态和静态两种策略。动态即每隔一定时间就对连接池进行检测，如果发现连接数量小于最小连接数，则补充相应数量的新连接,以保证连接池的正常运转。静态是发现空闲连接不够时再去检查。</span></p> <hr/> <h1><span style="font-family:'Microsoft YaHei';">总结</span></h1> <p><span style="font-family:'Microsoft YaHei';">时至今日，虽然每个应用（需要RDBMS的）都离不开连接池，但在实际使用的时候，连接池已经可以做到“隐形”了。也就是说在通常情况下，连接池完成项目初始化配置之后，就再不需要再做任何改动了。</span></p> <p><span style="font-family:'Microsoft YaHei';"></span></p> <p><span style="font-family:'Microsoft YaHei';"></span></p> <p><span style="font-family:'Microsoft YaHei';"></span></p> <p><span style="font-family:'Microsoft YaHei';"></span></p> <p><span style="font-family:'Microsoft YaHei';"></span></p> <p><span style="font-family:'Microsoft YaHei';"></span></p> </div> <p>转载于:https://www.cnblogs.com/cocoxu1992/p/11031908.html</p> </div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-689.htm">JVM系列：jinfo命令详解</a></p>
+                                                <p>下一个：<a href="/html/category/article-691.htm">微信小程序-自定义导航组件</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-732.htm" title="在MySQL中，如何获取数字的二进制值的对应字符串表示形式？">在MySQL中，如何获取数字的二进制值的对应字符串表示形式？</a></li>
+                        <li class="py-2"><a href="/html/category/article-740.htm" title="python中repr()函数用法详解">python中repr()函数用法详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                        <li class="py-2"><a href="/html/category/article-772.htm" title="如何在代码层面提高CPU分支预测效率">如何在代码层面提高CPU分支预测效率</a></li>
+                        <li class="py-2"><a href="/html/category/article-762.htm" title="SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)">SpringBoot入门教程：浅聊POJO简单对象(VO、DTO、Entity)</a></li>
+                        <li class="py-2"><a href="/html/category/article-747.htm" title="Istio实践流量控制及服务间调用">Istio实践流量控制及服务间调用</a></li>
+                        <li class="py-2"><a href="/html/category/article-776.htm" title="vue实现文字滚动效果_vue.js">vue实现文字滚动效果_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-767.htm" title="超详细，Python 多线程总结的太到位了">超详细，Python 多线程总结的太到位了</a></li>
+                        <li class="py-2"><a href="/html/category/article-746.htm" title="云环境下集合隐私计算-解读">云环境下集合隐私计算-解读</a></li>
+                        <li class="py-2"><a href="/html/category/article-771.htm" title="win11系统如何进入高级启动">win11系统如何进入高级启动</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

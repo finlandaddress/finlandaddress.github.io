@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-657.htm" />
+    <title>netty系列之:netty中的核心编码器bytes数组 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>netty系列之:netty中的核心编码器bytes数组</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div class="toc"> <div class="toc-container-header">目录</div> <ul> <li><a href="#%E7%AE%80%E4%BB%8B" rel="nofollow">简介</a></li> <li><a href="#byte%E6%98%AF%E4%BB%80%E4%B9%88" rel="nofollow">byte是什么</a></li> <li><a href="#netty%E4%B8%AD%E7%9A%84byte%E6%95%B0%E7%BB%84%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB" rel="nofollow">netty中的byte数组的工具类</a></li> <li><a href="#netty%E4%B8%ADbyte%E7%9A%84%E7%BC%96%E7%A0%81%E5%99%A8" rel="nofollow">netty中byte的编码器</a></li> <li><a href="#%E6%80%BB%E7%BB%93" rel="nofollow">总结</a></li> </ul> </div> <h1 id="简介">简介</h1> <p>我们知道netty中数据传输的核心是ByteBuf,ByteBuf提供了多种数据读写的方法，包括基本类型和byte数组的读写方法。如果要在netty中传输这些数据，那么需要构建ByteBuf，然后调用ByteBuf中对应的方法写入对应的数据，接着套用netty中标准的模板即可使用。</p> <p>对于byte数组来说，如果每次都将其封装进ByteBuf中，再进行传输显得有些麻烦。于是netty提供了一个基于bytes的核心编码解码器。</p> <h1 id="byte是什么">byte是什么</h1> <p>那么byte是什么呢? byte表示的是一个字节，也就是8bits。用二进制表示就是-128-127的范围。byte是JAVA中的基础类型。</p> <p>同时它还有一个wrap类型叫做Byte。</p> <p>先看下Byte的定义：</p> <pre><code>public final class Byte extends Number implements Comparable&lt;Byte&gt;</code></pre> <p>Byte中定义了byte的取值访问：</p> <pre><code>    public static final byte   MIN_VALUE = -128;      public static final byte   MAX_VALUE = 127;</code></pre> <p>并且还提供了一些基本的工具方法。</p> <p>因为byte表示的是一个8bits的二进制，如果不算位运算的话，byte基本上是JAVA中最小的数据存储单位了。所以JAVA中所有的对象都可以转换成为byte。</p> <p>基础类型的转换这里就不多讲了。这里主要看一下字符串String和对象Object和byte数组之间的转换。</p> <p>先来看下字符串String和byte数组之间的转换，也就是String和二进制之间的转换。</p> <p>基本的转换思路就是将String中的字符进行编码，然后将编码过后的字符进行存储即可。</p> <p>String类本身提供了一个getBytes方法，可以接受编码类型，以UTF-8来说，我们来看下转换方法的调用：</p> <pre><code>    public static byte[] stringToBytes(String str) throws UnsupportedEncodingException {        return str.getBytes("utf-8");     }      public static String bytesToString(byte[] bs) throws UnsupportedEncodingException {        return new String(bs, "utf-8");     }</code></pre> <p>直接调用String中的方法即可。</p> <p>如果是Object对象的话，因为Object本身并没有提供转换的方法，所以我们需要借助于ByteArrayOutputStream的toByteArray方法和ByteArrayInputStream的readObject方法来实现byte数组和Object之间的转换，如下所示：</p> <pre><code>    //对象转数组     public byte[] toByteArray (Object obj) throws IOException {         try(ByteArrayOutputStream bos = new ByteArrayOutputStream();             ObjectOutputStream oos = new ObjectOutputStream(bos)) {             oos.writeObject(obj);             oos.flush();             return  bos.toByteArray();         }     }      //数组转对象     public Object toObject (byte[] bytes) throws IOException, ClassNotFoundException {         try (             ByteArrayInputStream bis = new ByteArrayInputStream (bytes);             ObjectInputStream ois = new ObjectInputStream (bis)) {             return ois.readObject();         }     }</code></pre> <h1 id="netty中的byte数组的工具类">netty中的byte数组的工具类</h1> <p>netty中的核心是ByteBuf，ByteBuf提供了大部分基础数据类型的read和write方法。当然如果要读取对象，那么还是需要将对象转换成为byte然后再写入或者从ByteBuf中读出。</p> <p>当然，netty中不需要这么复杂，netty提供了一个Unpooled的工具类用来方便的将byte数组和ByteBuf进行转换。</p> <p>先看下Unpooled方法提供的ByteBuff构建方法：</p> <pre><code>   ByteBuf heapBuffer    = buffer(128);    ByteBuf directBuffer  = directBuffer(256);    ByteBuf wrappedBuffer = wrappedBuffer(new byte[128], new byte[256]);    ByteBuf copiedBuffer  = copiedBuffer(ByteBuffer.allocate(128));</code></pre> <p>这是Unpooled提供的几种ByteBuf的构建方式，其中heapBuffer表示的是在用户空间构建的buff，directBuffer表示的是直接在系统空间构建的buff。wrappedBuffer是对现有的byte数组和ByteBuf之上构建的视图，而copiedBuffer是对byte数组,byteBuf和字符串的拷贝。</p> <p>这里我们需要用到wrappedBuffer方法，将byte数组封装到ByteBuf中：</p> <pre><code>    public static ByteBuf wrappedBuffer(byte[] array) {         if (array.length == 0) {             return EMPTY_BUFFER;         }         return new UnpooledHeapByteBuf(ALLOC, array, array.length);     }</code></pre> <p>wrappedBuffer返回了一个UnpooledHeapByteBuf对象，这个对象本身就是一个ByteBuf。这里将byte数组作为构造函数传入UnpooledHeapByteBuf中。</p> <p>这里的array是UnpooledHeapByteBuf中的私有变量：</p> <pre><code>byte[] array;</code></pre> <p>除了构造函数，UnpooledHeapByteBuf还提供了一个setArray的方法用来设置byte数组：</p> <pre><code>    private void setArray(byte[] initialArray) {         array = initialArray;         tmpNioBuf = null;     }</code></pre> <p>下面是如何从array中构建ByteBuf：</p> <pre><code>    public ByteBuf setBytes(int index, ByteBuffer src) {         ensureAccessible();         src.get(array, index, src.remaining());         return this;     }</code></pre> <p>从ByteBuf中读取byte数组,可以调用ByteBufUtil的getBytes方法：</p> <pre><code>    public static byte[] getBytes(ByteBuf buf) {         return getBytes(buf,  buf.readerIndex(), buf.readableBytes());     }</code></pre> <h1 id="netty中byte的编码器">netty中byte的编码器</h1> <p>万事俱备只欠东风，有了上面netty提供的工具类，我们就可以使用这些工具类构建基于byte的编码器了。</p> <p>netty中基于byte的编码解码器分别叫做ByteArrayEncoder和ByteArrayDecoder。</p> <p>先来看下这两个类是如何使用的,这里以一个典型的TCP/IP应用为例：</p> <pre><code>   ChannelPipeline pipeline = ...;       // Decoders    pipeline.addLast("frameDecoder",                     new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));    pipeline.addLast("bytesDecoder",                     new ByteArrayDecoder());       // Encoder    pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));    pipeline.addLast("bytesEncoder", new ByteArrayEncoder());</code></pre> <p>这里的LengthFieldBasedFrameDecoder和LengthFieldPrepender是以消息长度为分割标准的frame分割器。这里我们主要关注ChannelPipeline中添加的ByteArrayDecoder和ByteArrayEncoder。</p> <p>添加了byte的编码和解码器之后，就可以直接在handler中直接使用byte数组，如下所示：</p> <pre><code>   void channelRead(ChannelHandlerContext ctx, byte[] bytes) {        ...    }</code></pre> <p>先来看下ByteArrayEncoder，这是一个编码器,它的实现很简单：</p> <pre><code>public class ByteArrayEncoder extends MessageToMessageEncoder&lt;byte[]&gt; {     @Override     protected void encode(ChannelHandlerContext ctx, byte[] msg, List&lt;Object&gt; out) throws Exception {         out.add(Unpooled.wrappedBuffer(msg));     } }</code></pre> <p>具体就是使用Unpooled.wrappedBuffer方法byte数组封装成为ByteBuf，然后将其添加到out list中。</p> <p>同样的，我们观察一下ByteArrayDecoder,这是一个解码器，实现也比较简单：</p> <pre><code>public class ByteArrayDecoder extends MessageToMessageDecoder&lt;ByteBuf&gt; {     @Override     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List&lt;Object&gt; out) throws Exception {          // copy the ByteBuf content to a byte array         out.add(ByteBufUtil.getBytes(msg));     } }</code></pre> <p>具体的实现就是调用ByteBufUtil.getBytes方法，将ByteBuf转换成为byte数组，然后添加到list对象中。</p> <h1 id="总结">总结</h1> <p>如果要在netty中传输二进制数据，netty提供的byte编码和解码器已经封装了繁琐的细节，大家可以放心使用。</p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-656.htm">SpringBoot集成redis简要_在线工具</a></p>
+                                                <p>下一个：<a href="/html/category/article-658.htm">python调用c代码</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-757.htm" title="SDS-redis动态字符串">SDS-redis动态字符串</a></li>
+                        <li class="py-2"><a href="/html/category/article-778.htm" title="nginx.conf配置文件结构小结_nginx">nginx.conf配置文件结构小结_nginx</a></li>
+                        <li class="py-2"><a href="/html/category/article-774.htm" title="手把手教你调用微信扫一扫！三分钟包会">手把手教你调用微信扫一扫！三分钟包会</a></li>
+                        <li class="py-2"><a href="/html/category/article-752.htm" title="jpa 原生SQL写法">jpa 原生SQL写法</a></li>
+                        <li class="py-2"><a href="/html/category/article-746.htm" title="云环境下集合隐私计算-解读">云环境下集合隐私计算-解读</a></li>
+                        <li class="py-2"><a href="/html/category/article-777.htm" title="基于51单片机的秒表，单独按键控制启动，暂停，复位。">基于51单片机的秒表，单独按键控制启动，暂停，复位。</a></li>
+                        <li class="py-2"><a href="/html/category/article-760.htm" title="win11系统怎么隐藏菜单">win11系统怎么隐藏菜单</a></li>
+                        <li class="py-2"><a href="/html/category/article-765.htm" title="如何在MySQL DATEDIFF()函数中使用两位数的年份值？">如何在MySQL DATEDIFF()函数中使用两位数的年份值？</a></li>
+                        <li class="py-2"><a href="/html/category/article-758.htm" title="Spring Security 一键接入验证码登录和小程序登录">Spring Security 一键接入验证码登录和小程序登录</a></li>
+                        <li class="py-2"><a href="/html/category/article-739.htm" title="如何使用JavaScript在新标签页（而不是新窗口）中打开URL">如何使用JavaScript在新标签页（而不是新窗口）中打开URL</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">22</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>
