@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-793.htm" />
+    <title>Java中线程状态+线程安全问题+synchronized的用法详解_java_ - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/xcblog/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Java中线程状态+线程安全问题+synchronized的用法详解_java_</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">java中的线程状态????</a></li> <li><a href="#_label1" rel="nofollow">线程安全问题案例分析????</a></li> <ul class="second_class_ul"> <li><a href="#_lab2_1_0" rel="nofollow">多线程对同一变量进行写操作????</a></li> <li><a href="#_lab2_1_1" rel="nofollow">内存可见性问题????</a></li> <li><a href="#_lab2_1_2" rel="nofollow">指令重排序问题????</a></li> </ul> <li><a href="#_label2" rel="nofollow">synchronized的用法????</a></li> <ul class="second_class_ul"> <li><a href="#_lab2_2_3" rel="nofollow">synchronized起作用的本质????</a></li> <li><a href="#_lab2_2_4" rel="nofollow">修饰普通方法????</a></li> <li><a href="#_lab2_2_5" rel="nofollow">修饰静态方法⚡️</a></li> <li><a href="#_lab2_2_6" rel="nofollow">修饰代码块????</a></li> </ul> <li><a href="#_label3" rel="nofollow">Conclusion????</a></li> <ul class="second_class_ul"></ul> </ul> </div> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>java中的线程状态????</h2> <p>在操作系统层面,一个线程就两个状态:就绪和阻塞状态.</p> <p>但是java中为了在线程阻塞时能够更快速的知晓一个线程阻塞的原因,又将阻塞的状态进行了细化.</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/7d0ca2d0f3a0e9d40804f08908fcc71b.jpg"></p> <ul> <li>NEW:线程对象已经创建好了,但是系统层面的线程还没创建好,或者说线程对象还没调用start()</li> <li>TERMINATED:系统中的线程已经销毁,但是代码中的线程对象还在,也就是run()跑完了,Thread对象还在</li> <li>RUNNABLE:线程位于就绪队列,随时都有可能被cpu调度执行</li> <li>TIMED_WAITING:线程执行过程中,线程对象调用了sleep(),进入阻塞,休眠时间到了,就会回到就绪队列</li> <li>BLOCKED:有一个线程将一个对象上锁(synchronized)之后,另一个线程也想给这个对象上锁,就会陷入BLOCKED状态,只有第一个线程将锁对象解锁了,后一个线程才有可能给这个对象进行上锁.</li> <li>WAITING:搭配synchronized进行使用wait(),一旦一个线程调用了wait(),会先将所对象解锁,等到另一个线程进行notify(),之后wait中的线程才会被唤醒,当然也可以在wait()中设置一个最长等待时间,防止出现死等.</li> </ul> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>线程安全问题案例分析????</h2> <p class="maodian"><a name="_lab2_1_0" rel="nofollow"></a></p> <h3>多线程对同一变量进行写操作????</h3> <ol> <li>概念:一串代码什么时候叫作有线程安全问题呢?首先线程安全问题的罪恶之源是,多线程并发执行的时候,会有抢占式执行的现象,这里的抢占式执行,执行的是机器指令!那一串代码什么时候叫作有线程安全问题呢?多线程并发时,不管若干个线程怎么去抢占式执行他们的代码,都不会影响最终结果,就叫作线程安全,但是由于抢占式执行,出现了和预期不一样的结果,就叫作有线程安全问题,出bug了!</li> <li>典型案例:使用两个线程对同一个数进行自增操作10w次:</li> </ol> <div class="ay1code"> <pre class="brush:java;">public class Demo1 {      private static int count=0;      public static void main(String[] args) {          Thread t1=new Thread(()-&gt;{              for(int i=0;i&lt;50000;i++){                  count++;              }          });          t1.start();          Thread t2=new Thread(()-&gt;{          t2.start();          try {              t1.join();              t2.join();          } catch (InterruptedException e) {              e.printStackTrace();          }          System.out.println(count);      }  }  //打印结果:68994  </pre> </div> <p>显然预期结果是10w,但算出来就是6w多,这就是出现了线程安全问题.</p> <p><strong>分析原因</strong>:</p> <p>仅针对每个线程的堆count进行自增的操作:首先要明白,进行一次自增的机器指令有三步:从主内存中把count值拿到cpu寄存器中-&gt;把寄存器中的count值进行自增1-&gt;把寄存器中的count值刷新到主内存中,我们姑且把这三步叫作:load-&gt;add-&gt;save</p> <p>我们假设就是在一个cpu上(画两个cpu好表示)并发执行两组指令(就不会出现同时load这样的情况了):</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/1b4fdd1cb1ca4449d39dd906e60a5f28.jpg"></p> <p>如出现上图的情况:</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/c81b09db1a1f4407382abf839a45bf14.jpg"></p> <p>观察发现:两个线程都是执行了一次count++,但是两次++的结果却不如意,相当于只进行了一次自增,上述就是出现了线程安全问题了.</p> <p>并且我们可以预测出上述代码的结果范围:5w-10w之间!,为什么呢?</p> <p>上面两张图表示的是出现线程安全问题的情况,表现的结果就是两次加加当一次去用了,如果两个线程一直处于这样的状态(也是最坏的状态了),可不就是计算结果就是5w咯,那如果两个线程一直是一个线程完整的执行完load-add-save之后,另一个线程再去执行这样的操作,那就串行式执行了,可不就是10w咯.</p> <p>3.针对上述案例如何去解决呢?</p> <p>案例最后也提到了,只要能够实现串行式执行,就能保证结果的正确性,那java确实有这样的功能供我们使用,即synchronized关键字的使用.</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/8fab40bfa14a2932f2cd60dd102435e5.jpg"></p> <p>也就是说:cpu1执行load之前先给锁对象进行加锁,save之后再进行解锁,cpu2此时才能去给那个对象进行上锁,并进行一系列的操作.此时也就是保证了load-add-save的原子性,使得这三个步骤要么就别执行,执行就一口气执行完.</p> <p><strong>那你可能会提问,那这样和只用一个main线程去计算自增10w次有什么区别,创建多线程还有什么意义呢?</strong></p> <p>意义很大,因为我们创建的线程很多时候不仅仅只是一个操作,光针对自增我们可以通过加锁防止出现线程安全问题,但是各线程的其他操作要是不涉及线程安全问题那就可以并发了呀,那此时不就大大提升了执行效率咯.</p> <p>4.具体如何加锁呢?</p> <p>此处先只说一种加锁方式,先把上述案例的问题给解决了再说.</p> <p>使用关键字synchronized,此处使用的是给普通方法加synchronized修饰的方法(除此之外,synchronized还可以修饰代码块和静态方法)</p> <div class="ay1code"> <pre class="brush:java;">class Counter{      private int count;      synchronized public void increase(){          this.count++;      }      public int getCount(){          return this.count;      }  }  public class Demo2 {      private static int num=50000;      public static void main(String[] args) {          Counter counter=new Counter();//此时对象中的count值默认就是0          Thread t1=new Thread(()-&gt;{              for (int i = 0; i &lt; num; i++) {                  counter.increase();              }          });          t1.start();            Thread t2=new Thread(()-&gt;{              for (int i = 0; i &lt; num; i++) {                  counter.increase();              }          });          t2.start();            try {              t1.join();              t2.join();          } catch (InterruptedException e) {              e.printStackTrace();          }            System.out.println(counter.getCount());      }  }//打印10W  </pre> </div> <p class="maodian"><a name="_lab2_1_1" rel="nofollow"></a></p> <h3>内存可见性问题????</h3> <p>首先说明:这是有编译器优化导致的,其次要知道cpu读取变量时:先从主内存将变量的值存至缓存或者寄存器中,cpu计算时再在寄存器中读取这个值.</p> <p>当某线程频繁的从内存中读取一个不变的变量时,编译器将会把从内存获取变量的值直接优化成从寄存器直接获取.之所以这样优化,是因为,cpu从主内存中读取一个变量比在缓存或者寄存器中读取一个变量的值慢成千上万倍,如果每每在内存中读到的都是同一个值,既然缓存里头已经有这个值了,干嘛还大费周折再去主内存中进行获取呢,直接从缓存中直接读取就可以了,可提升效率.</p> <p><strong>但是</strong>:一旦一个线程被优化成上述的情况,那如果有另一个线程把内存中的值修改了,我被优化的线程还傻乎乎的手里拿着修改之前的值呢,或者内存中的变量值被修改了,被优化的线程此时已经感应不到了.</p> <p>具体而言:</p> <div class="ay1code"> <pre class="brush:java;">public class Demo3 {      private static boolean flag=false;      public static void main(String[] args) {          Thread t1=new Thread(()-&gt;{              while(!flag){                  System.out.println("我是优化完之后直接读取寄存器中的变量值才打印的哦!");              }          });          t1.start();            flag=true;          System.out.println("我已经在主线程中修改了标志位");      }  }  </pre> </div> <p>运行上述代码之后,程序并不会终止,而是一直在那打印t1线程中的打印语句.</p> <p>如何解决上述问题:</p> <p>引入关键字volatile:防止内存可见性问题,修饰一个变量,那某线程想获取该变量的值的时候,只能去主内存中获取,其次它还可以防止指令重排序,指令重排问题会在线程安全的单例模式(懒汉)进行介绍.具体:</p> <div class="ay1code"> <pre class="brush:java;">public class Demo3 {      private static volatile boolean flag=false;      public static void main(String[] args) {          Thread t1=new Thread(()-&gt;{              while(!flag){                  System.out.println("我是优化完之后直接读取寄存器中的变量值才打印的哦!");              }          });          t1.start();            try {              Thread.sleep(1);//主线程给t1留有充足的时间先跑起来          } catch (InterruptedException e) {              e.printStackTrace();          }          flag=true;          System.out.println("我已经在主线程中修改了标志位");      }  }  //打印若干t1中的打印语句之后,主线程main中修改标志位之后,可以终止t1  </pre> </div> <p><strong>注意</strong>:上述优化现象只会出现在频繁读的情况,如果不是频繁读,就不会出现那样的优化.</p> <p class="maodian"><a name="_lab2_1_2" rel="nofollow"></a></p> <h3>指令重排序问题????</h3> <p>生活案例:买菜</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/ddee621ffa2062dd46165190d0167699.jpg"></p> <p>如果是傻乎乎的按照菜单从上到下的去买菜,从路线图可以看出,不必要的路是真的没少走.</p> <p>如果执行代码时,编译器认为某些个代码调整一下顺序并不会影响结果,那代码的执行顺序就会被调整,就比如可以把上面买菜的顺序调整成:黄瓜-&gt;萝卜-&gt;青菜-&gt;茄子</p> <p>单线程这样的指令重排一般不会出现问题,但是多线程并发时,还这样优化,就容易出现问题</p> <p>针对这样的问题,如果是针对一个变量,我们可以使用volatile修饰,如果是针对代码块,我们可以使用synchronized.</p> <p class="maodian"><a name="_label2" rel="nofollow"></a></p> <h2>synchronized的用法????</h2> <ul> <li>synchronized起作用的本质</li> <li>修饰普通方法</li> <li>修饰静态方法</li> <li>修饰代码块</li> </ul> <p class="maodian"><a name="_lab2_2_3" rel="nofollow"></a></p> <h3>synchronized起作用的本质????</h3> <p>因为我们知道java中所有类都继承了Object,所以所有类都包含了Object的部分,我们可以称这继承的部分是"对象头",使用synchronized进行对象头中的标志位的修改,就可以做到一个对象的锁一个时刻只能被一个线程所持有,其他线程此时不可抢占.这样的设置,就好像把一个对象给锁住了一样.</p> <p class="maodian"><a name="_lab2_2_4" rel="nofollow"></a></p> <h3>修饰普通方法????</h3> <p>如前述两个线程给同一个count进行自增的案例.不再赘述.此时的所对象就是Counter对象</p> <p class="maodian"><a name="_lab2_2_5" rel="nofollow"></a></p> <h3>修饰静态方法⚡️</h3> <p>与普通方法类似.只不过这个方法可以类名直接调用.</p> <p class="maodian"><a name="_lab2_2_6" rel="nofollow"></a></p> <h3>修饰代码块????</h3> <p>首先修饰代码块需要执行锁对象是谁,所以这里可以分为三类,一个是修饰普通方法的方法体这个代码块的写法,其次是修饰静态方法方法体的写法,最后可以单独写一个Object的对象,来对这个Object对象进行上锁.</p> <div class="ay1code"> <pre class="brush:java;">class Counter{      private int count;      public void increase(){          synchronized(this){              count++;          }      }      public int getCount(){          return this.count;      }  }  </pre> </div> <div class="ay1code"> <pre class="brush:java;">class Counter{      private static int count;      public static void increase(){          synchronized(Counter.class){//注意这里锁的是类对象哦              count++;          }      }      public int getCount(){          return this.count;      }  }  </pre> </div> <div class="ay1code"> <pre class="brush:java;">class Counter{      private static int count;      private static Object locker=new Object();      public static void increase(){          synchronized(locker){              count++;          }      }      public int getCount(){          return this.count;      }  }  </pre> </div> <p>注意:java中这种随手拿一个对象就能上锁的用法,是java中一种很有特色的用法,在别的语言中,都是有专门的锁对象的.</p> <p class="maodian"><a name="_label3" rel="nofollow"></a></p> <h2> <strong>Conclusion</strong>????</h2> <p>java中的线程状态,以及如何区分线程安全问题 罪恶之源是抢占式执行多线程对同一个变量进行修改,多线程只读一个变量是没有线程安全问题的修改操作是非原子性的内存可见性引起的线程安全问题指令重排序引起的线程安全问题 synchronized的本质和用法</p> <p>1.java中的线程状态,以及如何区分<br />2.线程安全问题</p> <ul> <li>罪恶之源是抢占式执行</li> <li>多线程对同一个变量进行修改,多线程只读一个变量是没有线程安全问题的</li> <li>修改操作是非原子性的</li> <li>内存可见性引起的线程安全问题</li> <li>指令重排序引起的线程安全问题</li> </ul> <p>3.synchronized的本质和用法</p> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-788.htm">深入浅出Vue3 Composition API</a></p>
+                                                <p>下一个：<a href="/html/category/article-794.htm">flex布局实现 内容区域高度自适应</a></p>
+                                            </div>
+
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-793.htm" title="Java中线程状态+线程安全问题+synchronized的用法详解_java_">Java中线程状态+线程安全问题+synchronized的用法详解_java_</a></li>
+                        <li class="py-2"><a href="/html/category/article-782.htm" title="Spring Cloud Config 配置中心(用途、使用、加解密)">Spring Cloud Config 配置中心(用途、使用、加解密)</a></li>
+                        <li class="py-2"><a href="/html/category/article-745.htm" title="Kubernetes集群环境初始化_云其它_">Kubernetes集群环境初始化_云其它_</a></li>
+                        <li class="py-2"><a href="/html/category/article-738.htm" title="通过源码了解Java的自动装箱拆箱">通过源码了解Java的自动装箱拆箱</a></li>
+                        <li class="py-2"><a href="/html/category/article-756.htm" title="java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息">java 获取泛型t的class Java泛型 | Jackson TypeReference获取泛型类型信息</a></li>
+                        <li class="py-2"><a href="/html/category/article-779.htm" title="vue中动态控制btn的disabled属性方式_vue.js">vue中动态控制btn的disabled属性方式_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-773.htm" title="C ++中的最大和圆子数组">C ++中的最大和圆子数组</a></li>
+                        <li class="py-2"><a href="/html/category/article-735.htm" title="机器学习笔记：Python底层实现KNN">机器学习笔记：Python底层实现KNN</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">24</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>
