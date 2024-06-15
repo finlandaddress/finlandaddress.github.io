@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 
 <head>
-        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-638.htm" />
-    <title>【JavaScript】 &#8211; 滚动固定导航栏 - FinlandAddress</title>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-1336.htm" />
+    <title>SpringMVC拦截器path路径的坑 - FinlandAddress</title>
         <meta charset="utf-8">
     <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -54,7 +54,7 @@ var _hmt = _hmt || [];
                 <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
                 <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
                     <div class="text" style="top: 30%;min-width: 70%;">
-                        <h1>【JavaScript】 &#8211; 滚动固定导航栏</h1>
+                        <h1>SpringMVC拦截器path路径的坑</h1>
                         <p>
                             <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
                         </p>
@@ -67,10 +67,9 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                	  				  				  				<div id="content_views" class="htmledit_views"> <p><img fetchpriority="high" decoding="async" alt="" height="370" src="http://img.555519.xyz/uploads/20230119/a8f69308238555651a029d69d4fe06c8.jpg"></p> <blockquote> <p>&nbsp;黄色箭头指向&nbsp; 滚动条</p> <p>黑色箭头指向&nbsp; &nbsp;导航栏</p> <p>没有滚动 之前&nbsp; 导航栏没有固定在顶部</p> <p><span style="color:#fe2c24;">任务是：随着滚动条滚动到一定位置&nbsp; 导航栏固定 顶部&nbsp; dispaly：fixed</span></p> <p><span style="color:#fe2c24;">以下代码的 display 样式 已经配置，只需要添加一个类名就行&nbsp; .fixed</span></p> </blockquote> <pre><code class="language-javascript"> window.addEventListener('load', function() {         // 获取元素navBar，后期需要获取它离页面顶部的距离，同时满足条件之后还要为其设置fixed样式         let navBar = document.querySelector('#navBar')         // 获取导航条的高度，因为后期内容面板的margin-top需要以这个值做为参照         let navBarH = navBar.offsetHeight         // mainPart：内容，后期需要为内容添加样式         let mainPart = document.querySelector('#mainPart')         // 获取navBar离页面顶部的距离         let navBarTop = navBar.offsetTop          // 添加页面滚动的监听：因为我们要获取当前页面垂直方向卷出屏幕的距离，用这个距离和之前获取的导航条离顶部的距离进行比较，如果大于等于应该添加fiexed样式         window.addEventListener('scroll', function() {           // 获取当前滚动出屏幕的距离           let offset = document.documentElement.scrollTop           // 判断卷出屏幕的距离是否大于导航条离顶部的距离           if (offset &gt;= navBarTop) {             navBar.classList.add('fixed')             // 为navBar添加定位样式之后，会造成元素脱标，从而导致内容往上移从而重叠，我们可以内容添加一个margin-top样式：样式的值就是导航条的高度             mainPart.style.marginTop = navBarH + 10 + 'px'           } else {             navBar.classList.remove('fixed')             // 如果没有定位样式，则将外边距还原             mainPart.style.marginTop = 10 + 'px'           }         })       })</code></pre> </p></div> 			
+                	  				  				  				<div id="content_views" class="htmledit_views"> <p>SpringMVC提供了很方便的拦截器供我们开发使用。在配置文件中通过&lt;mvc:mapping path="" /&gt;进行配置拦截的路径，但是这个path在配置的时候有一个小坑</p> <p>我们都知道在SpringMVC拦截器中的/**是配置全部路径.现在我有一个需求,想要拦截以/user/开头的请求.我的path写为/user/**,这样就能拦截到所有的符号条件的请求.</p> <p>然后我的项目需求增加了,我在项目中加入了多重权限控制并希望用拦截器去控制它.假设现在有个功能,只开放给管理员,所以我把它的访问路径设为/user/manager/xxxx/xxxx.所以我又加入了一个拦截器,希望拦截路径中存在/manager/的所有的请求.我把path写为/manager/'**,结果却不行.</p> <p>user的拦截器正常,但是manager的拦截器却不工作,我一度以为是拦截器出现了错误.然后经过一下午检查,我发现我把路径改成/manager/user/xxxx/xxxx就变成了manager拦截器工作但user拦截器不工作.我就确定是path出了问题.在一次次修改尝试后,我明白了,原来/user/**只适用于以/user/开头的请求,/user/的前面什么都不能有,由于我所有的请求都是/user/开头,所以user的拦截器一直都是可以正常运行的,但是manager拦截器就不同了,我的path写为/manager/**,但是我所有带有/manager/的请求都是前面有/user/的,所以这不满足path路径中的/manager/**.当你要在这个名称的前面加其他的一个名称时,你需要/*/manager/**,如果前面有多个名称,就是/**/manager/**,当然了,由于/**是通配符,所以以manager开头的url也符合这个条件.</p> </p></div> 			
                     <div class="col-md-12 mt-5">
-                                                <p>上一个：<a href="/html/category/article-637.htm">feign.sentinel.enabled=true 启动报错</a></p>
-                                                <p>下一个：<a href="/html/category/article-639.htm">vue-cli与webpack结合如何处理静态资源</a></p>
+                                                <p>上一个：<a href="/html/category/article-1335.htm">Java实现MD5和国密SM3摘要算法</a></p>
                                             </div>
 
                                     </div>
@@ -81,16 +80,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/html/category/article-755.htm" title="第2章 图灵的计算王国">第2章 图灵的计算王国</a></li>
-                        <li class="py-2"><a href="/html/category/article-768.htm" title="mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）">mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）</a></li>
-                        <li class="py-2"><a href="/html/category/article-740.htm" title="python中repr()函数用法详解">python中repr()函数用法详解</a></li>
-                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
-                        <li class="py-2"><a href="/html/category/article-758.htm" title="Spring Security 一键接入验证码登录和小程序登录">Spring Security 一键接入验证码登录和小程序登录</a></li>
-                        <li class="py-2"><a href="/html/category/article-782.htm" title="Spring Cloud Config 配置中心(用途、使用、加解密)">Spring Cloud Config 配置中心(用途、使用、加解密)</a></li>
-                        <li class="py-2"><a href="/html/category/article-1326.htm" title="go异常/错误机制（panic和error）">go异常/错误机制（panic和error）</a></li>
-                        <li class="py-2"><a href="/html/category/article-770.htm" title="win11系统怎么更改屏幕刷新率">win11系统怎么更改屏幕刷新率</a></li>
-                        <li class="py-2"><a href="/html/category/article-741.htm" title="Spring 5 中文解析数据存储篇-JDBC数据存储(下)">Spring 5 中文解析数据存储篇-JDBC数据存储(下)</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-751.htm" title="Azure Service Fabric 踩坑日志_在线工具">Azure Service Fabric 踩坑日志_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-783.htm" title="Vue中所有的v-指令">Vue中所有的v-指令</a></li>
+                        <li class="py-2"><a href="/html/category/article-761.htm" title="springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题">springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-764.htm" title="SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法">SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法</a></li>
                         <li class="py-2"><a href="/html/category/article-776.htm" title="vue实现文字滚动效果_vue.js">vue实现文字滚动效果_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-763.htm" title="PyMySQL中where __ in__ 的用法">PyMySQL中where __ in__ 的用法</a></li>
+                        <li class="py-2"><a href="/html/category/article-738.htm" title="通过源码了解Java的自动装箱拆箱">通过源码了解Java的自动装箱拆箱</a></li>
+                        <li class="py-2"><a href="/html/category/article-1326.htm" title="go异常/错误机制（panic和error）">go异常/错误机制（panic和error）</a></li>
+                        <li class="py-2"><a href="/html/category/article-765.htm" title="如何在MySQL DATEDIFF()函数中使用两位数的年份值？">如何在MySQL DATEDIFF()函数中使用两位数的年份值？</a></li>
                     </ul>
     </div>
 </div>
