@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-2243.htm" />
+    <title>Android jetpack room+ViewModel+liveData 数据自动更新 - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>Android jetpack room+ViewModel+liveData 数据自动更新</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="htmledit_views"> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://blog.csdn.net/mp624183768/article/details/124906086?spm=1001.2014.3001.5501"  title="Android jetpack room的使用_安果移不动的博客-CSDN博客" rel="nofollow">Android jetpack room的使用_安果移不动的博客-CSDN博客</a></p> <p>接上篇博客</p> <p>我们用google推荐的这种方式</p> <p><img fetchpriority="high" decoding="async" alt="" height="533" src="http://img.555519.xyz/uploads/20230206/ca45df90b8878856870266aba3044d52.jpg"></p> <p>&nbsp;<img decoding="async" alt="" height="222" src="http://img.555519.xyz/uploads/20230206/712357897fed007287e0def43837c8b6.jpg"></p> <p>修改：</p> <pre>StudentDao</pre> <pre><code>package com.anguomob.jecpack.dao  import androidx.lifecycle.LiveData import androidx.room.* import com.anguomob.jecpack.bean.Student  @Dao interface StudentDao {     @Insert     fun insertStudent(vararg student: Student)      @Delete     fun deleteStudent(vararg student: Student)      @Query("DELETE FROM student")     fun deleteAllStudent()      @Update     fun updateStudent(vararg student: Student)       @Query("SELECT * FROM student")     fun queryAllStudent(): LiveData&lt;List&lt;Student&gt;&gt;      @Query("SELECT * FROM student where id = :id")     fun getStudentById(id: Int): List&lt;Student&gt; }</code></pre> <p>&nbsp;</p> <p>新增&nbsp;</p> <pre>StudentRepository类</pre> <pre><code>package com.anguomob.jecpack.repository  import android.content.Context import android.os.AsyncTask import androidx.lifecycle.LiveData import com.anguomob.jecpack.bean.Student import com.anguomob.jecpack.dao.StudentDao import com.anguomob.jecpack.database.MyDataBase  class StudentRepository(var context: Context) {     private lateinit var studentDao: StudentDao      init {         val dataBase = MyDataBase.getSingle(context)         this.studentDao = dataBase.getStudentDao();     }      fun insertStudent(vararg student: Student) {         InsertStudentTask(studentDao).execute(*student)     }      fun deleteStudent(vararg student: Student) {         DeleteStudentTask(studentDao).execute(*student)     }      fun updateStudent(vararg student: Student) {         UpdateStudentTask(studentDao).execute(*student)     }      fun queryAllStudent():LiveData&lt;List&lt;Student&gt;&gt; {        return  studentDao.queryAllStudent()     }      fun deleteAllStudent() {         DeleteAllStudentTask().execute()     }      inner class InsertStudentTask(var studentDao: StudentDao) : AsyncTask&lt;Student, Any, Any&gt;() {         override fun doInBackground(vararg p0: Student) {             studentDao.insertStudent(*p0)         }     }       inner class UpdateStudentTask(var studentDao: StudentDao) : AsyncTask&lt;Student, Any, Any&gt;() {         override fun doInBackground(vararg p0: Student) {             studentDao.updateStudent(*p0)         }     }      inner class DeleteStudentTask(var studentDao: StudentDao) : AsyncTask&lt;Student, Any, Any&gt;() {         override fun doInBackground(vararg p0: Student) {             studentDao.deleteStudent(*p0)         }     }     inner class DeleteAllStudentTask() : AsyncTask&lt;Any, Any, Any&gt;() {         override fun doInBackground(vararg p0: Any) {             studentDao.deleteAllStudent()         }     }  }</code></pre> <p>新增</p> <pre>StudentViewModel</pre> <pre><code>package com.anguomob.jecpack.viewmodel  import android.app.Application import androidx.lifecycle.AndroidViewModel import androidx.lifecycle.LiveData import com.anguomob.jecpack.bean.Student import com.anguomob.jecpack.repository.StudentRepository  class StudentViewModel(application: Application) : AndroidViewModel(application) {     private lateinit var repository: StudentRepository      init {         repository = StudentRepository(application)     }      fun insertStudent(vararg student: Student) {         repository.insertStudent(*student)     }      fun deleteStudent(vararg student: Student) {         repository.deleteStudent(*student)     }      fun updateStudent(vararg student: Student) {         repository.updateStudent(*student)     }      fun queryAllStudent(): LiveData&lt;List&lt;Student&gt;&gt; {         return repository.queryAllStudent()     }      fun deleteAllStudent() {         repository.deleteAllStudent()     } }</code></pre> <p>修改页面代码</p> <pre><code>package com.anguomob.jecpack.activity  import android.annotation.SuppressLint import android.os.AsyncTask import androidx.appcompat.app.AppCompatActivity import android.os.Bundle import android.view.View import androidx.lifecycle.ViewModelProvider import androidx.recyclerview.widget.LinearLayoutManager import com.anguomob.jecpack.R import com.anguomob.jecpack.adapter.RoomAdapter import com.anguomob.jecpack.bean.Student import com.anguomob.jecpack.dao.StudentDao import com.anguomob.jecpack.database.MyDataBase import com.anguomob.jecpack.databinding.ActivityRoomBinding import com.anguomob.jecpack.repository.StudentRepository import com.anguomob.jecpack.viewmodel.StudentViewModel  class RoomActivity : AppCompatActivity() {     private lateinit var binding: ActivityRoomBinding     private lateinit var adapter: RoomAdapter     private lateinit var viewModel: StudentViewModel      @SuppressLint("NotifyDataSetChanged")     override fun onCreate(savedInstanceState: Bundle?) {         super.onCreate(savedInstanceState)         binding = ActivityRoomBinding.inflate(layoutInflater)         setContentView(binding.root)         binding.rv.layoutManager = LinearLayoutManager(this)         adapter = RoomAdapter()         binding.rv.adapter = adapter;         viewModel =             ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(                 StudentViewModel::class.java             );         viewModel.queryAllStudent().observe(this) { data -&gt;             adapter.setData(data)             adapter.notifyDataSetChanged();         }      }      fun insert(view: View) {          val s1 = Student("Jack", 20)         val s2 = Student("Jack2", 21)         viewModel.insertStudent(s1, s2)      }      fun change(view: View) {         val s1 = Student(15, "LiuAn", 27)         val s2 = Student(16, "LiuAN2", 18)         viewModel.updateStudent(s1, s2)      }      fun delete(view: View) {         val s1 = Student(20)         viewModel.deleteStudent(s1)     }      fun clear(view: View) {         viewModel.deleteAllStudent()     }   }</code></pre> <p>布局文件把查询替换为了清空</p> <pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt; &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"     xmlns:app="http://schemas.android.com/apk/res-auto"     xmlns:tools="http://schemas.android.com/tools"     android:layout_width="match_parent"     android:layout_height="match_parent"     tools:context=".activity.RoomActivity"&gt;      &lt;androidx.constraintlayout.widget.Guideline         android:id="@+id/guideline5"         android:layout_width="wrap_content"         android:layout_height="wrap_content"         android:orientation="horizontal"         app:layout_constraintGuide_percent="0.09165527" /&gt;      &lt;androidx.constraintlayout.widget.Guideline         android:id="@+id/guideline7"         android:layout_width="wrap_content"         android:layout_height="wrap_content"         android:orientation="horizontal"         app:layout_constraintGuide_percent="0.19015048" /&gt;      &lt;androidx.constraintlayout.widget.Guideline         android:id="@+id/guideline8"         android:layout_width="wrap_content"         android:layout_height="wrap_content"         android:orientation="vertical"         app:layout_constraintGuide_percent="0.5" /&gt;      &lt;Button         android:id="@+id/button5"         android:layout_width="wrap_content"         android:layout_height="wrap_content"         android:onClick="insert"         android:text="增加"         app:layout_constraintBottom_toTopOf="@+id/guideline5"         app:layout_constraintEnd_toStartOf="@+id/guideline8"         app:layout_constraintStart_toStartOf="parent"         app:layout_constraintTop_toTopOf="parent" /&gt;      &lt;Button         android:id="@+id/button6"         android:layout_width="wrap_content"         android:layout_height="wrap_content"         android:onClick="change"         android:text="修改"         app:layout_constraintBottom_toTopOf="@+id/guideline5"         app:layout_constraintEnd_toEndOf="parent"         app:layout_constraintStart_toStartOf="@+id/guideline8"         app:layout_constraintTop_toTopOf="parent" /&gt;      &lt;Button         android:id="@+id/button7"         android:layout_width="wrap_content"         android:layout_height="wrap_content"         android:onClick="delete"         android:text="删除"         app:layout_constraintBottom_toTopOf="@+id/guideline7"         app:layout_constraintEnd_toStartOf="@+id/guideline8"         app:layout_constraintStart_toStartOf="parent"         app:layout_constraintTop_toTopOf="@+id/guideline5" /&gt;      &lt;Button         android:id="@+id/button8"         android:layout_width="wrap_content"         android:layout_height="wrap_content"         android:onClick="clear"         android:text="清空"         app:layout_constraintBottom_toTopOf="@+id/guideline7"         app:layout_constraintEnd_toEndOf="parent"         app:layout_constraintStart_toStartOf="@+id/guideline8"         app:layout_constraintTop_toTopOf="@+id/guideline5" /&gt;      &lt;androidx.recyclerview.widget.RecyclerView         android:id="@+id/rv"         android:layout_width="0dp"         android:layout_height="0dp"         app:layout_constraintBottom_toBottomOf="parent"         app:layout_constraintEnd_toEndOf="parent"         app:layout_constraintStart_toStartOf="parent"         app:layout_constraintTop_toTopOf="@+id/guideline7" /&gt; &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre> <p><img decoding="async" alt="" height="386" src="http://img.555519.xyz/uploads/20230206/b17f6a40f9a053ed38eee748bc77bb22.jpg"></p> <p>&nbsp;这种做法可以让数据自己展示出来。从而达到更加方便不用每次操作后手动去查询</p> <p>非常的时尚</p> <p>&nbsp;</p> </p></div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-1958.htm">在TypeScript项目中进行BDD测试</a></p>
+                                                <p>下一个：<a href="/html/category/article-2244.htm">Spring Boot Web项目ConcurrentLinkedQueue+ReentrantLock+Condition实现消费者功能(类似MQ队列)</a></p>
+                                            </div>
+
+                                        <div class="panel panel-default mt-5">
+                        <div class="panel-heading">
+                            <h3 class="m-0">推荐文章</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="p-0 x-0">
+                                                                <li class="py-2"><a href="/html/category/article-1634.htm">SM2密码算法数据结构</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-1355.htm">字符串连接的Java程序。</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-776.htm">vue实现文字滚动效果_vue.js</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-693.htm">linux执行rm -rf /*命令后的效果原来是这样</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-641.htm">Django请求与响应</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-611.htm">Vue导航栏，基于elementUI的导航菜单树</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-571.htm">避坑！js正确地使用fill()初始化二维数组_在线工具</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-565.htm">Google C++编程风格指南（二）：作用域</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-545.htm">如何将Spring Boot应用打包成Docker镜像文件并且推送到阿里云仓库</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-541.htm">Flask框架入门详解（以一个博客后台为例）_在线工具</a></li>
+                                                            </ul>
+                        </div>
+                    </div>
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-763.htm" title="PyMySQL中where __ in__ 的用法">PyMySQL中where __ in__ 的用法</a></li>
+                        <li class="py-2"><a href="/html/category/article-1325.htm" title="RBAC-基于角色的访问控制详解">RBAC-基于角色的访问控制详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-1355.htm" title="字符串连接的Java程序。">字符串连接的Java程序。</a></li>
+                        <li class="py-2"><a href="/html/category/article-774.htm" title="手把手教你调用微信扫一扫！三分钟包会">手把手教你调用微信扫一扫！三分钟包会</a></li>
+                        <li class="py-2"><a href="/html/category/article-1058.htm" title="Map循环遍历的常用方法">Map循环遍历的常用方法</a></li>
+                        <li class="py-2"><a href="/html/category/article-1057.htm" title="mysql 数据库密码问题">mysql 数据库密码问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-1336.htm" title="SpringMVC拦截器path路径的坑">SpringMVC拦截器path路径的坑</a></li>
+                        <li class="py-2"><a href="/html/category/article-1930.htm" title="Java高并发优化：中间件redis">Java高并发优化：中间件redis</a></li>
+                        <li class="py-2"><a href="/html/category/article-780.htm" title="@RequestBody某些属性值得不到">@RequestBody某些属性值得不到</a></li>
+                        <li class="py-2"><a href="/html/category/article-753.htm" title="爬虫系列：爬虫验证码识别_在线工具">爬虫系列：爬虫验证码识别_在线工具</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">46</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>
