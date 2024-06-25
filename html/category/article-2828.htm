@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 
 <head>
-        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-695.htm" />
-    <title>spring的redirect和foward - FinlandAddress</title>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-2828.htm" />
+    <title>JavaScript从数组中计数/ par元素以下方法详解 - FinlandAddress</title>
         <meta charset="utf-8">
     <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -54,7 +54,7 @@ var _hmt = _hmt || [];
                 <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
                 <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
                     <div class="text" style="top: 30%;min-width: 70%;">
-                        <h1>spring的redirect和foward</h1>
+                        <h1>JavaScript从数组中计数/ par元素以下方法详解</h1>
                         <p>
                             <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
                         </p>
@@ -67,12 +67,30 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                	  				  				  				<div id="content_views" class="htmledit_views"> <pre><strong> forward</strong>    //Servlet里处理get请求的方法  public void doGet(HttpServletRequest request , HttpServletResponse response){      //获取请求转发器对象，该转发器的指向通过getRequestDisPatcher()的参数设置    RequestDispatcher requestDispatcher =request.getRequestDispatcher("资源的URL");     //调用forward()方法，转发请求          requestDispatcher.forward(request,response);     }</pre> <p><img decoding="async" alt="" class="has" src="http://img.555519.xyz/uploads/20221201/47a2b20e869e306d1b3ee7564d3f0a31.jpg"></p> <pre><strong>Redirect</strong></pre> <pre>//Servlet中处理get请求的方法 public void doGet(HttpServletRequest request,HttpServletResponse response){ //请求重定向到另外的资源     response.sendRedirect("资源的URL"); }</pre> <p><img decoding="async" alt="" class="has" src="http://img.555519.xyz/uploads/20221201/6c182fc17deeb1d413b6d4652a95c682.jpg"></p> </div> 			
+                	  				  				  				<p>我们需要编写一个函数来计算给定数字以下/上方的数组中有多少个元素。</p> <p>以下是我们的数字数组-</p> <pre>const&nbsp;array&nbsp;=&nbsp;[54,54,65,73,43,78,54,54,76,3,23,78];</pre> <p>例如，如果数字为60，则答案应在数字下方五个元素-</p> <pre>54,54,43,3,23</pre> <p>和五个元素相加-</p> <pre>65,73,78,76,78</pre> <h2>示例</h2> <p>以下是代码-</p> <pre>const&nbsp;array&nbsp;=&nbsp;[54,54,65,73,43,78,54,54,76,3,23,78]; const&nbsp;belowParNumbers&nbsp;=&nbsp;(arr,&nbsp;num)&nbsp;=&gt;&nbsp;{ &nbsp;&nbsp;&nbsp;return&nbsp;arr.reduce((acc,&nbsp;val)&nbsp;=&gt;&nbsp;{ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;legend&nbsp;=&nbsp;['par',&nbsp;'below']; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;isBelow&nbsp;=&nbsp;val&nbsp;&lt;&nbsp;num; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acc[legend[+isBelow]]++; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;acc; &nbsp;&nbsp;&nbsp;},&nbsp;{ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;below:&nbsp;0, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par:&nbsp;0 &nbsp;&nbsp;&nbsp;}); }; console.log(belowParNumbers(array,&nbsp;50)); console.log(belowParNumbers(array,&nbsp;60)); console.log(belowParNumbers(array,&nbsp;70));</pre> <p>输出结果</p> <p>这将在控制台中产生以下输出-</p> <pre>{&nbsp;below:&nbsp;3,&nbsp;par:&nbsp;9&nbsp;} {&nbsp;below:&nbsp;7,&nbsp;par:&nbsp;5&nbsp;} {&nbsp;below:&nbsp;8,&nbsp;par:&nbsp;4&nbsp;}</pre> <div></div> 			
                     <div class="col-md-12 mt-5">
-                                                <p>上一个：<a href="/html/category/article-694.htm">Python基于类型提示的数据解析和验证库pydantic</a></p>
-                                                <p>下一个：<a href="/html/category/article-696.htm">python 接受ctrl c结束子进程，subprocess.Popen杀死子进程</a></p>
+                                                <p>上一个：<a href="/html/category/article-2827.htm">用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU</a></p>
                                             </div>
 
+                                        <div class="panel panel-default mt-5">
+                        <div class="panel-heading">
+                            <h3 class="m-0">推荐文章</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="p-0 x-0">
+                                                                <li class="py-2"><a href="/html/category/article-2827.htm">用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-788.htm">深入浅出Vue3 Composition API</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-770.htm">win11系统怎么更改屏幕刷新率</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-764.htm">SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-747.htm">Istio实践流量控制及服务间调用</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-695.htm">spring的redirect和foward</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-605.htm">数据库的四大特性以及不同隔离级别</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-597.htm">vue2.x版本中Object.defineProperty对象属性监听和关联_在线工具</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-595.htm">java8日期常用API，日期详解</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-570.htm">springmvc获取页面值为null的原因</a></li>
+                                                            </ul>
+                        </div>
+                    </div>
                                     </div>
                 <div class="col-md-3">
                 	<div class="panel panel-default">
@@ -81,16 +99,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/html/category/article-1336.htm" title="SpringMVC拦截器path路径的坑">SpringMVC拦截器path路径的坑</a></li>
-                        <li class="py-2"><a href="/html/category/article-759.htm" title="golang中的panic">golang中的panic</a></li>
-                        <li class="py-2"><a href="/html/category/article-760.htm" title="win11系统怎么隐藏菜单">win11系统怎么隐藏菜单</a></li>
-                        <li class="py-2"><a href="/html/category/article-774.htm" title="手把手教你调用微信扫一扫！三分钟包会">手把手教你调用微信扫一扫！三分钟包会</a></li>
-                        <li class="py-2"><a href="/html/category/article-1634.htm" title="SM2密码算法数据结构">SM2密码算法数据结构</a></li>
-                        <li class="py-2"><a href="/html/category/article-771.htm" title="win11系统如何进入高级启动">win11系统如何进入高级启动</a></li>
-                        <li class="py-2"><a href="/html/category/article-768.htm" title="mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）">mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）</a></li>
-                        <li class="py-2"><a href="/html/category/article-761.htm" title="springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题">springMVC拦截器从Request中获取Json格式并解决request的请求流只能读取一次的问题</a></li>
-                        <li class="py-2"><a href="/html/category/article-1058.htm" title="Map循环遍历的常用方法">Map循环遍历的常用方法</a></li>
-                        <li class="py-2"><a href="/html/category/article-782.htm" title="Spring Cloud Config 配置中心(用途、使用、加解密)">Spring Cloud Config 配置中心(用途、使用、加解密)</a></li>
+                        <li class="py-2"><a href="/html/category/article-1356.htm" title="utils层与tools层，manager层与service层，helper层概念理解">utils层与tools层，manager层与service层，helper层概念理解</a></li>
+                        <li class="py-2"><a href="/html/category/article-793.htm" title="Java中线程状态+线程安全问题+synchronized的用法详解_java_">Java中线程状态+线程安全问题+synchronized的用法详解_java_</a></li>
+                        <li class="py-2"><a href="/html/category/article-794.htm" title="flex布局实现 内容区域高度自适应">flex布局实现 内容区域高度自适应</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                        <li class="py-2"><a href="/html/category/article-1943.htm" title="linux磁盘清理方法详解">linux磁盘清理方法详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-1944.htm" title="简单了解 TiDB 架构">简单了解 TiDB 架构</a></li>
+                        <li class="py-2"><a href="/html/category/article-1057.htm" title="mysql 数据库密码问题">mysql 数据库密码问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-757.htm" title="SDS-redis动态字符串">SDS-redis动态字符串</a></li>
+                        <li class="py-2"><a href="/html/category/article-767.htm" title="超详细，Python 多线程总结的太到位了">超详细，Python 多线程总结的太到位了</a></li>
                     </ul>
     </div>
 </div>
