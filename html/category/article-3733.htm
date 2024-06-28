@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 
 <head>
-        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-3126.htm" />
-    <title>pytorch cuda上tensor的定义  以及 减少cpu操作的方法 - FinlandAddress</title>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-3733.htm" />
+    <title>Springboot使用@Cacheable注解实现数据缓存 - FinlandAddress</title>
         <meta charset="utf-8">
     <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -54,7 +54,7 @@ var _hmt = _hmt || [];
                 <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
                 <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
                     <div class="text" style="top: 30%;min-width: 70%;">
-                        <h1>pytorch cuda上tensor的定义  以及 减少cpu操作的方法</h1>
+                        <h1>Springboot使用@Cacheable注解实现数据缓存</h1>
                         <p>
                             <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
                         </p>
@@ -67,10 +67,10 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <blockquote> <p>cuda上tensor的定义</p> </blockquote> <pre><code>a = torch.ones(1000,1000,3).cuda() </code></pre> <blockquote> <p>某一gpu上定义</p> </blockquote> <pre><code>cuda1 = torch.device('cuda:1') b = torch.randn((1000,1000,1000),device=cuda1) </code></pre> <blockquote> <p>删除某一变量</p> </blockquote> <pre><code>del a </code></pre> <blockquote> <p>在cpu定义tensor然后转到gpu</p> </blockquote> <pre><code>torch.zeros().cuda() </code></pre> <blockquote> <p>直接在gpu上定义，这样就减少了cpu的损耗</p> </blockquote> <pre><code>torch.cuda.FloatTensor(batch_size, self.hidden_dim, self.height, self.width).fill_(0) </code></pre> </p></div> 			
+                	  				  				  				<div id="content_views" class="htmledit_views"> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文介绍如何在Springboot中通过@Cacheable注解实现数据缓存。在每次调用添加了@Cacheable注解的方法（需要缓存功能的方法）时，Spring 会检查指定参数的指定目标方法是否已经被调用过，如果有就直接从缓存中获取方法调用后的结果，如果没有就调用方法并缓存结果后返回给用户。下次调用直接从缓存中获取。</p> <h3>1、添加&nbsp;<code>@EnableCaching</code><br /> </h3> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用&nbsp;<code>@EnableCaching</code>&nbsp;标识在 SpringBoot 的主启动类上，开启基于注解的缓存。</p> <pre><code class="language-java">@EnableCaching public class Application {     public static void main(String[] args) {         SpringApplication.run(Application .class, args);     } }</code></pre> <h3> <code>2、添加</code>@Cacheable</h3> <p><code>&nbsp; 在需要缓存的方法上添加</code>@Cacheable注解。以后查询相同的数据，直接从缓存中取，不需要调用方法。</p> <pre><code class="language-java">@Cacheable(value = "areaTreeData") public CommonResult&lt;List&lt;Map&lt;String, Object&gt;&gt;&gt; queryTreeData(Long pId, Long lv) {   Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();   map.put("state", 1);   List&lt;Map&lt;String, Object&gt;&gt; list = getTreeData(map, pId, lv);   return new CommonResult&lt;&gt;(list); }</code></pre> <blockquote> <p><span style="color:#fe2c24;"><code>注意：</code></span></p> <p><span style="color:#fe2c24;"><code>1、返回的数据类型必须支持序列化或实现了</code>Serializable接口，否则数据没法缓存。</span></p> <p><span style="color:#fe2c24;">2、只有直接调用该方法才能缓存，不能通过类中的其他方法来调用。</span></p> </blockquote> <h3><code>3、常用属性说明</code></h3> <ul> <li> <p><code>cacheNames/value</code>&nbsp;：用来指定缓存组件的名字</p> </li> <li> <p><code>key</code>&nbsp;：缓存数据时使用的 key，可以用它来指定。默认是使用方法参数的值。（这个 key 你可以使用 spEL 表达式来编写）</p> </li> <li> <p><code>keyGenerator</code>&nbsp;：key 的生成器。 key 和 keyGenerator 二选一使用</p> </li> <li> <p><code>cacheManager</code>&nbsp;：可以用来指定缓存管理器。从哪个缓存管理器里面获取缓存。</p> </li> <li> <p><code>condition</code>&nbsp;：可以用来指定符合条件的情况下才缓存</p> </li> <li> <p><code>unless</code>&nbsp;：否定缓存。当 unless 指定的条件为 true ，方法的返回值就不会被缓存。当然你也可以获取到结果进行判断。（通过&nbsp;<code>#result</code>&nbsp;获取方法结果）</p> </li> <li> <p><code>sync</code>&nbsp;：是否使用异步模式。</p> </li> </ul> <h3>4、@CacheEvict注解</h3> <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@CachEvict 的作用 主要针对方法配置，能够根据一定的条件对缓存进行清空。常用属性参数如下：</p> <table align="center" border="1" cellpadding="1" cellspacing="1"> <thead> <tr> <th style="text-align:center;vertical-align:middle;">参数</th> <th style="text-align:center;vertical-align:middle;">解释</th> <th style="text-align:center;vertical-align:middle;">example</th> </tr> </thead> <tbody> <tr> <td style="text-align:center;vertical-align:middle;">value</td> <td>缓存的名称，在 spring 配置文件中定义，必须指定至少一个</td> <td>@CacheEvict(value=”my cache”)</td> </tr> <tr> <td style="text-align:center;vertical-align:middle;">key</td> <td>缓存的 key，可以为空，如果指定要按照 SpEL 表达式编写，如果不指定，则缺省按照方法的所有参数进行组合</td> <td>@CacheEvict(value=”testcache”,key=”#userName”)</td> </tr> <tr> <td style="text-align:center;vertical-align:middle;">condition</td> <td>缓存的条件，可以为空，使用 SpEL 编写，返回 true 或者 false，只有为 true 才进行缓存</td> <td>@CacheEvict(value=”testcache”,condition=”#userName.length()&gt;2”)</td> </tr> <tr> <td style="text-align:center;vertical-align:middle;">allEntries</td> <td>是否清空所有缓存内容，缺省为 false，如果指定为 true，则方法调用后将立即清空所有缓存</td> <td>@CachEvict(value=”testcache”,allEntries=true)</td> </tr> <tr> <td style="text-align:center;vertical-align:middle;">beforeInvocation</td> <td>是否在方法执行前就清空，缺省为 false，如果指定为 true，则在方法还没有执行的时候就清空缓存，缺省情况下，如果方法执行抛出异常，则不会清空缓存</td> <td>@CachEvict(value=”testcache”，beforeInvocation=true)</td> </tr> </tbody> </table> <pre><code class="language-java">@CacheEvict(value = "areaTreeData", allEntries = true, beforeInvocation = true) public Integer save(SysArea sysArea) {    return mapper.insertSelective(sysArea); }</code></pre> <hr/> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.sgknight.cn/"  title="新时代农民工" rel="nofollow">新时代农民工</a>&nbsp;</p> </p></div> 			
                     <div class="col-md-12 mt-5">
-                                                <p>上一个：<a href="/html/category/article-3125.htm">Python实现双X轴双Y轴绘图</a></p>
-                                                <p>下一个：<a href="/html/category/article-3427.htm">springboot过滤器与拦截器详解</a></p>
+                                                <p>上一个：<a href="/html/category/article-3428.htm">Docker 解决Error response from daemon</a></p>
+                                                <p>下一个：<a href="/html/category/article-3734.htm">面试官：@Transactional 注解是如何实现的？面试必问！</a></p>
                                             </div>
 
                                         <div class="panel panel-default mt-5">
@@ -79,15 +79,15 @@ var _hmt = _hmt || [];
                         </div>
                         <div class="panel-body">
                             <ul class="p-0 x-0">
+                                                                <li class="py-2"><a href="/html/category/article-1345.htm">vue2.x版本中computed和watch的使用入门详解-watch篇_在线工具</a></li>
                                                                 <li class="py-2"><a href="/html/category/article-788.htm">深入浅出Vue3 Composition API</a></li>
                                                                 <li class="py-2"><a href="/html/category/article-755.htm">第2章 图灵的计算王国</a></li>
-                                                                <li class="py-2"><a href="/html/category/article-671.htm">适合初学者的C语言字符串讲解_C 语言_</a></li>
-                                                                <li class="py-2"><a href="/html/category/article-667.htm">极品vue3中setup的细节,以及定义多个响应式reactive</a></li>
-                                                                <li class="py-2"><a href="/html/category/article-585.htm">python协程 &amp; asyncio &amp; 异步编程（一） 协程</a></li>
-                                                                <li class="py-2"><a href="/html/category/article-562.htm">SpringBoot 整合 Kafka 以及 @KafkaListener 注解的使用</a></li>
-                                                                <li class="py-2"><a href="/html/category/article-558.htm">JS 中 对象 基础认识_在线工具</a></li>
-                                                                <li class="py-2"><a href="/html/category/article-556.htm">总结vue项目引入Vant遇到的坑</a></li>
-                                                                <li class="py-2"><a href="/html/category/article-550.htm">iSCSI服务器CHAP双向认证配置</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-749.htm">vue @component继承的一些知识点详解</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-727.htm">用Python读hdfs集群parquet格式文件</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-658.htm">python调用c代码</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-649.htm">面向对象编程-正则表达式</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-625.htm">toString()和new String()区别</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-594.htm">Redis6配置主从复制+读写分离</a></li>
                                                                 <li class="py-2"><a href="/html/category/article-537.htm">restFul风格传参, 参数中带斜杠/问题</a></li>
                                                             </ul>
                         </div>
@@ -100,16 +100,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-1355.htm" title="字符串连接的Java程序。">字符串连接的Java程序。</a></li>
+                        <li class="py-2"><a href="/html/category/article-767.htm" title="超详细，Python 多线程总结的太到位了">超详细，Python 多线程总结的太到位了</a></li>
+                        <li class="py-2"><a href="/html/category/article-1325.htm" title="RBAC-基于角色的访问控制详解">RBAC-基于角色的访问控制详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-768.htm" title="mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）">mysql双机热备 读写分离_轻松搭建MySQL主从复制、读写分离（双机热备）</a></li>
+                        <li class="py-2"><a href="/html/category/article-2828.htm" title="JavaScript从数组中计数/ par元素以下方法详解">JavaScript从数组中计数/ par元素以下方法详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-779.htm" title="vue中动态控制btn的disabled属性方式_vue.js">vue中动态控制btn的disabled属性方式_vue.js</a></li>
+                        <li class="py-2"><a href="/html/category/article-2533.htm" title="v-model.trim用法及其他修饰符">v-model.trim用法及其他修饰符</a></li>
                         <li class="py-2"><a href="/html/category/article-1058.htm" title="Map循环遍历的常用方法">Map循环遍历的常用方法</a></li>
-                        <li class="py-2"><a href="/html/category/article-1335.htm" title="Java实现MD5和国密SM3摘要算法">Java实现MD5和国密SM3摘要算法</a></li>
-                        <li class="py-2"><a href="/html/category/article-764.htm" title="SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法">SpringBoot中使用RestTemplate发送文件流，以及读取zip压缩包中文件的方法</a></li>
                         <li class="py-2"><a href="/html/category/article-794.htm" title="flex布局实现 内容区域高度自适应">flex布局实现 内容区域高度自适应</a></li>
-                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
-                        <li class="py-2"><a href="/html/category/article-777.htm" title="基于51单片机的秒表，单独按键控制启动，暂停，复位。">基于51单片机的秒表，单独按键控制启动，暂停，复位。</a></li>
-                        <li class="py-2"><a href="/html/category/article-1929.htm" title="Android7.0特性及适配">Android7.0特性及适配</a></li>
-                        <li class="py-2"><a href="/html/category/article-785.htm" title="C语言程序设计——用户密码输入与判断">C语言程序设计——用户密码输入与判断</a></li>
-                        <li class="py-2"><a href="/html/category/article-1336.htm" title="SpringMVC拦截器path路径的坑">SpringMVC拦截器path路径的坑</a></li>
-                        <li class="py-2"><a href="/html/category/article-2244.htm" title="Spring Boot Web项目ConcurrentLinkedQueue+ReentrantLock+Condition实现消费者功能(类似MQ队列)">Spring Boot Web项目ConcurrentLinkedQueue+ReentrantLock+Condition实现消费者功能(类似MQ队列)</a></li>
+                        <li class="py-2"><a href="/html/category/article-787.htm" title="微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习">微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习</a></li>
                     </ul>
     </div>
 </div>
