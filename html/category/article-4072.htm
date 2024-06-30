@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 
 <head>
-        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-577.htm" />
-    <title>SpringCloud项目的log4j2漏洞解决方案详解流程_java_ - FinlandAddress</title>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-4072.htm" />
+    <title>netty依赖精简 - FinlandAddress</title>
         <meta charset="utf-8">
     <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -54,7 +54,7 @@ var _hmt = _hmt || [];
                 <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
                 <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
                     <div class="text" style="top: 30%;min-width: 70%;">
-                        <h1>SpringCloud项目的log4j2漏洞解决方案详解流程_java_</h1>
+                        <h1>netty依赖精简</h1>
                         <p>
                             <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
                         </p>
@@ -67,12 +67,30 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                	  				  				  				<p> 步骤如下：</p> <div class="ay1code"> <pre class="brush:xml;">&lt;properties&gt;      &lt;log4j2.version&gt;2.15.0&lt;/log4j2.version&gt;  &lt;/properties&gt;  </pre> </div> <p style="text-align:center"><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads3/20220416/52ca8f5123a56f555d984a784ea832f1.jpg"></p> <ul> <li>下面为上边对应版本号的具体依赖</li> </ul> <div class="ay1code"> <pre class="brush:xml;">    &lt;dependency&gt;              &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;              &lt;artifactId&gt;log4j-api&lt;/artifactId&gt;              &lt;version&gt;2.15.0&lt;/version&gt;          &lt;/dependency&gt;            &lt;dependency&gt;              &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;              &lt;artifactId&gt;log4j-to-slf4j&lt;/artifactId&gt;              &lt;version&gt;2.15.0&lt;/version&gt;          &lt;/dependency&gt;  </pre> </div> <ul> <li>修改完后点击右侧的maven刷新按钮</li> </ul> <p style="text-align:center"><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads3/20220416/473c2e0cc0fe43a8603cd3b66643fb68.jpg"></p> <ul> <li>如何验证版本号是否修改成功呢，见下图</li> </ul> <p style="text-align:center"><img decoding="async" alt="在这里插入图片描述" src="http://img.555519.xyz/uploads3/20220416/bf13e1cbbe7491fee20ce9f19868ea3d.jpg"></p> <ul> <li>临时性解决方法</li> </ul> <p>临时性缓解措施（任选一种，但是注意，只有 &gt;=2.10.0 版本才可以用，老版本不支持这个选项）</p> <p>– 在 jvm 参数中添加 <code>-Dlog4j2.formatMsgNoLookups=true</code></p> <p>– 系统<code>环境变量</code>中将LOG4J_FORMAT_MSG_NO_LOOKUPS 设置为 true</p> <p>– 创建 <code>log4j2.component.properties</code> 文件，文件中增加配置</p> <p>log4j2.formatMsgNoLookups=true</p> <ul> <li>攻击者排查</li> </ul> <p>1.攻击者在利前通常采 <code>dnslog</code> 式进扫描、探测，对于常利 式可通过应系统报错志中的"javax.naming.CommunicationException:javax.naming.NamingException:</p> <p>p<code>roblem generating object using object factory</code>"、Error looking up <code>JNDI</code> resource"关键字进排查。</p> <p>2.流量排查：攻击者的数据包中可能存在：<code>jndi:ldap</code>字 样，推荐使奇安信神站应安全云防护系统全流量或 <code>WAF</code> 设备进检索排查。</p> <p>3.志排查：可使 <a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/Neo23x0/log4shell-detector"   target="_blank" rel="nofollow">https://github.com/Neo23x0/log4shell-detector</a> 开源项 ，对 WEB 应志进检查。</p> <p>Mon 06 Mon 13 Mon 20 已完成 进行中 计划一 计划二 现有任务 Love is just a word I only say one word</p> <p>知名的Java日志组件Apache Log4j2就刷爆了圈子。它被发现了一个 0 Day 漏洞，该Log4J2 漏洞可以让黑客通过日志记录远程执行代码（Remote Code Execution）。由于这个日志库被普遍使用，而这个漏洞又非常容易使用，所以造成的风险也非常严重，让人不得不提高防范。就连不懂代码的客户都来问系统是否存在这个问题。</p> 			
+                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>通常情况下为了方便我们在使用netty时会使用以下的maven依赖声明</p> <pre><code>&lt;!-- https://mvnrepository.com/artifact/io.netty/netty-all --&gt; &lt;dependency&gt;     &lt;groupId&gt;io.netty&lt;/groupId&gt;     &lt;artifactId&gt;netty-all&lt;/artifactId&gt;     &lt;version&gt;4.1.66.Final&lt;/version&gt; &lt;/dependency&gt;</code></pre> <p>这样引入的jar包netty-all（约4M）体积是比较大的<br /> netty-all提供了丰富的功能,如流量整形，native传输，各种应用层协议的codec，在开发过程中有时可能不需要用到全部的高级特性，只需要最基本的NIO传输功能，这时只需要引入依赖</p> <pre><code>        &lt;dependency&gt;             &lt;groupId&gt;io.netty&lt;/groupId&gt;             &lt;artifactId&gt;netty-transport&lt;/artifactId&gt;             &lt;version&gt;4.1.66.Final&lt;/version&gt;         &lt;/dependency&gt;</code></pre> <p>此依赖会通过传递依赖的形式自动引入<br /> netty-buffer,netty-common,netty-resolver,netty-transport这四个库(合约1.39M)，这样就比直接引入整个依赖在小很多。对于服务器应用来说jar的体积对内存占用影响不显著，但对于资源受限的场景，如移动端，精简依赖还是很有必要的。</p> </div> 			
                     <div class="col-md-12 mt-5">
-                                                <p>上一个：<a href="/html/category/article-576.htm">Redis如何无锁应对并发访问及如何实现分布式锁</a></p>
-                                                <p>下一个：<a href="/html/category/article-578.htm">如何优雅地包装controller的返回结果，Result类封装</a></p>
+                                                <p>上一个：<a href="/html/category/article-4071.htm">Kubernetes部署单元-Pod</a></p>
                                             </div>
 
+                                        <div class="panel panel-default mt-5">
+                        <div class="panel-heading">
+                            <h3 class="m-0">推荐文章</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="p-0 x-0">
+                                                                <li class="py-2"><a href="/html/category/article-1057.htm">mysql 数据库密码问题</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-752.htm">jpa 原生SQL写法</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-705.htm">解决Error response from daemon: Get https://registry-1.docker.io/v2/library/hello-world/manifests/问题</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-683.htm">springboot项目在启动时自动添加定时任务</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-678.htm">.NET宝藏API之：IHostedService，后台任务执行</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-618.htm">Kotlin（二） 标准函数和静态方法</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-601.htm">Java基础知识 29（同步代码块，同步方法，静态同步方法，Lock锁，死锁问题）</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-576.htm">Redis如何无锁应对并发访问及如何实现分布式锁</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-550.htm">iSCSI服务器CHAP双向认证配置</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-536.htm">JavaScript如何使用标准数组值对数组进行排序或排列</a></li>
+                                                            </ul>
+                        </div>
+                    </div>
                                     </div>
                 <div class="col-md-3">
                 	<div class="panel panel-default">
@@ -81,16 +99,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/html/category/article-1930.htm" title="Java高并发优化：中间件redis">Java高并发优化：中间件redis</a></li>
-                        <li class="py-2"><a href="/html/category/article-771.htm" title="win11系统如何进入高级启动">win11系统如何进入高级启动</a></li>
-                        <li class="py-2"><a href="/html/category/article-781.htm" title="一文搞定CompletableFuture并行处理，成倍缩短查询时间。">一文搞定CompletableFuture并行处理，成倍缩短查询时间。</a></li>
+                        <li class="py-2"><a href="/html/category/article-793.htm" title="Java中线程状态+线程安全问题+synchronized的用法详解_java_">Java中线程状态+线程安全问题+synchronized的用法详解_java_</a></li>
                         <li class="py-2"><a href="/html/category/article-1634.htm" title="SM2密码算法数据结构">SM2密码算法数据结构</a></li>
-                        <li class="py-2"><a href="/html/category/article-1345.htm" title="vue2.x版本中computed和watch的使用入门详解-watch篇_在线工具">vue2.x版本中computed和watch的使用入门详解-watch篇_在线工具</a></li>
-                        <li class="py-2"><a href="/html/category/article-1355.htm" title="字符串连接的Java程序。">字符串连接的Java程序。</a></li>
-                        <li class="py-2"><a href="/html/category/article-783.htm" title="Vue中所有的v-指令">Vue中所有的v-指令</a></li>
-                        <li class="py-2"><a href="/html/category/article-777.htm" title="基于51单片机的秒表，单独按键控制启动，暂停，复位。">基于51单片机的秒表，单独按键控制启动，暂停，复位。</a></li>
-                        <li class="py-2"><a href="/html/category/article-778.htm" title="nginx.conf配置文件结构小结_nginx">nginx.conf配置文件结构小结_nginx</a></li>
-                        <li class="py-2"><a href="/html/category/article-2533.htm" title="v-model.trim用法及其他修饰符">v-model.trim用法及其他修饰符</a></li>
+                        <li class="py-2"><a href="/html/category/article-1336.htm" title="SpringMVC拦截器path路径的坑">SpringMVC拦截器path路径的坑</a></li>
+                        <li class="py-2"><a href="/html/category/article-1930.htm" title="Java高并发优化：中间件redis">Java高并发优化：中间件redis</a></li>
+                        <li class="py-2"><a href="/html/category/article-3734.htm" title="面试官：@Transactional 注解是如何实现的？面试必问！">面试官：@Transactional 注解是如何实现的？面试必问！</a></li>
+                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
+                        <li class="py-2"><a href="/html/category/article-2827.htm" title="用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU">用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU</a></li>
+                        <li class="py-2"><a href="/html/category/article-2534.htm" title="C++数据结构与算法之排序桶排序">C++数据结构与算法之排序桶排序</a></li>
+                        <li class="py-2"><a href="/html/category/article-774.htm" title="手把手教你调用微信扫一扫！三分钟包会">手把手教你调用微信扫一扫！三分钟包会</a></li>
+                        <li class="py-2"><a href="/html/category/article-770.htm" title="win11系统怎么更改屏幕刷新率">win11系统怎么更改屏幕刷新率</a></li>
                     </ul>
     </div>
 </div>
