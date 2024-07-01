@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://finlandaddress.github.io/html/category/article-4099.htm" />
+    <title>SpringBoot：Controller层调用Service层，出现bug - FinlandAddress</title>
+        <meta charset="utf-8">
+    <link rel="icon" href="/assets/addons/xcblog/img/finlandaddress/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/animate.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/magnific-popup.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/flaticon.css" rel="stylesheet" />
+    <link href="/assets/addons/xcblog/css/finlandaddress/style.css" rel="stylesheet" />
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a045e5bb3ae69629060e7ce2a4b98902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+                        <a class="navbar-brand" href="/">Finland Address<span></span></a>
+            
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> MENU
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                	                    <li class="nav-item"><a href="/" class="nav-link"><span>首页</span></a></li>
+                                        <li class="nav-item"><a href="/html/category/" class="nav-link"><span>文章分类</span></a></li>
+                                        <li class="nav-item"><a href="#" class="nav-link"><span>关于</span></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><span>联系</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-wrap" style="height:350px;overflow: hidden;">
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex no-gutters slider-text align-items-center js-fullheight justify-content-end">
+                <img class="one-third js-fullheight align-self-end order-md-last img-fluid" src="/assets/addons/xcblog/img/finlandaddress/undraw_book_lover_mkck.svg" alt="" style="opacity: 0.5;">
+                <div class="one-forth d-flex align-items-center ftco-animate js-fullheight">
+                    <div class="text" style="top: 30%;min-width: 70%;">
+                        <h1>SpringBoot：Controller层调用Service层，出现bug</h1>
+                        <p>
+                            <a href="/">首页</a> / <a href="/html/category/">文章分类</a> / <span>正文</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-about img ftco-section" id="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <h2> <a id="bugserviceservicecontrollerservice_0" rel="nofollow"></a>bug描述：无法直接调用service层中的方法，service层上的断点打上直接变成灰色禁用标识，且controller层中的方法无法执行到service中。</h2> <p>之前没遇到过，百思不得其解，maven-clean了一下，发现因为刚用了mbg重新生成了用户类，在两个地方需要重新导入，而涉及到的这个方法刚好也是需要这个user类中的ID，因此出现这个奇怪的bug。</p> <p>@Controller层<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230217/012452eb32e0b2abe90e475eb67b57a2.jpg" alt="SpringBoot：Controller层调用Service层，出现bug"><br /> @Service层<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230217/848a1f30a9d0b607d442efa2895daecc.jpg" alt="SpringBoot：Controller层调用Service层，出现bug"><br /> 执行过程无法跳转，反而跳转到ModelMap类中的如下方法中，看提示是说属性不能为空，其实是没有为空的属性的，但是之前用过mbg重新生成了User类，所以在几个地方需要重新导一下包，没有正确识别，因此出现问题。<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230217/b627292d6b776b08537d0645d74fc628.jpg" alt="SpringBoot：Controller层调用Service层，出现bug"><br /> 解决方法：在ProfileController中将user重新导包，即可解决。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230217/4856185ab4958dbf099368dba0b84999.jpg" alt="SpringBoot：Controller层调用Service层，出现bug"></p> </p></div> 			
+                    <div class="col-md-12 mt-5">
+                                                <p>上一个：<a href="/html/category/article-4072.htm">netty依赖精简</a></p>
+                                                <p>下一个：<a href="/html/category/article-4100.htm">解决Vue Cli安装Element-plus后启动失败的问题</a></p>
+                                            </div>
+
+                                        <div class="panel panel-default mt-5">
+                        <div class="panel-heading">
+                            <h3 class="m-0">推荐文章</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="p-0 x-0">
+                                                                <li class="py-2"><a href="/html/category/article-3733.htm">Springboot使用@Cacheable注解实现数据缓存</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-683.htm">springboot项目在启动时自动添加定时任务</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-646.htm">【Mysql】- binlog 日志解析</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-641.htm">Django请求与响应</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-634.htm">Java 线程安全与锁</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-611.htm">Vue导航栏，基于elementUI的导航菜单树</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-573.htm">python对svn进行操作及信息获取</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-556.htm">总结vue项目引入Vant遇到的坑</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-550.htm">iSCSI服务器CHAP双向认证配置</a></li>
+                                                                <li class="py-2"><a href="/html/category/article-546.htm">Java中Arrays工具类的使用</a></li>
+                                                            </ul>
+                        </div>
+                    </div>
+                                    </div>
+                <div class="col-md-3">
+                	<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/html/category/article-783.htm" title="Vue中所有的v-指令">Vue中所有的v-指令</a></li>
+                        <li class="py-2"><a href="/html/category/article-3759.htm" title="让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示">让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示</a></li>
+                        <li class="py-2"><a href="/html/category/article-1944.htm" title="简单了解 TiDB 架构">简单了解 TiDB 架构</a></li>
+                        <li class="py-2"><a href="/html/category/article-794.htm" title="flex布局实现 内容区域高度自适应">flex布局实现 内容区域高度自适应</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-1356.htm" title="utils层与tools层，manager层与service层，helper层概念理解">utils层与tools层，manager层与service层，helper层概念理解</a></li>
+                        <li class="py-2"><a href="/html/category/article-771.htm" title="win11系统如何进入高级启动">win11系统如何进入高级启动</a></li>
+                        <li class="py-2"><a href="/html/category/article-2534.htm" title="C++数据结构与算法之排序桶排序">C++数据结构与算法之排序桶排序</a></li>
+                        <li class="py-2"><a href="/html/category/article-775.htm" title="toString()、new String()和(String) 、String.ValueOf()的区别">toString()、new String()和(String) 、String.ValueOf()的区别</a></li>
+                        <li class="py-2"><a href="/html/category/article-1345.htm" title="vue2.x版本中computed和watch的使用入门详解-watch篇_在线工具">vue2.x版本中computed和watch的使用入门详解-watch篇_在线工具</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">2</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-05/" title="2024-05 归档">2024-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-04/" title="2024-04 归档">2024-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">62</span> <a href="/html/date/2024-03/" title="2024-03 归档">2024-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/html/date/2024-02/" title="2024-02 归档">2024-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        FinlandAddress 版权所有
+                        <br />
+                        Powered by WordPress
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/popper.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/bootstrap.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.easing.1.3.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.waypoints.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.stellar.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/owl.carousel.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/jquery.animateNumber.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/scrollax.min.js"></script>
+    <script src="/assets/addons/xcblog/js/frontend/finlandaddress/main.js"></script>
+    <script>
+    $(function() {
+        $('.js_to').click(function(){
+            var url = $(this).data('url');
+            var code = $(this).data('code');
+            url += code;
+
+            window.open(url);
+        })
+    });
+    </script>
+</body>
+
+</html>

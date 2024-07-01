@@ -70,6 +70,7 @@ var _hmt = _hmt || [];
                 	  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>通常情况下为了方便我们在使用netty时会使用以下的maven依赖声明</p> <pre><code>&lt;!-- https://mvnrepository.com/artifact/io.netty/netty-all --&gt; &lt;dependency&gt;     &lt;groupId&gt;io.netty&lt;/groupId&gt;     &lt;artifactId&gt;netty-all&lt;/artifactId&gt;     &lt;version&gt;4.1.66.Final&lt;/version&gt; &lt;/dependency&gt;</code></pre> <p>这样引入的jar包netty-all（约4M）体积是比较大的<br /> netty-all提供了丰富的功能,如流量整形，native传输，各种应用层协议的codec，在开发过程中有时可能不需要用到全部的高级特性，只需要最基本的NIO传输功能，这时只需要引入依赖</p> <pre><code>        &lt;dependency&gt;             &lt;groupId&gt;io.netty&lt;/groupId&gt;             &lt;artifactId&gt;netty-transport&lt;/artifactId&gt;             &lt;version&gt;4.1.66.Final&lt;/version&gt;         &lt;/dependency&gt;</code></pre> <p>此依赖会通过传递依赖的形式自动引入<br /> netty-buffer,netty-common,netty-resolver,netty-transport这四个库(合约1.39M)，这样就比直接引入整个依赖在小很多。对于服务器应用来说jar的体积对内存占用影响不显著，但对于资源受限的场景，如移动端，精简依赖还是很有必要的。</p> </div> 			
                     <div class="col-md-12 mt-5">
                                                 <p>上一个：<a href="/html/category/article-4071.htm">Kubernetes部署单元-Pod</a></p>
+                                                <p>下一个：<a href="/html/category/article-4099.htm">SpringBoot：Controller层调用Service层，出现bug</a></p>
                                             </div>
 
                                         <div class="panel panel-default mt-5">
@@ -99,16 +100,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/html/category/article-793.htm" title="Java中线程状态+线程安全问题+synchronized的用法详解_java_">Java中线程状态+线程安全问题+synchronized的用法详解_java_</a></li>
-                        <li class="py-2"><a href="/html/category/article-1634.htm" title="SM2密码算法数据结构">SM2密码算法数据结构</a></li>
-                        <li class="py-2"><a href="/html/category/article-1336.htm" title="SpringMVC拦截器path路径的坑">SpringMVC拦截器path路径的坑</a></li>
-                        <li class="py-2"><a href="/html/category/article-1930.htm" title="Java高并发优化：中间件redis">Java高并发优化：中间件redis</a></li>
-                        <li class="py-2"><a href="/html/category/article-3734.htm" title="面试官：@Transactional 注解是如何实现的？面试必问！">面试官：@Transactional 注解是如何实现的？面试必问！</a></li>
-                        <li class="py-2"><a href="/html/category/article-784.htm" title="Pytorch Conv1d()">Pytorch Conv1d()</a></li>
-                        <li class="py-2"><a href="/html/category/article-2827.htm" title="用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU">用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU</a></li>
-                        <li class="py-2"><a href="/html/category/article-2534.htm" title="C++数据结构与算法之排序桶排序">C++数据结构与算法之排序桶排序</a></li>
-                        <li class="py-2"><a href="/html/category/article-774.htm" title="手把手教你调用微信扫一扫！三分钟包会">手把手教你调用微信扫一扫！三分钟包会</a></li>
-                        <li class="py-2"><a href="/html/category/article-770.htm" title="win11系统怎么更改屏幕刷新率">win11系统怎么更改屏幕刷新率</a></li>
+                        <li class="py-2"><a href="/html/category/article-1633.htm" title="javaScript深拷贝和浅拷贝简单梳理_在线工具">javaScript深拷贝和浅拷贝简单梳理_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-3733.htm" title="Springboot使用@Cacheable注解实现数据缓存">Springboot使用@Cacheable注解实现数据缓存</a></li>
+                        <li class="py-2"><a href="/html/category/article-3759.htm" title="让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示">让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示</a></li>
+                        <li class="py-2"><a href="/html/category/article-3125.htm" title="Python实现双X轴双Y轴绘图">Python实现双X轴双Y轴绘图</a></li>
+                        <li class="py-2"><a href="/html/category/article-782.htm" title="Spring Cloud Config 配置中心(用途、使用、加解密)">Spring Cloud Config 配置中心(用途、使用、加解密)</a></li>
+                        <li class="py-2"><a href="/html/category/article-769.htm" title="Vue实战篇：用树型组件实现一个文档目录结构">Vue实战篇：用树型组件实现一个文档目录结构</a></li>
+                        <li class="py-2"><a href="/html/category/article-785.htm" title="C语言程序设计——用户密码输入与判断">C语言程序设计——用户密码输入与判断</a></li>
+                        <li class="py-2"><a href="/html/category/article-786.htm" title="pandas读取csv文件提示字符读取失败">pandas读取csv文件提示字符读取失败</a></li>
+                        <li class="py-2"><a href="/html/category/article-1325.htm" title="RBAC-基于角色的访问控制详解">RBAC-基于角色的访问控制详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-1058.htm" title="Map循环遍历的常用方法">Map循环遍历的常用方法</a></li>
                     </ul>
     </div>
 </div>
@@ -119,6 +120,9 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">2</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+            </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
             </li>
