@@ -67,7 +67,7 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                	  				  				  				<div id="content_views" class="htmledit_views"> <p>如果你接触过linux，肯定没少听过rm -rf的故事，这个恐怖的命令执行后到底会产生什么样的效果呢？接下来就带大家在虚拟机中演示一下。</p> <p>注意：：：一定不能在生产环境中执行此命令，否则没有后悔药可买的！</p> <p>【演示环境】</p> <p>虚拟机：vmware</p> <p>系统：centos</p> <p>用户：root</p> <p>1、执行删除命令前，系统运行良好，且操作正常，如下图所示：</p> <p>&nbsp;</p> <p><img decoding="async" alt="linux free df" class="has" src="http://img.555519.xyz/uploads/20230206/c4078bca37d6540a8bc5b335e3edb81f.jpg"></p> <p>&nbsp;</p> <p>2、执行“rm -rf /*”命令，期间会报如下图所示的错误。容易看出，并不是所有的文件都能被删除，有些系统保护的文件删除会报错。</p> <p>&nbsp;</p> <p><img decoding="async" alt="删除后命令报错" class="has" src="http://img.555519.xyz/uploads/20230206/f6896cce4cdcb18791bb40ba1b95ab60.jpg"></p> <p>&nbsp;</p> <p>3、删除完毕后，我们试着执行了几个命令，如top、free、ls、shutdown等都已经无法执行了，只有cd可以。由此可见执行rm -rf /*命令的影响程度有多大。</p> <p>&nbsp;</p> <p><img decoding="async" alt="rm -rf报权限错误" class="has" src="http://img.555519.xyz/uploads/20230206/f347aaadc3d7202628f6c13cf00a59b5.jpg"></p> <p>&nbsp;</p> <p>4、强制关机后，重新启动系统，如下图所示已经报异常了，无法正常进入系统，此时只有进行重装系统了。</p> <p>&nbsp;</p> <p><img decoding="async" alt="linux启动异常" class="has" src="http://img.555519.xyz/uploads/20230206/568ed48007b294bcd85a006d601c65e5.jpg"></p> <p>&nbsp;</p> <p><strong>总结：</strong></p> <p>有点遗憾删除结束后没法再使用df、ls这些命令，所以没办法看出还剩哪些文件。不过从上面的结果来看，连基础命令都执行不了，所以用户数据（如安装的软件、部署的网站、数据库等）肯定也都全删没了。</p> <p>&nbsp;</p> <p>因此平时操作的过程中要养成良好的习惯，尽量不要用rm命令，可以用mv命令来代替。比如要删掉a.txt，可以执行mv a.txt /mytemp ，然后再写个脚本定时清除/mytemp目录下的文件，这样会安全很多。</p> <p>&nbsp;</p> <p>文章出自：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.daixiaorui.com/read/265.html"  rel="nofollow">https://www.daixiaorui.com/read/265.html</a>&nbsp;本站所有文章，除注明出处外皆为原创，转载请注明本文地址，版权所有。</p> </p></div> 			
+                	  				  				  				<div id="content_views" class="htmledit_views"> <p>如果你接触过linux，肯定没少听过rm -rf的故事，这个恐怖的命令执行后到底会产生什么样的效果呢？接下来就带大家在虚拟机中演示一下。</p> <p>注意：：：一定不能在生产环境中执行此命令，否则没有后悔药可买的！</p> <p>【演示环境】</p> <p>虚拟机：vmware</p> <p>系统：centos</p> <p>用户：root</p> <p>1、执行删除命令前，系统运行良好，且操作正常，如下图所示：</p> <p>&nbsp;</p> <p><img decoding="async" alt="linux free df" class="has" src="http://img.555519.xyz/uploads/20230206/c4078bca37d6540a8bc5b335e3edb81f.jpg"></p> <p>&nbsp;</p> <p>2、执行“rm -rf /*”命令，期间会报如下图所示的错误。容易看出，并不是所有的文件都能被删除，有些系统保护的文件删除会报错。</p> <p>&nbsp;</p> <p><img decoding="async" alt="删除后命令报错" class="has" src="http://img.555519.xyz/uploads/20230206/f6896cce4cdcb18791bb40ba1b95ab60.jpg"></p> <p>&nbsp;</p> <p>3、删除完毕后，我们试着执行了几个命令，如top、free、ls、shutdown等都已经无法执行了，只有cd可以。由此可见执行rm -rf /*命令的影响程度有多大。</p> <p>&nbsp;</p> <p><img decoding="async" alt="rm -rf报权限错误" class="has" src="http://img.555519.xyz/uploads/20230206/f347aaadc3d7202628f6c13cf00a59b5.jpg"></p> <p>&nbsp;</p> <p>4、强制关机后，重新启动系统，如下图所示已经报异常了，无法正常进入系统，此时只有进行重装系统了。</p> <p>&nbsp;</p> <p><img decoding="async" alt="linux启动异常" class="has" src="http://img.555519.xyz/uploads/20230206/568ed48007b294bcd85a006d601c65e5.jpg"></p> <p>&nbsp;</p> <p><strong>总结：</strong></p> <p>有点遗憾删除结束后没法再使用df、ls这些命令，所以没办法看出还剩哪些文件。不过从上面的结果来看，连基础命令都执行不了，所以用户数据（如安装的软件、部署的网站、数据库等）肯定也都全删没了。</p> <p>&nbsp;</p> <p>因此平时操作的过程中要养成良好的习惯，尽量不要用rm命令，可以用mv命令来代替。比如要删掉a.txt，可以执行mv a.txt /mytemp ，然后再写个脚本定时清除/mytemp目录下的文件，这样会安全很多。</p> <p>&nbsp;</p> <p>文章出自：https://www.daixiaorui.com/read/265.html&nbsp;本站所有文章，除注明出处外皆为原创，转载请注明本文地址，版权所有。</p> </p></div> 			
                     <div class="col-md-12 mt-5">
                                                 <p>上一个：<a href="/html/category/article-692.htm">如何在HTML 5中将视频添加到网站背景</a></p>
                                                 <p>下一个：<a href="/html/category/article-694.htm">Python基于类型提示的数据解析和验证库pydantic</a></p>
@@ -81,16 +81,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/html/category/article-4447.htm" title="广州有宠物领养中心嘛现在（广州有没有宠物领养机构）">广州有宠物领养中心嘛现在（广州有没有宠物领养机构）</a></li>
-                        <li class="py-2"><a href="/html/category/article-2533.htm" title="v-model.trim用法及其他修饰符">v-model.trim用法及其他修饰符</a></li>
-                        <li class="py-2"><a href="/html/category/article-1058.htm" title="Map循环遍历的常用方法">Map循环遍历的常用方法</a></li>
-                        <li class="py-2"><a href="/html/category/article-787.htm" title="微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习">微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习</a></li>
-                        <li class="py-2"><a href="/html/category/article-1943.htm" title="linux磁盘清理方法详解">linux磁盘清理方法详解</a></li>
-                        <li class="py-2"><a href="/html/category/article-1916.htm" title="Python 3.10 的一些新特性">Python 3.10 的一些新特性</a></li>
-                        <li class="py-2"><a href="/html/category/article-3759.htm" title="让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示">让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示</a></li>
-                        <li class="py-2"><a href="/html/category/article-1958.htm" title="在TypeScript项目中进行BDD测试">在TypeScript项目中进行BDD测试</a></li>
-                        <li class="py-2"><a href="/html/category/article-4406.htm" title="国外宠物品牌（国外宠物品牌排行榜）">国外宠物品牌（国外宠物品牌排行榜）</a></li>
-                        <li class="py-2"><a href="/html/category/article-1929.htm" title="Android7.0特性及适配">Android7.0特性及适配</a></li>
+                        <li class="py-2"><a href="/html/category/article-4482.htm" title="回收狗狗联系电话 回收狗狗联系电话临朐">回收狗狗联系电话 回收狗狗联系电话临朐</a></li>
+                        <li class="py-2"><a href="/html/category/article-4297.htm" title="延吉市安泰宠物医院电话号码是多少（延吉市安泰宠物医院电话号码是多少号）">延吉市安泰宠物医院电话号码是多少（延吉市安泰宠物医院电话号码是多少号）</a></li>
+                        <li class="py-2"><a href="/html/category/article-3125.htm" title="Python实现双X轴双Y轴绘图">Python实现双X轴双Y轴绘图</a></li>
+                        <li class="py-2"><a href="/html/category/article-1944.htm" title="简单了解 TiDB 架构">简单了解 TiDB 架构</a></li>
+                        <li class="py-2"><a href="/html/category/article-4519.htm" title="动物疫苗的种类及使用方法图片视频教学（动物疫苗的种类和制备原理）">动物疫苗的种类及使用方法图片视频教学（动物疫苗的种类和制备原理）</a></li>
+                        <li class="py-2"><a href="/html/category/article-1633.htm" title="javaScript深拷贝和浅拷贝简单梳理_在线工具">javaScript深拷贝和浅拷贝简单梳理_在线工具</a></li>
+                        <li class="py-2"><a href="/html/category/article-4100.htm" title="解决Vue Cli安装Element-plus后启动失败的问题">解决Vue Cli安装Element-plus后启动失败的问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-4589.htm" title="上海宠物医院有多少家（上海宠物医院数量）">上海宠物医院有多少家（上海宠物医院数量）</a></li>
+                        <li class="py-2"><a href="/html/category/article-1957.htm" title="Element修改弹窗类组件的层级">Element修改弹窗类组件的层级</a></li>
+                        <li class="py-2"><a href="/html/category/article-1345.htm" title="vue2.x版本中computed和watch的使用入门详解-watch篇_在线工具">vue2.x版本中computed和watch的使用入门详解-watch篇_在线工具</a></li>
                     </ul>
     </div>
 </div>
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">20</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>

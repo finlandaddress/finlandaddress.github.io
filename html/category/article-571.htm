@@ -67,7 +67,7 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                	  				  				  				<h1>先介绍一下坑</h1> <p>fill()方法都知道，填充数组</p> <div>比如：</div> <div> <div class="cnblogs_code"> <pre>let a = <span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(0<span style="color: rgba(0, 0, 0, 1)">); console.log(a); </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 输出结果为[0, 0, 0, 0, 0]</span></pre> </div> <p>当我们想使用fill创建一个二维数组时</p> <div class="cnblogs_code"> <pre>let arr=<span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(<span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(0<span style="color: rgba(0, 0, 0, 1)">)) console.log(arr)</span></pre> </div> <p>输出</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/e547eefd7fd45a596f268bb4ef6e525f.jpg" alt="避坑！js正确地使用fill()初始化二维数组_在线工具"></p> <p> </p> <p> 看似没有什么问题，当我给某个元素重新赋值</p> <div class="cnblogs_code"> <pre>arr[1][1]=1<span style="color: rgba(0, 0, 0, 1)"> console.log(arr)</span></pre> </div> <p>输出</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/e389cc520c8450c508c95425d5cffb71.jpg" alt="避坑！js正确地使用fill()初始化二维数组_在线工具"></p> <p> </p> <p> 我只想给arr[1][1]赋值，但是每一个第一维数组的下标为1的元素的值全部改变了，这不是我们想要的。</p> <h1>原因</h1> <p>fill()的参数不是基本类型时，比如数组、对象，并不是将它的值填充到数组，而是将它的地址填充到数组，所以填充后数组的每一项都指向的是同一个对象，就会出现"牵一发而动全身"的现象。</p> <h1>解决方法</h1> <p>1.老老实实的遍历，不聊</p> <p>2.使用map()给每个第一维的数组分别赋值，<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.runoob.com/jsref/jsref-map.html"  target="_blank"  rel="nofollow">不懂map()点这里</a></p> <div class="cnblogs_code"> <pre>let arr=<span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(0).map(item=&gt;<span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(0<span style="color: rgba(0, 0, 0, 1)">)) arr[</span>1][1]=1<span style="color: rgba(0, 0, 0, 1)"> console.log(arr)</span></pre> </div> <p>输出</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/6c264a6e12fe8690c6ecccbced9e7788.jpg" alt="避坑！js正确地使用fill()初始化二维数组_在线工具"></p> <p>这样就只有arr[1][1]发生改变了，完美解决。</p> <p> 原文链接：https://www.cnblogs.com/hmswt/p/14385957.html</p> </div> 			
+                	  				  				  				<h1>先介绍一下坑</h1> <p>fill()方法都知道，填充数组</p> <div>比如：</div> <div> <div class="cnblogs_code"> <pre>let a = <span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(0<span style="color: rgba(0, 0, 0, 1)">); console.log(a); </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> 输出结果为[0, 0, 0, 0, 0]</span></pre> </div> <p>当我们想使用fill创建一个二维数组时</p> <div class="cnblogs_code"> <pre>let arr=<span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(<span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(0<span style="color: rgba(0, 0, 0, 1)">)) console.log(arr)</span></pre> </div> <p>输出</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/e547eefd7fd45a596f268bb4ef6e525f.jpg" alt="避坑！js正确地使用fill()初始化二维数组_在线工具"></p> <p> </p> <p> 看似没有什么问题，当我给某个元素重新赋值</p> <div class="cnblogs_code"> <pre>arr[1][1]=1<span style="color: rgba(0, 0, 0, 1)"> console.log(arr)</span></pre> </div> <p>输出</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/e389cc520c8450c508c95425d5cffb71.jpg" alt="避坑！js正确地使用fill()初始化二维数组_在线工具"></p> <p> </p> <p> 我只想给arr[1][1]赋值，但是每一个第一维数组的下标为1的元素的值全部改变了，这不是我们想要的。</p> <h1>原因</h1> <p>fill()的参数不是基本类型时，比如数组、对象，并不是将它的值填充到数组，而是将它的地址填充到数组，所以填充后数组的每一项都指向的是同一个对象，就会出现"牵一发而动全身"的现象。</p> <h1>解决方法</h1> <p>1.老老实实的遍历，不聊</p> <p>2.使用map()给每个第一维的数组分别赋值，不懂map()点这里</p> <div class="cnblogs_code"> <pre>let arr=<span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(0).map(item=><span style="color: rgba(0, 0, 255, 1)">new</span> Array(5).fill(0<span style="color: rgba(0, 0, 0, 1)">)) arr[</span>1][1]=1<span style="color: rgba(0, 0, 0, 1)"> console.log(arr)</span></pre> </div> <p>输出</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220507/6c264a6e12fe8690c6ecccbced9e7788.jpg" alt="避坑！js正确地使用fill()初始化二维数组_在线工具"></p> <p>这样就只有arr[1][1]发生改变了，完美解决。</p> <p> 原文链接：https://www.cnblogs.com/hmswt/p/14385957.html</p> </div> 			
                     <div class="col-md-12 mt-5">
                                                 <p>上一个：<a href="/html/category/article-570.htm">springmvc获取页面值为null的原因</a></p>
                                                 <p>下一个：<a href="/html/category/article-572.htm">Hbase架构各组件详解</a></p>
@@ -81,16 +81,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/html/category/article-4327.htm" title="宠物之家官网（深圳宠物之家官网）">宠物之家官网（深圳宠物之家官网）</a></li>
-                        <li class="py-2"><a href="/html/category/article-2828.htm" title="JavaScript从数组中计数/ par元素以下方法详解">JavaScript从数组中计数/ par元素以下方法详解</a></li>
-                        <li class="py-2"><a href="/html/category/article-4099.htm" title="SpringBoot：Controller层调用Service层，出现bug">SpringBoot：Controller层调用Service层，出现bug</a></li>
-                        <li class="py-2"><a href="/html/category/article-4071.htm" title="Kubernetes部署单元-Pod">Kubernetes部署单元-Pod</a></li>
-                        <li class="py-2"><a href="/html/category/article-3759.htm" title="让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示">让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示</a></li>
-                        <li class="py-2"><a href="/html/category/article-1943.htm" title="linux磁盘清理方法详解">linux磁盘清理方法详解</a></li>
-                        <li class="py-2"><a href="/html/category/article-4326.htm" title="动物医院教案幼儿园 动物医院教案小班">动物医院教案幼儿园 动物医院教案小班</a></li>
-                        <li class="py-2"><a href="/html/category/article-4554.htm" title="动物医院需要几个兽医资格证书才能开诊所呢（开动物医院什么资质）">动物医院需要几个兽医资格证书才能开诊所呢（开动物医院什么资质）</a></li>
-                        <li class="py-2"><a href="/html/category/article-2244.htm" title="Spring Boot Web项目ConcurrentLinkedQueue+ReentrantLock+Condition实现消费者功能(类似MQ队列)">Spring Boot Web项目ConcurrentLinkedQueue+ReentrantLock+Condition实现消费者功能(类似MQ队列)</a></li>
-                        <li class="py-2"><a href="/html/category/article-1058.htm" title="Map循环遍历的常用方法">Map循环遍历的常用方法</a></li>
+                        <li class="py-2"><a href="/html/category/article-2243.htm" title="Android jetpack room+ViewModel+liveData 数据自动更新">Android jetpack room+ViewModel+liveData 数据自动更新</a></li>
+                        <li class="py-2"><a href="/html/category/article-1929.htm" title="Android7.0特性及适配">Android7.0特性及适配</a></li>
+                        <li class="py-2"><a href="/html/category/article-1958.htm" title="在TypeScript项目中进行BDD测试">在TypeScript项目中进行BDD测试</a></li>
+                        <li class="py-2"><a href="/html/category/article-1336.htm" title="SpringMVC拦截器path路径的坑">SpringMVC拦截器path路径的坑</a></li>
+                        <li class="py-2"><a href="/html/category/article-4406.htm" title="国外宠物品牌（国外宠物品牌排行榜）">国外宠物品牌（国外宠物品牌排行榜）</a></li>
+                        <li class="py-2"><a href="/html/category/article-4483.htm" title="养小猫要打什么针（家养小猫要打什么疫苗）">养小猫要打什么针（家养小猫要打什么疫苗）</a></li>
+                        <li class="py-2"><a href="/html/category/article-1335.htm" title="Java实现MD5和国密SM3摘要算法">Java实现MD5和国密SM3摘要算法</a></li>
+                        <li class="py-2"><a href="/html/category/article-4296.htm" title="宠物领养图片真实大全（宠物领养百度百科）">宠物领养图片真实大全（宠物领养百度百科）</a></li>
+                        <li class="py-2"><a href="/html/category/article-4127.htm" title="MQTT物联网通讯协议入门及Demo实现">MQTT物联网通讯协议入门及Demo实现</a></li>
+                        <li class="py-2"><a href="/html/category/article-3733.htm" title="Springboot使用@Cacheable注解实现数据缓存">Springboot使用@Cacheable注解实现数据缓存</a></li>
                     </ul>
     </div>
 </div>
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">20</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>

@@ -67,7 +67,7 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                	  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">使用watch监听指定数据的变化</a></li> <li><a href="#_label1" rel="nofollow">vue watch监听多个值</a></li> </ul> </div> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>使用watch监听指定数据的变化</h2> <p> 在vue中，可以使用watch属性来监听data中某个属性值的变化。</p> <div class="ay1code"> <pre class="brush:xhtml;">&lt;html&gt;    &lt;head&gt;      &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;    &lt;/head&gt;  &lt;body&gt;    &lt;div id='app'&gt;      &lt;input type="text" v-model="firstname" &gt;+      &lt;input type="text" v-model="lastname" &gt;=      &lt;input type="text" v-model="fullname"&gt;    &lt;/div&gt;  &lt;/body&gt;  &lt;script src="../lib/vue.js"&gt;&lt;/script&gt;  &lt;script&gt;    var vm = new Vue({      el:'#app',      data:{        firstname:'',        lastname:'',        fullname:''      },      methods:{             },      //使用这个属性，可以监视 data 中指定数据的变化，然后触发这个 watch 中对应的function 处理函数      watch:{        firstname:function(newVal,oldVal){          //console.log('监视到了firstname的变化');          //this.fullname = this.firstname + "-" + this.lastname          console.log(newVal +"---"+oldVal)          this.fullname = newVal + "-" + this.lastname        },        'lastname':function(newVal){          this.fullname = this.firstname + "-" + newVal        }      }    })  &lt;/script&gt;  &lt;/html&gt;</pre> </div> <p style="text-align:center"><img fetchpriority="high" decoding="async" alt="" height="73" src="http://img.555519.xyz/uploads3/20220420/8a88c910250f7c594e64a115708248f4.jpg"></p> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>vue watch监听多个值</h2> <p>用computed定义一个address对象吧，然后再去watch addres</p> <div class="ay1code"> <pre class="brush:js;">data() {    return {      check: false,      sign_img: "",      submit_flag: false'    }  },  computed: {    btnObj() {      const { sign_img, check } = this      return {        sign_img,        check      }    }  },  watch: {    btnObj: {      handler: function(newVal,oldVal) {        if(!!this.sign_img &amp;&amp; this.check){          this.submit_flag = true          this.sign_flag = '1'        }else{          this.submit_flag = false          this.sign_flag = '0'        }      },      deep: true,      immediate: true    }  }</pre> </div> 			
+                	  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li>使用watch监听指定数据的变化</li> <li>vue watch监听多个值</li> </ul> </div> <p class="maodian"></p> <h2>使用watch监听指定数据的变化</h2> <p> 在vue中，可以使用watch属性来监听data中某个属性值的变化。</p> <div class="ay1code"> <pre class="brush:xhtml;"><html>    <head>      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    </head>  <body>    <div id='app'>      <input type="text" v-model="firstname" >+      <input type="text" v-model="lastname" >=      <input type="text" v-model="fullname">    </div>  </body>  <script src="../lib/vue.js"></script>  <script>    var vm = new Vue({      el:'#app',      data:{        firstname:'',        lastname:'',        fullname:''      },      methods:{             },      //使用这个属性，可以监视 data 中指定数据的变化，然后触发这个 watch 中对应的function 处理函数      watch:{        firstname:function(newVal,oldVal){          //console.log('监视到了firstname的变化');          //this.fullname = this.firstname + "-" + this.lastname          console.log(newVal +"---"+oldVal)          this.fullname = newVal + "-" + this.lastname        },        'lastname':function(newVal){          this.fullname = this.firstname + "-" + newVal        }      }    })  </script>  </html></pre> </div> <p style="text-align:center"><img fetchpriority="high" decoding="async" alt="" height="73" src="http://img.555519.xyz/uploads3/20220420/8a88c910250f7c594e64a115708248f4.jpg"></p> <p class="maodian"></p> <h2>vue watch监听多个值</h2> <p>用computed定义一个address对象吧，然后再去watch addres</p> <div class="ay1code"> <pre class="brush:js;">data() {    return {      check: false,      sign_img: "",      submit_flag: false'    }  },  computed: {    btnObj() {      const { sign_img, check } = this      return {        sign_img,        check      }    }  },  watch: {    btnObj: {      handler: function(newVal,oldVal) {        if(!!this.sign_img && this.check){          this.submit_flag = true          this.sign_flag = '1'        }else{          this.submit_flag = false          this.sign_flag = '0'        }      },      deep: true,      immediate: true    }  }</pre> </div> 			
                     <div class="col-md-12 mt-5">
                                                 <p>上一个：<a href="/html/category/article-712.htm">GoLang搭建gin项目</a></p>
                                                 <p>下一个：<a href="/html/category/article-714.htm">kubernetes配置ingress使用hostNetwork作为接入端口</a></p>
@@ -81,16 +81,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/html/category/article-1355.htm" title="字符串连接的Java程序。">字符串连接的Java程序。</a></li>
-                        <li class="py-2"><a href="/html/category/article-1336.htm" title="SpringMVC拦截器path路径的坑">SpringMVC拦截器path路径的坑</a></li>
+                        <li class="py-2"><a href="/html/category/article-4553.htm" title="违反宠物领养协议怎么***对方（违背宠物领养协议）">违反宠物领养协议怎么***对方（违背宠物领养协议）</a></li>
+                        <li class="py-2"><a href="/html/category/article-2827.htm" title="用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU">用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU</a></li>
                         <li class="py-2"><a href="/html/category/article-4326.htm" title="动物医院教案幼儿园 动物医院教案小班">动物医院教案幼儿园 动物医院教案小班</a></li>
-                        <li class="py-2"><a href="/html/category/article-1634.htm" title="SM2密码算法数据结构">SM2密码算法数据结构</a></li>
-                        <li class="py-2"><a href="/html/category/article-1057.htm" title="mysql 数据库密码问题">mysql 数据库密码问题</a></li>
-                        <li class="py-2"><a href="/html/category/article-3760.htm" title="docker部署confluence">docker部署confluence</a></li>
+                        <li class="py-2"><a href="/html/category/article-1326.htm" title="go异常/错误机制（panic和error）">go异常/错误机制（panic和error）</a></li>
+                        <li class="py-2"><a href="/html/category/article-3734.htm" title="面试官：@Transactional 注解是如何实现的？面试必问！">面试官：@Transactional 注解是如何实现的？面试必问！</a></li>
+                        <li class="py-2"><a href="/html/category/article-4128.htm" title="详解Mysql事务隔离级别与锁机制">详解Mysql事务隔离级别与锁机制</a></li>
+                        <li class="py-2"><a href="/html/category/article-4072.htm" title="netty依赖精简">netty依赖精简</a></li>
                         <li class="py-2"><a href="/html/category/article-3428.htm" title="Docker 解决Error response from daemon">Docker 解决Error response from daemon</a></li>
-                        <li class="py-2"><a href="/html/category/article-4100.htm" title="解决Vue Cli安装Element-plus后启动失败的问题">解决Vue Cli安装Element-plus后启动失败的问题</a></li>
-                        <li class="py-2"><a href="/html/category/article-4296.htm" title="宠物领养图片真实大全（宠物领养百度百科）">宠物领养图片真实大全（宠物领养百度百科）</a></li>
-                        <li class="py-2"><a href="/html/category/article-1915.htm" title="vue npm run lint修改错误配置">vue npm run lint修改错误配置</a></li>
+                        <li class="py-2"><a href="/html/category/article-4407.htm" title="给动物接种疫苗的目的 给动物接种疫苗的目的是">给动物接种疫苗的目的 给动物接种疫苗的目的是</a></li>
+                        <li class="py-2"><a href="/html/category/article-5932.htm" title="新晋国民妈妈小说（剩女保镖全集）">新晋国民妈妈小说（剩女保镖全集）</a></li>
                     </ul>
     </div>
 </div>
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">20</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>

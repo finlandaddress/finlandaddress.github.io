@@ -67,7 +67,7 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                	  				  				  				<div id="content_views" class="htmledit_views"> <p><strong>v-model的修饰符<br /> v-model.lazy 只有在input输入框发生一个blur时才触发<br /> v-model.trim 将用户输入的前后的空格去掉<br /> v-model.number 将用户输入的字符串转换成number<br /> 在input textarea select中使用</strong></p> <p>在事件处理程序中调用&nbsp;event.preventDefault()&nbsp;或&nbsp;event.stopPropagation()&nbsp;是非常常见的需求。尽管我们可以在 methods 中轻松实现这点，但更好的方式是：methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。</p> <p>为了解决这个问题， Vue.js 为&nbsp;v-on&nbsp;提供了&nbsp;事件修饰符。通过由点(.)表示的指令后缀来调用修饰符。</p> <p>.stop<br /> .prevent<br /> .capture<br /> .self<br /> .once</p> <pre><code class="language-html">&lt;!-- 阻止单击事件冒泡 --&gt; &lt;a v-on:click.stop="doThis"&gt;&lt;/a&gt;  &lt;!-- 提交事件不再重载页面 --&gt; &lt;form v-on:submit.prevent="onSubmit"&gt;&lt;/form&gt;  &lt;!-- 修饰符可以串联 --&gt; &lt;a v-on:click.stop.prevent="doThat"&gt;&lt;/a&gt;  &lt;!-- 只有修饰符 --&gt; &lt;form v-on:submit.prevent&gt;&lt;/form&gt;  &lt;!-- 添加事件侦听器时使用事件捕获模式 --&gt; &lt;div v-on:click.capture="doThis"&gt;...&lt;/div&gt;  &lt;!-- 只当事件在该元素本身（比如不是子元素）触发时触发回调 --&gt; &lt;div v-on:click.self="doThat"&gt;...&lt;/div&gt;</code></pre> <p>使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用&nbsp;@click.prevent.self&nbsp;会阻止所有的点击，而&nbsp;@click.self.prevent&nbsp;只会阻止元素上的点击。</p> <p>原创：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/happyyjjia-422/p/14344161.html"  title="v-model.trim用法及其他修饰符 - 玫瑰红1314 - 博客园" rel="nofollow">v-model.trim用法及其他修饰符 - 玫瑰红1314 - 博客园</a></p> </p></div> 			
+                	  				  				  				<div id="content_views" class="htmledit_views"> <p><strong>v-model的修饰符<br /> v-model.lazy 只有在input输入框发生一个blur时才触发<br /> v-model.trim 将用户输入的前后的空格去掉<br /> v-model.number 将用户输入的字符串转换成number<br /> 在input textarea select中使用</strong></p> <p>在事件处理程序中调用&nbsp;event.preventDefault()&nbsp;或&nbsp;event.stopPropagation()&nbsp;是非常常见的需求。尽管我们可以在 methods 中轻松实现这点，但更好的方式是：methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。</p> <p>为了解决这个问题， Vue.js 为&nbsp;v-on&nbsp;提供了&nbsp;事件修饰符。通过由点(.)表示的指令后缀来调用修饰符。</p> <p>.stop<br /> .prevent<br /> .capture<br /> .self<br /> .once</p> <pre><code class="language-html"><!-- 阻止单击事件冒泡 -->   <!-- 提交事件不再重载页面 --> <form v-on:submit.prevent="onSubmit"></form>  <!-- 修饰符可以串联 -->   <!-- 只有修饰符 --> <form v-on:submit.prevent></form>  <!-- 添加事件侦听器时使用事件捕获模式 --> <div v-on:click.capture="doThis">...</div>  <!-- 只当事件在该元素本身（比如不是子元素）触发时触发回调 --> <div v-on:click.self="doThat">...</div></code></pre> <p>使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用&nbsp;@click.prevent.self&nbsp;会阻止所有的点击，而&nbsp;@click.self.prevent&nbsp;只会阻止元素上的点击。</p> <p>原创：v-model.trim用法及其他修饰符 - 玫瑰红1314 - 博客园</p> </p></div> 			
                     <div class="col-md-12 mt-5">
                                                 <p>上一个：<a href="/html/category/article-2244.htm">Spring Boot Web项目ConcurrentLinkedQueue+ReentrantLock+Condition实现消费者功能(类似MQ队列)</a></p>
                                                 <p>下一个：<a href="/html/category/article-2534.htm">C++数据结构与算法之排序桶排序</a></p>
@@ -100,16 +100,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/html/category/article-1915.htm" title="vue npm run lint修改错误配置">vue npm run lint修改错误配置</a></li>
-                        <li class="py-2"><a href="/html/category/article-1958.htm" title="在TypeScript项目中进行BDD测试">在TypeScript项目中进行BDD测试</a></li>
+                        <li class="py-2"><a href="/html/category/article-3760.htm" title="docker部署confluence">docker部署confluence</a></li>
+                        <li class="py-2"><a href="/html/category/article-4518.htm" title="最便宜的批发平台（最便宜的批发网站大全）">最便宜的批发平台（最便宜的批发网站大全）</a></li>
+                        <li class="py-2"><a href="/html/category/article-2827.htm" title="用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU">用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU</a></li>
                         <li class="py-2"><a href="/html/category/article-1346.htm" title="java8新特性Stream流中anyMatch和allMatch和noneMatch的区别详解">java8新特性Stream流中anyMatch和allMatch和noneMatch的区别详解</a></li>
-                        <li class="py-2"><a href="/html/category/article-1943.htm" title="linux磁盘清理方法详解">linux磁盘清理方法详解</a></li>
-                        <li class="py-2"><a href="/html/category/article-2828.htm" title="JavaScript从数组中计数/ par元素以下方法详解">JavaScript从数组中计数/ par元素以下方法详解</a></li>
-                        <li class="py-2"><a href="/html/category/article-1634.htm" title="SM2密码算法数据结构">SM2密码算法数据结构</a></li>
-                        <li class="py-2"><a href="/html/category/article-4326.htm" title="动物医院教案幼儿园 动物医院教案小班">动物医院教案幼儿园 动物医院教案小班</a></li>
-                        <li class="py-2"><a href="/html/category/article-4446.htm" title="花样油卷馍的做法(怎样做油花卷馍)">花样油卷馍的做法(怎样做油花卷馍)</a></li>
-                        <li class="py-2"><a href="/html/category/article-4373.htm" title="属马的适不适合养猫（属马的可以养猫吗?）">属马的适不适合养猫（属马的可以养猫吗?）</a></li>
-                        <li class="py-2"><a href="/html/category/article-3427.htm" title="springboot过滤器与拦截器详解">springboot过滤器与拦截器详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-5933.htm" title="动物打完疫苗可以洗澡吗有影响吗知乎（动物打疫苗后多久能杀了吃）">动物打完疫苗可以洗澡吗有影响吗知乎（动物打疫苗后多久能杀了吃）</a></li>
+                        <li class="py-2"><a href="/html/category/article-4519.htm" title="动物疫苗的种类及使用方法图片视频教学（动物疫苗的种类和制备原理）">动物疫苗的种类及使用方法图片视频教学（动物疫苗的种类和制备原理）</a></li>
+                        <li class="py-2"><a href="/html/category/article-1944.htm" title="简单了解 TiDB 架构">简单了解 TiDB 架构</a></li>
+                        <li class="py-2"><a href="/html/category/article-1356.htm" title="utils层与tools层，manager层与service层，helper层概念理解">utils层与tools层，manager层与service层，helper层概念理解</a></li>
+                        <li class="py-2"><a href="/html/category/article-4590.htm" title="宠物免费问诊（宠物免费问诊线上平台）">宠物免费问诊（宠物免费问诊线上平台）</a></li>
+                        <li class="py-2"><a href="/html/category/article-2534.htm" title="C++数据结构与算法之排序桶排序">C++数据结构与算法之排序桶排序</a></li>
                     </ul>
     </div>
 </div>
@@ -121,7 +121,7 @@ var _hmt = _hmt || [];
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">20</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>

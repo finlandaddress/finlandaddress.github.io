@@ -67,7 +67,7 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                	  				  				  				<h3 id="前情">前情</h3> <p>Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库，在项目中我们就使用了它，非常nice</p> <h3 id="坑位">坑位</h3> <p>在使用Element组件的时候，一切都十分顺利，但是在使用弹框类组件Popover 的时候，发现并没有效果。</p> <h3 id="why">Why?</h3> <p>通过控制台查看元素后发现，其实Popover是有作用的，只是被页面上别的内容遮挡了，是因为zIndex低于页面上其它元素所致</p> <h3 id="解决方案">解决方案</h3> <p>通过查询Element文挡后发现官方是有考虑到层级问题，需要指定一个初始层级，后面的弹框类组件的层级会累加+1，这样就保证后面触发的层级始终高于前面的组件。</p> <p><strong>Element初始化时重置层级</strong></p> <p>Element组件使用有二种方式，对于不同的使用方式解决方式不同。</p> <p>完整引入 Element：</p> <pre><code class="language-jsx">import Vue from 'vue'; import Element from 'element-ui'; Vue.use(Element, { size: 'small', zIndex: 3000 });</code></pre> <p>按需引入Element:</p> <pre><code class="language-jsx">import Vue from 'vue'; import { Button } from 'element-ui';  Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }; Vue.use(Button);</code></pre> <p>官方文挡-全局配置项：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://element.eleme.cn/#/zh-CN/component/quickstart"  target="_blank" rel="nofollow">https://element.eleme.cn/#/zh-CN/component/quickstart</a></p> <p><strong>如果Element已经初始化且已使用过弹框类组件</strong></p> <p>这种情况下通过修改Vue.prototype.$ELEMENT已经没有效果了，因为它已经被使用过，这时需要手动修改，后面弹窗的组件会在此值的基础上累加，代码如下：</p> <pre><code class="language-jsx">import PopupManager from "element-ui/lib/utils/popup/popup-manager"; PopupManager.zIndex = 30000;</code></pre> 			
+                	  				  				  				<h3 id="前情">前情</h3> <p>Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库，在项目中我们就使用了它，非常nice</p> <h3 id="坑位">坑位</h3> <p>在使用Element组件的时候，一切都十分顺利，但是在使用弹框类组件Popover 的时候，发现并没有效果。</p> <h3 id="why">Why?</h3> <p>通过控制台查看元素后发现，其实Popover是有作用的，只是被页面上别的内容遮挡了，是因为zIndex低于页面上其它元素所致</p> <h3 id="解决方案">解决方案</h3> <p>通过查询Element文挡后发现官方是有考虑到层级问题，需要指定一个初始层级，后面的弹框类组件的层级会累加+1，这样就保证后面触发的层级始终高于前面的组件。</p> <p><strong>Element初始化时重置层级</strong></p> <p>Element组件使用有二种方式，对于不同的使用方式解决方式不同。</p> <p>完整引入 Element：</p> <pre><code class="language-jsx">import Vue from 'vue'; import Element from 'element-ui'; Vue.use(Element, { size: 'small', zIndex: 3000 });</code></pre> <p>按需引入Element:</p> <pre><code class="language-jsx">import Vue from 'vue'; import { Button } from 'element-ui';  Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }; Vue.use(Button);</code></pre> <p>官方文挡-全局配置项：https://element.eleme.cn/#/zh-CN/component/quickstart</p> <p><strong>如果Element已经初始化且已使用过弹框类组件</strong></p> <p>这种情况下通过修改Vue.prototype.$ELEMENT已经没有效果了，因为它已经被使用过，这时需要手动修改，后面弹窗的组件会在此值的基础上累加，代码如下：</p> <pre><code class="language-jsx">import PopupManager from "element-ui/lib/utils/popup/popup-manager"; PopupManager.zIndex = 30000;</code></pre> 			
                     <div class="col-md-12 mt-5">
                                                 <p>上一个：<a href="/html/category/article-1944.htm">简单了解 TiDB 架构</a></p>
                                                 <p>下一个：<a href="/html/category/article-1958.htm">在TypeScript项目中进行BDD测试</a></p>
@@ -100,16 +100,16 @@ var _hmt = _hmt || [];
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/html/category/article-4128.htm" title="详解Mysql事务隔离级别与锁机制">详解Mysql事务隔离级别与锁机制</a></li>
-                        <li class="py-2"><a href="/html/category/article-4072.htm" title="netty依赖精简">netty依赖精简</a></li>
-                        <li class="py-2"><a href="/html/category/article-787.htm" title="微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习">微服务架构学习与思考(09)：分布式链路追踪系统-dapper论文学习</a></li>
-                        <li class="py-2"><a href="/html/category/article-2534.htm" title="C++数据结构与算法之排序桶排序">C++数据结构与算法之排序桶排序</a></li>
-                        <li class="py-2"><a href="/html/category/article-1346.htm" title="java8新特性Stream流中anyMatch和allMatch和noneMatch的区别详解">java8新特性Stream流中anyMatch和allMatch和noneMatch的区别详解</a></li>
-                        <li class="py-2"><a href="/html/category/article-4327.htm" title="宠物之家官网（深圳宠物之家官网）">宠物之家官网（深圳宠物之家官网）</a></li>
-                        <li class="py-2"><a href="/html/category/article-2827.htm" title="用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU">用纯RUST实现音视频流媒体服务(RTMP/HTTPFLV/HLS)XIU</a></li>
-                        <li class="py-2"><a href="/html/category/article-3427.htm" title="springboot过滤器与拦截器详解">springboot过滤器与拦截器详解</a></li>
-                        <li class="py-2"><a href="/html/category/article-3759.htm" title="让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示">让我们写一个 Win32 文本编辑器吧 &#8211; 2. 计划和显示</a></li>
-                        <li class="py-2"><a href="/html/category/article-4446.htm" title="花样油卷馍的做法(怎样做油花卷馍)">花样油卷馍的做法(怎样做油花卷馍)</a></li>
+                        <li class="py-2"><a href="/html/category/article-1325.htm" title="RBAC-基于角色的访问控制详解">RBAC-基于角色的访问控制详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-4589.htm" title="上海宠物医院有多少家（上海宠物医院数量）">上海宠物医院有多少家（上海宠物医院数量）</a></li>
+                        <li class="py-2"><a href="/html/category/article-2828.htm" title="JavaScript从数组中计数/ par元素以下方法详解">JavaScript从数组中计数/ par元素以下方法详解</a></li>
+                        <li class="py-2"><a href="/html/category/article-1335.htm" title="Java实现MD5和国密SM3摘要算法">Java实现MD5和国密SM3摘要算法</a></li>
+                        <li class="py-2"><a href="/html/category/article-5932.htm" title="新晋国民妈妈小说（剩女保镖全集）">新晋国民妈妈小说（剩女保镖全集）</a></li>
+                        <li class="py-2"><a href="/html/category/article-4518.htm" title="最便宜的批发平台（最便宜的批发网站大全）">最便宜的批发平台（最便宜的批发网站大全）</a></li>
+                        <li class="py-2"><a href="/html/category/article-3733.htm" title="Springboot使用@Cacheable注解实现数据缓存">Springboot使用@Cacheable注解实现数据缓存</a></li>
+                        <li class="py-2"><a href="/html/category/article-1356.htm" title="utils层与tools层，manager层与service层，helper层概念理解">utils层与tools层，manager层与service层，helper层概念理解</a></li>
+                        <li class="py-2"><a href="/html/category/article-4100.htm" title="解决Vue Cli安装Element-plus后启动失败的问题">解决Vue Cli安装Element-plus后启动失败的问题</a></li>
+                        <li class="py-2"><a href="/html/category/article-3760.htm" title="docker部署confluence">docker部署confluence</a></li>
                     </ul>
     </div>
 </div>
@@ -121,7 +121,7 @@ var _hmt = _hmt || [];
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">20</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/html/date/2024-07/" title="2024-07 归档">2024-07</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">60</span> <a href="/html/date/2024-06/" title="2024-06 归档">2024-06</a></h4>
